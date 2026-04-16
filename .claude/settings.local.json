@@ -36,7 +36,15 @@
       "Bash(git init *)",
       "Bash(git remote *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(python -m http.server 8080)",
+      "WebFetch(domain:skills-hub.ai)",
+      "Read(//c/Users/COSH/.claude/skills/**)",
+      "Bash(npx @skills-hub-ai/cli install openclaw-medical-pdf-processing-pro)",
+      "Bash(npx @skills-hub-ai/cli install astro-pdf-processing)",
+      "Bash(npx @skills-hub-ai/cli install scientific-skills-pdf)",
+      "Bash(python -c \"import pdfplumber; print\\('ok'\\)\")"
     ]
   }
 }

@@ -1,0 +1,112 @@
+:root {
+  --bg: #111;
+  --cell-bg: #202020;
+  --cell-border: #2e2e2e;
+  --cell-active: #ffffff;
+  --cell-active-text: #111;
+  --head-text: #666;
+  --period-text: #555;
+  --dot-color: #444;
+  --night-border: #2a3a2a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[v-cloak] { display: none; }
+
+body {
+  background: var(--bg);
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 8px;
+}
+
+#app {
+  width: 100%;
+  max-width: 560px;
+}
+
+.grid-wrap {
+  display: grid;
+  grid-template-columns: 28px repeat(5, 1fr);
+  gap: 3px;
+}
+
+/* 共用格子 */
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: system-ui, sans-serif;
+  user-select: none;
+  position: relative;
+}
+
+/* 標頭 */
+.cell--head {
+  height: 24px;
+  color: var(--head-text);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.cell--corner {
+  /* 左上角空格 */
+}
+
+/* 期別標籤（左欄） */
+.cell--period {
+  height: 44px;
+  color: var(--period-text);
+  font-size: 11px;
+}
+
+/* 課程格子 */
+.cell--slot {
+  height: 44px;
+  background: var(--cell-bg);
+  border: 1px solid var(--cell-border);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.cell--slot:active {
+  opacity: 0.8;
+}
+
+/* 選中狀態 */
+.cell--active {
+  background: var(--cell-active) !important;
+  border-color: var(--cell-active) !important;
+}
+
+/* 有課程資料的格子（小圓點） */
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--dot-color);
+  transition: opacity 0.12s;
+}
+
+.cell--active .dot {
+  background: #bbb;
+}
+
+/* 夜間課（A節開始）分隔線 */
+.cell--night-start.cell--slot,
+.cell--night-start.cell--period {
+  margin-top: 4px;
+}
+
+/* 桌機版：格子放大 */
+@media (min-width: 560px) {
+  #app { max-width: 640px; }
+  .grid-wrap { gap: 4px; }
+  .cell--slot,
+  .cell--period { height: 52px; }
+}

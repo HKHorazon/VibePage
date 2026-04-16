@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="grid-wrap">
+      <!-- 標頭列 -->
+      <div class="cell cell--head cell--corner"></div>
+      <div class="cell cell--head" v-for="day in days" :key="day">{{ day }}</div>
+
+      <!-- 課表列 -->
+      <template v-for="p in periods" :key="p.id">
+        <div class="cell cell--period" :class="p.id === 'A' ? 'cell--night-start' : ''">{{ p.label }}</div>
+        <div
+          v-for="day in days"
+          :key="day"
+          class="cell cell--slot"
+          :class="{
+            'cell--active': isActive(day, p.id),
+            'cell--has-data': hasData(day, p.id),
+            'cell--night-start': p.id === 'A'
+          }"
+          @click="toggle(day, p.id)"
+        >
+          <span v-if="hasData(day, p.id)" class="dot"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createApp, ref, reactive, computed, onMounted } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const days = ['一', '二', '三', '四', '五']
+        const periods = [
+          { id: '1', label: '1' },
+          { id: '2', label: '2' },
+          { id: '3', label: '3' },
+          { id: '4', label: '4' },
+          { id: '5', label: '5' },
+          { id: '6', label: '6' },
+          { id: '7', label: '7' },
+          { id: '8', label: '8' },
+          { id: 'A', label: 'A' },
+          { id: 'B', label: 'B' },
+          { id: 'C', label: 'C' },
+          { id: 'D', label: 'D' },
+        ]
+
+        const schedule = ref([])
+        const active = reactive(new Set())
+
+        onMounted(async () => {
+          try {
+            const res = await fetch('./src/schedule.json')
+            schedule.value = await res.json()
+          } catch (e) {}
+        })
+
+        const dataKeys = computed(() => {
+          const s = new Set()
+          schedule.value.forEach(r => s.add(`${r.day}_${r.period}`))
+          return s
+        })
+
+        function key(day, period) { return `${day}_${period}` }
+        function hasData(day, period) { return dataKeys.value.has(key(day, period)) }
+        function isActive(day, period) { return active.has(key(day, period)) }
+        function toggle(day, period) {
+          const k = key(day, period)
+          active.has(k) ? active.delete(k) : active.add(k)
+        }
+
+        return { days, periods, hasData, isActive, toggle }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
