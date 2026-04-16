@@ -8,28 +8,76 @@
 </head>
 <body>
   <div id="app" v-cloak>
+    <div class="layout" :class="{'mode-inner': isInnerMode, 'mode-outer': isOuterMode}">
     <div class="grid-wrap">
       <!-- 標頭列 -->
       <div class="cell cell--head cell--corner"></div>
-      <div class="cell cell--head" v-for="day in days" :key="day">{{ day }}</div>
+      <div
+        class="cell cell--head cell--clickable"
+        v-for="day in days" :key="day"
+        :class="{ 'cell--outer-active': isOuterMode && selDays.has(day) }"
+        @click="toggleDay(day)"
+      >{{ day }}</div>
 
       <!-- 課表列 -->
       <template v-for="p in periods" :key="p.id">
-        <div class="cell cell--period" :class="p.id === 'A' ? 'cell--night-start' : ''">{{ p.label }}</div>
+        <div
+          class="cell cell--period cell--clickable"
+          :class="{
+            'cell--night-start': p.id === 'A',
+            'cell--lunch-start': p.id === '5',
+            'cell--outer-active': isOuterMode && selPeriods.has(p.id)
+          }"
+          @click="togglePeriod(p.id)"
+        >{{ p.label }}</div>
         <div
           v-for="day in days"
           :key="day"
           class="cell cell--slot"
           :class="{
             'cell--active': isActive(day, p.id),
-            'cell--has-data': hasData(day, p.id),
-            'cell--night-start': p.id === 'A'
+            'cell--night-start': p.id === 'A',
+            'cell--lunch-start': p.id === '5'
           }"
           @click="toggle(day, p.id)"
         >
-          <span v-if="hasData(day, p.id)" class="dot"></span>
+          <div v-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
+            <span
+              v-for="t in batchTeachers"
+              :key="t"
+              class="abbr-item"
+              :class="{ 'abbr-absent': !cellHas(day, p.id, t) }"
+              :style="abbrStyle"
+            >{{ shortOf(t) }}</span>
+          </div>
         </div>
       </template>
+    </div><!-- grid-wrap -->
+
+    <!-- 右側 早/午/晚 -->
+    <div class="time-col">
+      <div class="time-spacer"></div>
+      <div class="time-block"
+        :class="{ 'time-block--active': isOuterMode && isGroupActive('早') }"
+        @click="toggleGroup('早')">早</div>
+      <div class="time-sep"></div>
+      <div class="time-block time-block--ext"
+        :class="{ 'time-block--active': isOuterMode && isGroupActive('午') }"
+        @click="toggleGroup('午')">午</div>
+      <div class="time-sep"></div>
+      <div class="time-block time-block--ext"
+        :class="{ 'time-block--active': isOuterMode && isGroupActive('晚') }"
+        @click="toggleGroup('晚')">晚</div>
+    </div>
+
+    </div><!-- layout -->
+
+    <!-- 下方按鈕 -->
+    <div class="btn-row">
+      <button class="btn btn--toggle" @click="toggleAll">
+        {{ hasAny ? '清空' : '全選' }}
+      </button>
+      <button class="btn btn--detail" @click="goDetail">詳細</button>
     </div>
   </div>
 
@@ -40,45 +88,153 @@
       setup() {
         const days = ['一', '二', '三', '四', '五']
         const periods = [
-          { id: '1', label: '1' },
-          { id: '2', label: '2' },
-          { id: '3', label: '3' },
-          { id: '4', label: '4' },
-          { id: '5', label: '5' },
-          { id: '6', label: '6' },
-          { id: '7', label: '7' },
-          { id: '8', label: '8' },
-          { id: 'A', label: 'A' },
-          { id: 'B', label: 'B' },
-          { id: 'C', label: 'C' },
-          { id: 'D', label: 'D' },
+          { id: '1', label: '1' }, { id: '2', label: '2' },
+          { id: '3', label: '3' }, { id: '4', label: '4' },
+          { id: '5', label: '5' }, { id: '6', label: '6' },
+          { id: '7', label: '7' }, { id: '8', label: '8' },
+          { id: 'A', label: 'A' }, { id: 'B', label: 'B' },
+          { id: 'C', label: 'C' }, { id: 'D', label: 'D' },
         ]
 
         const schedule = ref([])
-        const active = reactive(new Set())
+        const teachersMap = ref({})
+        const teacherOrder = ref([])
+
+        // 模式：null | 'inner' | 'outer'
+        const mode = ref(null)
+        const active = reactive(new Set())     // inner 模式：個別格子
+        const selDays = reactive(new Set())    // outer 模式：選取的星期
+        const selPeriods = reactive(new Set()) // outer 模式：選取的節次
 
         onMounted(async () => {
           try {
-            const res = await fetch('./src/schedule.json')
-            schedule.value = await res.json()
+            const [s, t] = await Promise.all([
+              fetch('./src/schedule.json').then(r => r.json()),
+              fetch('./src/teachers.json').then(r => r.json()),
+            ])
+            schedule.value = s
+            teachersMap.value = t
+            teacherOrder.value = Object.keys(t)
           } catch (e) {}
         })
 
-        const dataKeys = computed(() => {
-          const s = new Set()
-          schedule.value.forEach(r => s.add(`${r.day}_${r.period}`))
-          return s
+        const isInnerMode = computed(() => mode.value === 'inner')
+        const isOuterMode = computed(() => mode.value === 'outer')
+
+        // outer 模式下的交集格
+        const outerActiveCells = computed(() => {
+          const result = new Set()
+          selDays.forEach(day => selPeriods.forEach(period => result.add(`${day}_${period}`)))
+          return result
+        })
+
+        const abbrStyle = computed(() => {
+          const n = batchTeachers.value.length
+          const size = n <= 1 ? 24 : n <= 2 ? 20 : n <= 4 ? 16 : n <= 6 ? 14 : 12
+          return { fontSize: size + 'px' }
+        })
+
+        const batchTeachers = computed(() => {
+          const cells = isInnerMode.value ? active : outerActiveCells.value
+          if (!cells.size) return []
+          const seen = new Set()
+          cells.forEach(k => {
+            const [day, period] = k.split('_')
+            schedule.value
+              .filter(s => s.day === day && s.period === period)
+              .forEach(s => seen.add(s.teacher))
+          })
+          return teacherOrder.value.filter(t => seen.has(t))
         })
 
         function key(day, period) { return `${day}_${period}` }
-        function hasData(day, period) { return dataKeys.value.has(key(day, period)) }
-        function isActive(day, period) { return active.has(key(day, period)) }
+
+        function isActive(day, period) {
+          if (isInnerMode.value) return active.has(key(day, period))
+          if (isOuterMode.value) return selDays.has(day) && selPeriods.has(period)
+          return false
+        }
+
         function toggle(day, period) {
+          if (mode.value !== 'inner') {
+            selDays.clear()
+            selPeriods.clear()
+            mode.value = 'inner'
+          }
           const k = key(day, period)
           active.has(k) ? active.delete(k) : active.add(k)
         }
 
-        return { days, periods, hasData, isActive, toggle }
+        function toggleDay(day) {
+          if (mode.value !== 'outer') {
+            active.clear()
+            mode.value = 'outer'
+          }
+          selDays.has(day) ? selDays.delete(day) : selDays.add(day)
+        }
+
+        function togglePeriod(period) {
+          if (mode.value !== 'outer') {
+            active.clear()
+            mode.value = 'outer'
+          }
+          selPeriods.has(period) ? selPeriods.delete(period) : selPeriods.add(period)
+        }
+
+        const groupPeriods = { '早': ['1','2','3','4'], '午': ['5','6','7','8'], '晚': ['A','B','C','D'] }
+
+        function toggleGroup(name) {
+          if (mode.value !== 'outer') {
+            active.clear()
+            mode.value = 'outer'
+          }
+          const ps = groupPeriods[name]
+          const allOn = ps.every(p => selPeriods.has(p))
+          ps.forEach(p => allOn ? selPeriods.delete(p) : selPeriods.add(p))
+        }
+
+        function isGroupActive(name) {
+          return groupPeriods[name].some(p => selPeriods.has(p))
+        }
+
+        const hasAny = computed(() => {
+          if (isInnerMode.value) return active.size > 0
+          if (isOuterMode.value) return selDays.size > 0 || selPeriods.size > 0
+          return false
+        })
+
+        function toggleAll() {
+          if (hasAny.value) {
+            active.clear()
+            selDays.clear()
+            selPeriods.clear()
+            mode.value = null
+          } else {
+            active.clear()
+            mode.value = 'outer'
+            days.forEach(d => selDays.add(d))
+            periods.forEach(p => selPeriods.add(p.id))
+          }
+        }
+
+        function goDetail() {
+          // 待實作
+        }
+
+        function cellHas(day, period, teacher) {
+          return schedule.value.some(s => s.day === day && s.period === period && s.teacher === teacher)
+        }
+        function shortOf(teacher) {
+          return teachersMap.value[teacher] || teacher[0]
+        }
+
+        return {
+          days, periods,
+          isInnerMode, isOuterMode, selDays, selPeriods,
+          isActive, toggle, toggleDay, togglePeriod, toggleGroup, isGroupActive,
+          batchTeachers, cellHas, shortOf, abbrStyle,
+          hasAny, toggleAll, goDetail
+        }
       }
     }).mount('#app')
   </script>

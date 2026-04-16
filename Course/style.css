@@ -3,15 +3,16 @@
   --cell-bg: #202020;
   --cell-border: #2e2e2e;
   --cell-active: #ffffff;
-  --cell-active-text: #111;
   --head-text: #666;
   --period-text: #555;
-  --dot-color: #444;
-  --night-border: #2a3a2a;
+
+  --cell-h: 44px;
+  --gap: 3px;
+  --head-h: 24px;
+  --sep: 6px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 [v-cloak] { display: none; }
 
 body {
@@ -28,10 +29,17 @@ body {
   max-width: 560px;
 }
 
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .grid-wrap {
+  flex: 1;
   display: grid;
   grid-template-columns: 28px repeat(5, 1fr);
-  gap: 3px;
+  gap: var(--gap);
 }
 
 /* 共用格子 */
@@ -43,40 +51,70 @@ body {
   font-size: 11px;
   font-family: system-ui, sans-serif;
   user-select: none;
-  position: relative;
 }
 
 /* 標頭 */
 .cell--head {
-  height: 24px;
+  height: var(--head-h);
   color: var(--head-text);
   font-size: 12px;
   letter-spacing: 0.05em;
 }
 
-.cell--corner {
-  /* 左上角空格 */
-}
-
 /* 期別標籤（左欄） */
 .cell--period {
-  height: 44px;
+  height: var(--cell-h);
   color: var(--period-text);
   font-size: 11px;
 }
 
+.cell--clickable { cursor: pointer; }
+
+/* 外圍格子加框框 */
+.cell--head.cell--clickable {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  transition: color 0.12s, border-color 0.12s;
+}
+.cell--period.cell--clickable {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  transition: color 0.12s, border-color 0.12s;
+}
+.cell--head.cell--clickable:hover,
+.cell--period.cell--clickable:hover { color: #aaa; border-color: #444; }
+
+/* 外圍選中 */
+.cell--outer-active {
+  color: #ddd !important;
+  background: #2e2e2e !important;
+  border-color: #666 !important;
+}
+
+/* 早/午/晚 選中 */
+.time-block--active {
+  color: #ddd !important;
+  background: #2e2e2e !important;
+  border-color: #666 !important;
+}
+
+/* 內格模式：外圍暗掉 */
+.mode-inner .cell--head.cell--clickable,
+.mode-inner .cell--period.cell--clickable,
+.mode-inner .time-block {
+  opacity: 0.25;
+  pointer-events: auto;
+}
+
 /* 課程格子 */
 .cell--slot {
-  height: 44px;
+  height: var(--cell-h);
   background: var(--cell-bg);
   border: 1px solid var(--cell-border);
   cursor: pointer;
   transition: background 0.12s, border-color 0.12s;
 }
-
-.cell--slot:active {
-  opacity: 0.8;
-}
+.cell--slot:active { opacity: 0.8; }
 
 /* 選中狀態 */
 .cell--active {
@@ -84,29 +122,115 @@ body {
   border-color: var(--cell-active) !important;
 }
 
-/* 有課程資料的格子（小圓點） */
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--dot-color);
-  transition: opacity 0.12s;
-}
-
-.cell--active .dot {
-  background: #bbb;
-}
-
-/* 夜間課（A節開始）分隔線 */
+/* 午後（5節）與夜間（A節）分隔 */
+.cell--lunch-start.cell--slot,
+.cell--lunch-start.cell--period,
 .cell--night-start.cell--slot,
 .cell--night-start.cell--period {
-  margin-top: 4px;
+  margin-top: var(--sep);
 }
 
-/* 桌機版：格子放大 */
+/* 縮寫顯示 */
+.abbr-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.abbr-item {
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+  line-height: 1;
+}
+.abbr-absent { visibility: hidden; }
+
+/* 右側 早/午/晚 */
+.time-col {
+  display: flex;
+  flex-direction: column;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.time-spacer {
+  height: calc(var(--head-h) + var(--gap));
+  flex-shrink: 0;
+}
+
+.time-block {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  color: #5a5a5a;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.12s, border-color 0.12s;
+  /* 早：4 格 + 3 gap */
+  height: calc(4 * var(--cell-h) + 3 * var(--gap));
+}
+
+.time-block--ext {
+  /* 午/晚：4 格 + 3 gap + sep（含首格 margin-top）*/
+  height: calc(4 * var(--cell-h) + 3 * var(--gap) + var(--sep));
+}
+
+.time-block:hover { color: #bbb; border-color: #444; }
+
+.time-sep {
+  flex-shrink: 0;
+  height: var(--gap);
+}
+
+/* 下方按鈕列 */
+.btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.btn {
+  flex: 1;
+  height: 38px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.btn--toggle {
+  background: #1a1a1a;
+  border-color: #333;
+  color: #777;
+  flex: 0 0 40%;
+}
+.btn--toggle:hover { border-color: #555; color: #bbb; }
+
+.btn--detail {
+  background: #101a18;
+  border-color: #1e3a34;
+  color: #4a8070;
+  flex: 0 0 60%;
+}
+.btn--detail:hover { border-color: #2e5a50; color: #7ab8a8; }
+
+/* 桌機版 */
 @media (min-width: 560px) {
+  :root { --cell-h: 52px; --gap: 4px; }
   #app { max-width: 640px; }
-  .grid-wrap { gap: 4px; }
-  .cell--slot,
-  .cell--period { height: 52px; }
 }
