@@ -42,13 +42,15 @@
           @click="toggle(day, p.id)"
         >
           <div v-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
-            <span
-              v-for="t in batchTeachers"
-              :key="t"
-              class="abbr-item"
-              :class="{ 'abbr-absent': !cellHas(day, p.id, t) }"
-              :style="abbrStyle"
-            >{{ shortOf(t) }}</span>
+            <div class="abbr-inner" :style="abbrInnerStyle">
+              <span
+                v-for="t in batchTeachers"
+                :key="t"
+                class="abbr-item"
+                :class="{ 'abbr-absent': !cellHas(day, p.id, t) }"
+                :style="abbrStyle"
+              >{{ shortOf(t) }}</span>
+            </div>
           </div>
         </div>
       </template>
@@ -100,6 +102,8 @@
         const teachersMap = ref({})
         const teacherOrder = ref([])
 
+        const isMobile = ref(window.innerWidth < 560)
+
         // 模式：null | 'inner' | 'outer'
         const mode = ref(null)
         const active = reactive(new Set())     // inner 模式：個別格子
@@ -116,6 +120,7 @@
             teachersMap.value = t
             teacherOrder.value = Object.keys(t)
           } catch (e) {}
+          window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })
         })
 
         const isInnerMode = computed(() => mode.value === 'inner')
@@ -128,10 +133,24 @@
           return result
         })
 
-        const abbrStyle = computed(() => {
+        const abbrSize = computed(() => {
           const n = batchTeachers.value.length
-          const size = n <= 1 ? 24 : n <= 2 ? 20 : n <= 4 ? 16 : n <= 6 ? 14 : 12
-          return { fontSize: size + 'px' }
+          if (isMobile.value) {
+            return n <= 1 ? 18 : n <= 2 ? 15 : n <= 4 ? 12 : 10
+          }
+          return n <= 1 ? 24 : n <= 2 ? 20 : n <= 4 ? 16 : n <= 6 ? 14 : 12
+        })
+
+        const abbrStyle = computed(() => ({
+          fontSize: abbrSize.value + 'px',
+          width: abbrSize.value + 'px',
+          height: abbrSize.value + 'px'
+        }))
+
+        const abbrInnerStyle = computed(() => {
+          const maxCols = isMobile.value ? 4 : 5
+          const cols = Math.min(batchTeachers.value.length, maxCols)
+          return { gridTemplateColumns: `repeat(${cols}, ${abbrSize.value}px)`, gap: '2px' }
         })
 
         const batchTeachers = computed(() => {
@@ -232,8 +251,9 @@
           days, periods,
           isInnerMode, isOuterMode, selDays, selPeriods,
           isActive, toggle, toggleDay, togglePeriod, toggleGroup, isGroupActive,
-          batchTeachers, cellHas, shortOf, abbrStyle,
-          hasAny, toggleAll, goDetail
+          batchTeachers, cellHas, shortOf,
+          hasAny, toggleAll, goDetail,
+          abbrStyle, abbrInnerStyle
         }
       }
     }).mount('#app')

@@ -16,18 +16,7 @@ description: "VibeWeb 一鍵部署技能。推送最新變更到 GitHub（https:
 5. 執行 `git push origin main`（若 remote 不存在則先執行 `git remote add origin https://github.com/HKHorazon/VibePage.git`）
 6. 若目前 branch 不是 main，改用目前 branch 名稱
 
-## 步驟 2：顯示 GitHub Pages 連結
-
-push 完成後輸出：
-
-```
-🚀 已推送到 GitHub！
-
-🌐 GitHub Pages：https://hkhorazon.github.io/VibePage/
-   （GitHub Pages 通常在 1～2 分鐘內更新）
-```
-
-## 步驟 3：啟動本地伺服器
+## 步驟 2：啟動本地伺服器
 
 在背景啟動本地 HTTP server，優先使用 Python，其次 Node.js：
 
@@ -39,12 +28,20 @@ python -m http.server 8080
 npx serve -l 8080 .
 ```
 
-啟動後輸出：
+## 步驟 3：顯示連結表格
+
+push 完成且伺服器啟動後，以表格輸出所有子專案連結：
 
 ```
-💻 本地伺服器：http://localhost:8080/
-   子專案直接加路徑，例如：http://localhost:8080/HungAi/
+🚀 已推送！GitHub Pages 約 1～2 分鐘更新。
+
+| 專案    | 本地                               | GitHub Pages                                        |
+|---------|------------------------------------|-----------------------------------------------------|
+| HungAi  | http://localhost:8080/HungAi/      | https://hkhorazon.github.io/VibePage/HungAi/        |
+| Course  | http://localhost:8080/Course/      | https://hkhorazon.github.io/VibePage/Course/        |
 ```
+
+> 若新增了子專案資料夾，也加入表格中（本地 = `http://localhost:8080/<資料夾名>/`，GitHub Pages = `https://hkhorazon.github.io/VibePage/<資料夾名>/`）。
 
 ## 注意事項
 
