@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>弘愛築夢-多遊系</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'Microsoft JhengHei', sans-serif;">
+
+  <div id="app">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <span class="header-badge">🌟</span>
+        <h1 class="header-title">弘愛築夢</h1>
+        <h2 class="header-sub-title">多遊系申請相關資訊</h2>
+      </div>
+    </header>
+
+    <!-- 溫馨提示 banner -->
+
+    <main class="main-content">
+
+      <!-- 輔導老師 -->
+      <section class="card">
+        <button class="section-toggle" @click="toggle('teacher')">
+          <span class="section-title">
+            <span class="sec-icon">👨‍🏫</span>輔導老師 — 張仕明老師
+          </span>
+          <span class="arrow" :class="{ open: expanded.teacher }">▼</span>
+        </button>
+        <div class="section-body teacher-contact-body" v-show="expanded.teacher">
+
+          <!-- 頭像 + 資訊並排 -->
+          <div class="teacher-profile">
+
+            <div class="teacher-avatar">
+              <img src="./data/Avatar.jpg" alt="張仕明老師" width="104" height="104" loading="lazy" class="avatar-img">
+            </div>
+
+            <!-- 聯絡資訊 -->
+            <div class="teacher-info">
+
+              <div class="contact-rows">
+                <a href="tel:+886917580405" class="contact-row contact-link-row">
+                  <span class="contact-icon">📱</span>
+                  <span class="contact-val">手機: 0917-580-405</span>
+                </a>
+                <a href="mailto:horazon@hk.edu.tw" class="contact-row contact-link-row">
+                  <span class="contact-icon">✉️</span>
+                  <span class="contact-val">電子郵件: horazon@hk.edu.tw</span>
+                </a>
+                <a href="tel:+886426318652" class="contact-row contact-link-row">
+                  <span class="contact-icon">🏢</span>
+                  <span class="contact-val">研究室: MB10303 &bull; (分機 5420)</span>
+                </a>
+                <a href="https://line.me/ti/p/~horazon" target="_blank" rel="noopener" class="contact-row contact-link-row">
+                  <span class="contact-icon">💬</span>
+                  <span class="contact-val">LINE: &nbsp;horazon</span>
+                </a>
+                <a href="https://discordapp.com/users/697434436945576006" target="_blank" rel="noopener" class="contact-row contact-link-row">
+                  <span class="contact-icon">🎮</span>
+                  <span class="contact-val">Discord: &nbsp;chaos_horazon</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 提示 -->
+          <div class="contact-note">
+            <span>📌</span>
+            <span><strong>弘愛築夢</strong>相關都可以問我，聯絡時請說明為<strong>弘愛築夢</strong>相關事宜</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 申請資格 -->
+      <section class="card">
+        <button class="section-toggle" @click="toggle('qualify')">
+          <span class="section-title">
+            <span class="sec-icon">📋</span>申請資格
+          </span>
+          <span class="arrow" :class="{ open: expanded.qualify }">▼</span>
+        </button>
+        <div class="section-body" v-show="expanded.qualify">
+          <h3 class="qualify-title positive">✅ 符合以下任一條件者可申請</h3>
+          <ul class="qualify-list">
+            <li>低收入戶或中低收入戶學生</li>
+            <li>身心障礙學生或身心障礙人士子女</li>
+            <li>特殊境遇家庭子女或孫子女</li>
+            <li>具大專校院弱勢助學計畫助學金補助資格者</li>
+            <li>原住民學生</li>
+            <li>家庭突遭變故經本校審查通過者</li>
+            <li>懷孕、撫養未滿三歲子女之學生</li>
+            <li>其他因特殊情況需協助，經本校審查通過者</li>
+          </ul>
+
+          <h3 class="qualify-title negative">🚫 不得申請情形</h3>
+          <ul class="qualify-list muted">
+            <li>在職專班及博士班學生</li>
+            <li>延修生、已畢業生（含提前畢業）</li>
+            <li>申請後於審查期間畢業、再辦理休學、退學或轉學至外校者。</li>
+            <li>已辦理休學、退學或轉學者（因傷病休學不在此限）</li>
+            <li>非中華民國國籍者 (外籍生、僑生請洽學校國際事務處)</li>
+          </ul>
+
+          <div class="warning-box">
+            <span class="warning-icon">⚠️</span>
+            <div>每位學生每年最高補助 <strong>9 萬元</strong>（海外研修等特殊項目最高 <strong>15 萬元</strong>）；申請後未繳交報告需繳回補助金，且一年內無法再申請。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 九大申請項目 -->
+      <section class="card">
+        <button class="section-toggle" @click="toggle('items')">
+          <span class="section-title">
+            <span class="sec-icon">🎯</span>九大申請項目
+          </span>
+          <span class="arrow" :class="{ open: expanded.items }">▼</span>
+        </button>
+        <div class="section-body" v-show="expanded.items">
+          <div class="min-items-alert">
+            ⚠️ 每次申請必須選擇 <strong>至少 2 項</strong>，否則無法通過審查。
+          </div>
+          <div class="items-grid">
+            <div v-for="(item, index) in items" :key="item.name" class="item-card">
+              <button class="item-toggle" @click="toggleItem(index)">
+                <div>
+                  <div class="item-header-row">
+                    <span class="item-icon">{{ item.icon }}</span>
+                    <span class="item-name">{{ item.name }}</span>
+                  </div>
+                  <div class="stars">
+                    <span class="stars-label">申請難度</span>
+                    <span v-for="i in 5" :key="i" :class="i <= item.stars ? 'star-on' : 'star-off'">★</span>
+                  </div>
+                </div>
+                <span class="arrow" :class="{ open: item.open }">▼</span>
+              </button>
+              <div class="item-body" v-show="item.open">
+                <div class="item-section">
+                  <div class="item-label">💡 攻略</div>
+                  <p>{{ item.tip }}</p>
+                </div>
+                <div class="item-section">
+                  <div class="item-label">📝 說明</div>
+                  <p>{{ item.desc }}</p>
+                </div>
+                <a :href="item.url" target="_blank" rel="noopener" class="apply-btn">
+                  前往申請表單 →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="https://ext.hk.edu.tw/%E5%BC%98%E6%84%9B%E7%AF%89%E5%A4%A2%E5%8A%A9%E5%AD%B8%E9%87%91/" target="_blank" rel="noopener" class="footer-link">
+        弘光科技大學 弘愛築夢助學計畫
+      </a>
+      <p class="footer-contact">學務處課指組 H101 &bull; 04-26318652 ext. 1502</p>
+      <p class="footer-contact">若有錯誤，一切資料以弘光科大學務處資料為準</p>
+      <p class="footer-contact">最後更新日期：2026年4月15日</p>
+    </footer>
+
+  </div>
+
+  <script type="module">
+    import { createApp, reactive } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const expanded = reactive({
+          teacher: false,
+          qualify: false,
+          items: false,
+        })
+
+        function toggle(key) {
+          expanded[key] = !expanded[key]
+        }
+
+        const items = reactive([
+          {
+            name: '課業學習',
+            icon: '📚',
+            stars: 2,
+            url: 'https://www.surveycake.com/s/4oeWy',
+            desc: '針對有意強化課業基礎或學習成效之學生，補助學習相關費用，如輔導課程、線上學習平台等，協助學生提升學業表現並達成個人學習目標。',
+            tip: '建議準備學習計畫書與預期成效說明，清楚呈現學習目標與課程內容，審查時印象加分。費用單據務必保留，完成後需繳交學習成果報告。',
+            open: false,
+          },
+          {
+            name: '專業證照',
+            icon: '🏆',
+            stars: 4,
+            url: 'https://www.surveycake.com/s/4o089',
+            desc: '補助學生考取與未來就業相關之專業證照，包含報名費及備考相關費用，鼓勵學生積極取得業界認可的資格認證，提升就業競爭力。',
+            tip: '選擇與科系相關的證照較易通過審查。建議同時申請備考課程費用一併核准，並在申請表中附上該證照的市場需求說明。',
+            open: false,
+          },
+          {
+            name: '就業增能',
+            icon: '💼',
+            stars: 4,
+            url: 'https://www.surveycake.com/s/RbLNn',
+            desc: '補助學生參加職涯探索、就業技能培訓、企業參訪或實習相關活動，協助學生提前了解職場環境，縮短畢業後的適應期。',
+            tip: '可結合校外實習計畫一併申請，說明預期獲得的職場技能。記錄實習日誌或參訪心得，作為後續報告的基礎。',
+            open: false,
+          },
+          {
+            name: '校外競賽',
+            icon: '🥇',
+            stars: 3,
+            url: 'https://www.surveycake.com/s/d6nOo',
+            desc: '補助學生報名參加各類校外專業競賽，涵蓋報名費、交通費及材料費等，鼓勵學生以實戰經驗驗證所學，並在競賽中展現專業能力。',
+            tip: '選擇有一定知名度的公開賽事，在申請表中說明比賽規格及歷年參與學校。若有指導老師背書，通過率更高。',
+            open: false,
+          },
+          {
+            name: '外語檢定',
+            icon: '🌐',
+            stars: 4,
+            url: 'https://www.surveycake.com/s/KWooA',
+            desc: '補助學生參加 TOEIC、TOEFL、IELTS、JLPT 等國際語言檢定考試的報名費及備考費用，協助學生取得英語或其他外語能力證明。',
+            tip: '建議選擇業界廣泛認可的檢定，並在申請時附上預計考試場次資訊。備考教材費用也可一併申請。',
+            open: false,
+          },
+          {
+            name: '共通職能',
+            icon: '🤝',
+            stars: 3,
+            url: 'https://www.surveycake.com/s/N722x',
+            desc: '補助學生參加溝通表達、團隊合作、問題解決等共通職能培訓課程或工作坊，培養職場普遍需求的軟實力，為未來就業奠定基礎。',
+            tip: '可挑選有結業證書的課程，在申請表中強調此能力對未來職涯的應用。與其他項目搭配申請能展現整體學習規劃。',
+            open: false,
+          },
+          {
+            name: '跨域學習',
+            icon: '🔀',
+            stars: 3,
+            url: 'https://www.surveycake.com/s/en884',
+            desc: '鼓勵學生跨越本科系領域，選修其他學院課程或參加跨領域學習活動，拓展知識廣度，培養多元視野及創新思維能力。',
+            tip: '說明跨域學習與本科系的結合點，例如遊憩管理結合設計思考或數位行銷，論述加分。建議先與老師討論選課方向。',
+            open: false,
+          },
+          {
+            name: '海外研修',
+            icon: '✈️',
+            stars: 5,
+            url: 'https://www.surveycake.com/s/YqBBz',
+            desc: '補助學生赴海外大學交換、短期研修或語言學習，費用涵蓋機票、住宿、學費等，協助學生拓展國際視野，累積海外生活與學習經驗。',
+            tip: '此項目補助金額最高可達 15 萬，但需要更完整的計畫書，包含學校名稱、課程規劃、預算明細及語言能力證明。提早半年規劃。',
+            open: false,
+          },
+          {
+            name: '其他',
+            icon: '💡',
+            stars: 2,
+            url: 'https://www.surveycake.com/s/0b663',
+            desc: '針對不屬於上述八類但確實有助於學生學習成長與發展的活動或費用，可透過本項目申請，由審查委員會依個案評估是否核可補助。',
+            tip: '申請前建議先與輔導老師確認活動或費用是否符合計畫精神，並詳細說明活動內容、預期效益及費用明細，提高審查通過率。',
+            open: false,
+          },
+        ])
+
+        function toggleItem(index) {
+          const w = window.innerWidth
+          const cols = w >= 900 ? 3 : w >= 560 ? 2 : 1
+          if (cols === 1) {
+            items[index].open = !items[index].open
+          } else {
+            const rowStart = Math.floor(index / cols) * cols
+            const newState = !items[index].open
+            for (let i = rowStart; i < rowStart + cols && i < items.length; i++) {
+              items[i].open = newState
+            }
+          }
+        }
+
+        return { expanded, toggle, items, toggleItem }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
