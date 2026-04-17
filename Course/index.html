@@ -92,7 +92,7 @@
         :class="{ 'time-block--active': isOuterMode && isGroupActive('早') }"
         @click="toggleGroup('早')">早</div>
       <div class="time-sep"></div>
-      <div class="time-block time-block--ext"
+      <div class="time-block time-block--ext-lg"
         :class="{ 'time-block--active': isOuterMode && isGroupActive('午') }"
         @click="toggleGroup('午')">午</div>
       <div class="time-sep"></div>
@@ -189,6 +189,7 @@
           { id: '3', label: '3' }, { id: '4', label: '4' },
           { id: '5', label: '5' }, { id: '6', label: '6' },
           { id: '7', label: '7' }, { id: '8', label: '8' },
+          { id: '9', label: '9' }, { id: '10', label: '10' },
           { id: 'A', label: 'A' }, { id: 'B', label: 'B' },
           { id: 'C', label: 'C' }, { id: 'D', label: 'D' },
         ]
@@ -202,6 +203,8 @@
           '6': { start: '13:45', end: '14:35' },
           '7': { start: '14:40', end: '15:30' },
           '8': { start: '15:35', end: '16:25' },
+          '9': { start: '16:35', end: '17:25' },
+          '10': { start: '17:30', end: '18:15' },
           'A': { start: '18:20', end: '19:05' },
           'B': { start: '19:10', end: '19:55' },
           'C': { start: '20:00', end: '20:45' },
@@ -446,7 +449,7 @@
           selPeriods.has(period) ? selPeriods.delete(period) : selPeriods.add(period)
         }
 
-        const groupPeriods = { '早': ['1','2','3','4'], '午': ['5','6','7','8'], '晚': ['A','B','C','D'] }
+        const groupPeriods = { '早': ['1','2','3','4'], '午': ['5','6','7','8','9','10'], '晚': ['A','B','C','D'] }
 
         function toggleGroup(name) {
           clearSearch()

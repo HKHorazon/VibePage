@@ -46,7 +46,8 @@
       "Bash(npx @skills-hub-ai/cli install scientific-skills-pdf)",
       "Bash(python -c \"import pdfplumber; print\\('ok'\\)\")",
       "Edit(/.claude/skills/ship-local/**)",
-      "Bash(curl -s http://localhost:8080)"
+      "Bash(curl -s http://localhost:8080)",
+      "Bash(python -)"
     ],
     "additionalDirectories": [
       "d:\\VibeWeb\\.claude\\skills"

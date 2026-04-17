@@ -16,8 +16,8 @@
   --aspect-w: 10;  /* 整體寬高比分子，改 9 即為 9:16 */
   --aspect-h: 16;
 
-  /* overhead = pad×2(16) + title(31) + head-h(24) + gaps 12×3(36) + seps 2×6(12) + btn-mt(8) + btn-h(38) = 165px */
-  --cell-h: max(16px, calc((100dvh - 165px) / 12));
+  /* overhead = pad×2(16) + title(31) + head-h(24) + gaps 14×3(42) + seps 2×6(12) + btn-mt(8) + btn-h(38) = 171px */
+  --cell-h: calc((100dvh - 171px) / 14);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -287,6 +287,10 @@ body {
 
 .time-block--ext {
   height: calc(4 * var(--cell-h) + 3 * var(--gap) + var(--sep));
+}
+
+.time-block--ext-lg {
+  height: calc(6 * var(--cell-h) + 5 * var(--gap) + var(--sep));
 }
 
 .time-block:hover { color: #bbb; border-color: #444; }
