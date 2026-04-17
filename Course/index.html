@@ -15,10 +15,12 @@
       <span class="title-mode" :class="`mode--${searchMode || 'click'}`">{{ modeName }}</span>
     </div>
 
-    <div class="layout" :class="{'mode-inner': isInnerMode, 'mode-outer': isOuterMode}">
+    <div class="layout" :class="{'mode-inner': isInnerMode, 'mode-outer': isOuterMode}" @click="timeModeOn = false">
     <div class="grid-wrap">
       <!-- 標頭列 -->
-      <div class="cell cell--head cell--corner"></div>
+      <div class="cell cell--head cell--corner">
+        <button class="t-btn" :class="{'t-btn--active': timeModeOn}" @click.stop="timeModeOn = !timeModeOn">T</button>
+      </div>
       <div
         class="cell cell--head cell--clickable"
         v-for="day in days" :key="day"
@@ -35,13 +37,17 @@
             'cell--lunch-start': p.id === '5',
             'cell--outer-active': isOuterMode && selPeriods.has(p.id)
           }"
-          @click="handlePeriodClick(p.id)"
-          @pointerdown="startLongPress($event, p.id)"
-          @pointerup="cancelLongPress"
-          @pointerleave="cancelLongPress"
-          @pointercancel="cancelLongPress"
-          @contextmenu.prevent
+          @click="togglePeriod(p.id)"
         >{{ p.label }}</div>
+        <div
+          v-if="timeModeOn"
+          class="cell cell--time-bar"
+          :class="{
+            'cell--night-start': p.id === 'A',
+            'cell--lunch-start': p.id === '5',
+          }"
+        >第{{ p.label }}節    {{ periodTimes[p.id].start }} ~ {{ periodTimes[p.id].end }}</div>
+        <template v-else>
         <div
           v-for="day in days"
           :key="day"
@@ -82,6 +88,7 @@
             </div>
           </div>
         </div>
+        </template>
       </template>
     </div><!-- grid-wrap -->
 
@@ -109,27 +116,6 @@
         {{ hasAny ? '清空' : '全選' }}
       </button>
       <button class="btn btn--detail" @click="goDetail">詳細</button>
-    </div>
-
-    <!-- 節次時間面板 -->
-    <div class="time-panel-backdrop" v-if="timePanelOpen" @click="timePanelOpen=false"></div>
-    <div class="time-panel" :class="{'time-panel--open': timePanelOpen}">
-      <div class="time-panel-title">上下課時間</div>
-      <div
-        v-for="p in periods" :key="p.id"
-        class="time-panel-row"
-        :class="{
-          'time-panel-row--sep': p.id === '5' || p.id === 'A',
-          'time-panel-row--active': timePanelPeriod === p.id
-        }"
-      >
-        <span class="time-panel-id">{{ p.label }}</span>
-        <span class="time-panel-times">
-          <span class="time-panel-time">{{ periodTimes[p.id].start }}</span>
-          <span class="time-panel-dash">～</span>
-          <span class="time-panel-time">{{ periodTimes[p.id].end }}</span>
-        </span>
-      </div>
     </div>
 
     <!-- 全畫面搜尋蓋層 -->
@@ -211,34 +197,7 @@
           'D': { start: '20:50', end: '21:35' },
         }
 
-        const timePanelOpen = ref(false)
-        const timePanelPeriod = ref(null)
-        const longPressTimer = ref(null)
-        const longPressFired = ref(false)
-
-        function startLongPress(e, periodId) {
-          longPressFired.value = false
-          longPressTimer.value = setTimeout(() => {
-            longPressFired.value = true
-            timePanelPeriod.value = periodId
-            timePanelOpen.value = true
-          }, 500)
-        }
-
-        function cancelLongPress() {
-          if (longPressTimer.value) {
-            clearTimeout(longPressTimer.value)
-            longPressTimer.value = null
-          }
-        }
-
-        function handlePeriodClick(periodId) {
-          if (longPressFired.value) {
-            longPressFired.value = false
-            return
-          }
-          togglePeriod(periodId)
-        }
+        const timeModeOn = ref(false)
 
         const schedule = ref([])
         const teachersMap = ref({})
@@ -537,8 +496,7 @@
           hasAny, toggleAll, goDetail,
           abbrStyle, abbrInnerStyle,
           overlayOpen, overlayTab, openOverlay, selectMode1, selectSearch,
-          periodTimes, timePanelOpen, timePanelPeriod,
-          startLongPress, cancelLongPress, handlePeriodClick
+          periodTimes, timeModeOn,
         }
       }
     }).mount('#app')

@@ -194,8 +194,10 @@ body {
 /* 午後（5節）與夜間（A節）分隔 */
 .cell--lunch-start.cell--slot,
 .cell--lunch-start.cell--period,
+.cell--lunch-start.cell--time-bar,
 .cell--night-start.cell--slot,
-.cell--night-start.cell--period {
+.cell--night-start.cell--period,
+.cell--night-start.cell--time-bar {
   margin-top: var(--sep);
 }
 
@@ -464,97 +466,56 @@ body {
   color: #4a9080;
 }
 
-/* 節次時間面板 */
-.time-panel-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 150;
+/* T 時間模式按鈕 */
+.cell--corner {
+  position: relative;
 }
-
-.time-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 80%;
-  z-index: 151;
-  background: #161616;
-  border-left: 1px solid #2a2a2a;
-  transform: translateX(100%);
-  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 18px 32px;
-  font-family: system-ui, sans-serif;
-}
-
-.time-panel--open {
-  transform: translateX(0);
-  box-shadow: -8px 0 32px rgba(0,0,0,0.5);
-}
-
-.time-panel-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #444;
-  letter-spacing: 0.08em;
-  margin-bottom: 14px;
-  flex-shrink: 0;
-}
-
-.time-panel-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 0;
-  border-bottom: 1px solid #1e1e1e;
-  flex-shrink: 0;
-}
-
-.time-panel-row--sep {
-  margin-top: 8px;
-  padding-top: 14px;
-  border-top: 1px solid #2a2a2a;
-}
-
-.time-panel-row--active {
-  background: #1e2020;
-  margin: 0 -18px;
-  padding-left: 18px;
-  padding-right: 18px;
-  border-radius: 0;
-}
-
-.time-panel-row--active .time-panel-id { color: #c0c0c0; }
-.time-panel-row--active .time-panel-time { color: #c0c0c0; }
-
-.time-panel-id {
-  font-size: 15px;
+.t-btn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 28px;
+  height: 24px;
+  font-size: 16px;
   font-weight: 700;
+  font-family: system-ui, sans-serif;
   color: #555;
-  width: 18px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.time-panel-times {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 3px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+  user-select: none;
+}
+.t-btn:hover { color: #aaa; border-color: #555; }
+.t-btn--active {
+  color: #4a9080;
+  border-color: #1e5050;
+  background: #0e1e1c;
 }
 
-.time-panel-time {
-  font-size: 15px;
+/* 時間橫條 */
+.cell--time-bar {
+  grid-column: span 5;
+  height: var(--cell-h);
+  background: #0e1616;
+  border: 1px solid #1a3030;
+  border-radius: 4px;
+  font-size: 16px;
   font-weight: 500;
-  color: #888;
+  color: #4a9080;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-}
-
-.time-panel-dash {
-  font-size: 13px;
-  color: #3a3a3a;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  user-select: none;
 }
 
 /* 較大螢幕：放寬 overlay 寬度，四欄排列 */
