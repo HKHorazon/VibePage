@@ -8,6 +8,13 @@
 </head>
 <body>
   <div id="app" v-cloak>
+
+    <!-- 標題按鈕 -->
+    <div class="title-bar" @click="openOverlay">
+      <span class="title-main">多遊系課表</span>
+      <span class="title-mode" :class="`mode--${searchMode || 'click'}`">{{ modeName }}</span>
+    </div>
+
     <div class="layout" :class="{'mode-inner': isInnerMode, 'mode-outer': isOuterMode}">
     <div class="grid-wrap">
       <!-- 標頭列 -->
@@ -28,7 +35,12 @@
             'cell--lunch-start': p.id === '5',
             'cell--outer-active': isOuterMode && selPeriods.has(p.id)
           }"
-          @click="togglePeriod(p.id)"
+          @click="handlePeriodClick(p.id)"
+          @pointerdown="startLongPress($event, p.id)"
+          @pointerup="cancelLongPress"
+          @pointerleave="cancelLongPress"
+          @pointercancel="cancelLongPress"
+          @contextmenu.prevent
         >{{ p.label }}</div>
         <div
           v-for="day in days"
@@ -37,11 +49,28 @@
           :class="{
             'cell--active': isActive(day, p.id),
             'cell--night-start': p.id === 'A',
-            'cell--lunch-start': p.id === '5'
+            'cell--lunch-start': p.id === '5',
+            'cell--search': searchMode && isActive(day, p.id)
           }"
           @click="toggle(day, p.id)"
         >
-          <div v-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
+          <!-- 搜尋模式：顯示課程詳情 -->
+          <div v-if="isActive(day, p.id) && searchMode" class="cell-detail">
+            <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
+            <span class="cell-detail-meta">
+              <template v-if="searchMode === 'teacher'">
+                {{ getCellEntry(day, p.id)?.room }}・{{ shortClass(getCellEntry(day, p.id)?.class) }}
+              </template>
+              <template v-else-if="searchMode === 'class'">
+                {{ getCellEntry(day, p.id)?.teacher }}・{{ getCellEntry(day, p.id)?.room }}
+              </template>
+              <template v-else>
+                {{ getCellEntry(day, p.id)?.teacher }}・{{ shortClass(getCellEntry(day, p.id)?.class) }}
+              </template>
+            </span>
+          </div>
+          <!-- 點擊模式：顯示老師縮寫 -->
+          <div v-else-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
             <div class="abbr-inner" :style="abbrInnerStyle">
               <span
                 v-for="t in batchTeachers"
@@ -81,6 +110,72 @@
       </button>
       <button class="btn btn--detail" @click="goDetail">詳細</button>
     </div>
+
+    <!-- 節次時間面板 -->
+    <div class="time-panel-backdrop" v-if="timePanelOpen" @click="timePanelOpen=false"></div>
+    <div class="time-panel" :class="{'time-panel--open': timePanelOpen}">
+      <div class="time-panel-title">上下課時間</div>
+      <div
+        v-for="p in periods" :key="p.id"
+        class="time-panel-row"
+        :class="{
+          'time-panel-row--sep': p.id === '5' || p.id === 'A',
+          'time-panel-row--active': timePanelPeriod === p.id
+        }"
+      >
+        <span class="time-panel-id">{{ p.label }}</span>
+        <span class="time-panel-times">
+          <span class="time-panel-time">{{ periodTimes[p.id].start }}</span>
+          <span class="time-panel-dash">～</span>
+          <span class="time-panel-time">{{ periodTimes[p.id].end }}</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- 全畫面搜尋蓋層 -->
+    <div class="overlay" v-if="overlayOpen" @click="overlayOpen=false">
+      <div class="overlay-panel" @click.stop>
+        <div class="overlay-tabs">
+          <button class="tab-btn tab-btn--reset" :class="{active: overlayTab===1}" @click="selectMode1">自由</button>
+          <button class="tab-btn" :class="{active: overlayTab===2}" @click="overlayTab=2">依老師</button>
+          <button class="tab-btn" :class="{active: overlayTab===3}" @click="overlayTab=3">依班級</button>
+          <button class="tab-btn" :class="{active: overlayTab===4}" @click="overlayTab=4">依教室</button>
+        </div>
+        <div class="overlay-content">
+          <!-- 依老師 -->
+          <div v-if="overlayTab===2" class="search-list">
+            <button
+              v-for="t in teacherOrder" :key="t"
+              class="search-item"
+              :class="{active: searchMode==='teacher' && searchValue===t}"
+              @click="selectSearch('teacher', t)"
+            >{{ t }}</button>
+          </div>
+          <!-- 依班級 -->
+          <div v-if="overlayTab===3" class="search-list">
+            <template v-for="item in classGroupedList" :key="item.sep ? 'sep-'+item.label : item.value">
+              <div v-if="item.sep" class="search-sep">{{ item.label }}</div>
+              <button
+                v-else
+                class="search-item"
+                :class="{active: searchMode==='class' && searchValue===item.value}"
+                @click="selectSearch('class', item.value)"
+              >{{ item.label }}</button>
+            </template>
+          </div>
+          <!-- 依教室 -->
+          <div v-if="overlayTab===4" class="search-list">
+            <button
+              v-for="r in uniqueRooms" :key="r"
+              class="search-item"
+              :class="{active: searchMode==='room' && searchValue===r}"
+              @click="selectSearch('room', r)"
+            >{{ r }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script type="module">
@@ -98,17 +193,69 @@
           { id: 'C', label: 'C' }, { id: 'D', label: 'D' },
         ]
 
+        const periodTimes = {
+          '1': { start: '08:10', end: '09:00' },
+          '2': { start: '09:10', end: '10:00' },
+          '3': { start: '10:10', end: '11:00' },
+          '4': { start: '11:05', end: '11:55' },
+          '5': { start: '12:50', end: '13:40' },
+          '6': { start: '13:45', end: '14:35' },
+          '7': { start: '14:40', end: '15:30' },
+          '8': { start: '15:35', end: '16:25' },
+          'A': { start: '18:20', end: '19:05' },
+          'B': { start: '19:10', end: '19:55' },
+          'C': { start: '20:00', end: '20:45' },
+          'D': { start: '20:50', end: '21:35' },
+        }
+
+        const timePanelOpen = ref(false)
+        const timePanelPeriod = ref(null)
+        const longPressTimer = ref(null)
+        const longPressFired = ref(false)
+
+        function startLongPress(e, periodId) {
+          longPressFired.value = false
+          longPressTimer.value = setTimeout(() => {
+            longPressFired.value = true
+            timePanelPeriod.value = periodId
+            timePanelOpen.value = true
+          }, 500)
+        }
+
+        function cancelLongPress() {
+          if (longPressTimer.value) {
+            clearTimeout(longPressTimer.value)
+            longPressTimer.value = null
+          }
+        }
+
+        function handlePeriodClick(periodId) {
+          if (longPressFired.value) {
+            longPressFired.value = false
+            return
+          }
+          togglePeriod(periodId)
+        }
+
         const schedule = ref([])
         const teachersMap = ref({})
         const teacherOrder = ref([])
 
         const isMobile = ref(window.innerWidth < 560)
 
-        // 模式：null | 'inner' | 'outer'
+        // 點擊模式：null | 'inner' | 'outer'
         const mode = ref(null)
-        const active = reactive(new Set())     // inner 模式：個別格子
-        const selDays = reactive(new Set())    // outer 模式：選取的星期
-        const selPeriods = reactive(new Set()) // outer 模式：選取的節次
+        const active = reactive(new Set())
+        const selDays = reactive(new Set())
+        const selPeriods = reactive(new Set())
+
+        // 搜尋模式：null | 'teacher' | 'class' | 'room'
+        const searchMode = ref(null)
+        const searchValue = ref('')
+
+        // 蓋層
+        const overlayOpen = ref(false)
+        const overlayTab = ref(2)
 
         onMounted(async () => {
           try {
@@ -121,16 +268,92 @@
             teacherOrder.value = Object.keys(t)
           } catch (e) {}
           window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })
+          window.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && overlayOpen.value) overlayOpen.value = false
+          })
         })
 
         const isInnerMode = computed(() => mode.value === 'inner')
         const isOuterMode = computed(() => mode.value === 'outer')
 
-        // outer 模式下的交集格
         const outerActiveCells = computed(() => {
           const result = new Set()
           selDays.forEach(day => selPeriods.forEach(period => result.add(`${day}_${period}`)))
           return result
+        })
+
+        const listedTeachers = computed(() => new Set(Object.keys(teachersMap.value)))
+
+        const searchActiveCells = computed(() => {
+          if (!searchMode.value || !searchValue.value) return new Set()
+          const result = new Set()
+          schedule.value
+            .filter(s => {
+              if (s[searchMode.value] !== searchValue.value) return false
+              // teacher/room modes: only show listed teachers
+              if (searchMode.value !== 'class') return listedTeachers.value.has(s.teacher)
+              return true
+            })
+            .forEach(s => result.add(`${s.day}_${s.period}`))
+          return result
+        })
+
+        const uniqueClasses = computed(() => {
+          const set = new Set(schedule.value.map(s => s.class).filter(c => c && c.includes('多遊系')))
+          const CN = { '一':1, '二':2, '三':3, '四':4 }
+          const typeOrd = { '日':0, '進':1, '夜':2 }
+          const gradeOrd = { '甲':0, '乙':1, '丙':2, '丁':3 }
+          return [...set].sort((a, b) => {
+            const sa = shortClass(a), sb = shortClass(b)
+            const ya = CN[sa[1]] ?? 0, yb = CN[sb[1]] ?? 0
+            if (ya !== yb) return ya - yb
+            const ta = typeOrd[sa[0]] ?? 9, tb = typeOrd[sb[0]] ?? 9
+            if (ta !== tb) return ta - tb
+            return (gradeOrd[sa[2]] ?? 9) - (gradeOrd[sb[2]] ?? 9)
+          })
+        })
+
+        const classGroupedList = computed(() => {
+          const result = []
+          let lastYear = null
+          for (const c of uniqueClasses.value) {
+            const sc = shortClass(c)
+            const year = sc[1]
+            if (year !== lastYear) {
+              result.push({ sep: true, label: year + '年級' })
+              lastYear = year
+            }
+            result.push({ sep: false, value: c, label: sc })
+          }
+          return result
+        })
+
+        const uniqueRooms = computed(() => {
+          const set = new Set(
+            schedule.value
+              .filter(s => s.room && listedTeachers.value.has(s.teacher))
+              .map(s => s.room)
+          )
+          return [...set].sort()
+        })
+
+        function shortClass(cls) {
+          if (!cls) return ''
+          // "⽇四技多遊系2年⼄班" → "日二乙"（日/進 + 一二三四 + 甲/乙）
+          const CN = ['', '一', '二', '三', '四', '五', '六']
+          const rawType = cls[0].normalize('NFKC')
+          const type = rawType === '夜' ? '進' : rawType
+          const yearNum = (cls.match(/(\d)年/) || [])[1] || ''
+          const year = CN[+yearNum] || yearNum
+          const grade = (cls[cls.length - 2] || '').normalize('NFKC')
+          return type + year + grade
+        }
+
+        const modeName = computed(() => {
+          if (searchMode.value === 'teacher' && searchValue.value) return `老師模式－${searchValue.value}`
+          if (searchMode.value === 'class' && searchValue.value) return `班級模式－${shortClass(searchValue.value)}`
+          if (searchMode.value === 'room' && searchValue.value) return `教室模式－${searchValue.value}`
+          return '點擊格模式'
         })
 
         const abbrSize = computed(() => {
@@ -154,7 +377,14 @@
         })
 
         const batchTeachers = computed(() => {
-          const cells = isInnerMode.value ? active : outerActiveCells.value
+          let cells
+          if (searchMode.value && searchValue.value) {
+            cells = searchActiveCells.value
+          } else if (isInnerMode.value) {
+            cells = active
+          } else {
+            cells = outerActiveCells.value
+          }
           if (!cells.size) return []
           const seen = new Set()
           cells.forEach(k => {
@@ -169,12 +399,26 @@
         function key(day, period) { return `${day}_${period}` }
 
         function isActive(day, period) {
+          if (searchMode.value && searchValue.value) return searchActiveCells.value.has(key(day, period))
           if (isInnerMode.value) return active.has(key(day, period))
           if (isOuterMode.value) return selDays.has(day) && selPeriods.has(period)
           return false
         }
 
+        function getCellEntry(day, period) {
+          if (!searchMode.value || !searchValue.value) return null
+          return schedule.value.find(s =>
+            s.day === day && s.period === period && s[searchMode.value] === searchValue.value
+          ) || null
+        }
+
+        function clearSearch() {
+          searchMode.value = null
+          searchValue.value = ''
+        }
+
         function toggle(day, period) {
+          if (searchMode.value) return  // 搜尋模式下格子不可點選
           if (mode.value !== 'inner') {
             selDays.clear()
             selPeriods.clear()
@@ -185,6 +429,7 @@
         }
 
         function toggleDay(day) {
+          clearSearch()
           if (mode.value !== 'outer') {
             active.clear()
             mode.value = 'outer'
@@ -193,6 +438,7 @@
         }
 
         function togglePeriod(period) {
+          clearSearch()
           if (mode.value !== 'outer') {
             active.clear()
             mode.value = 'outer'
@@ -203,6 +449,7 @@
         const groupPeriods = { '早': ['1','2','3','4'], '午': ['5','6','7','8'], '晚': ['A','B','C','D'] }
 
         function toggleGroup(name) {
+          clearSearch()
           if (mode.value !== 'outer') {
             active.clear()
             mode.value = 'outer'
@@ -217,6 +464,7 @@
         }
 
         const hasAny = computed(() => {
+          if (searchMode.value && searchValue.value) return true
           if (isInnerMode.value) return active.size > 0
           if (isOuterMode.value) return selDays.size > 0 || selPeriods.size > 0
           return false
@@ -227,9 +475,11 @@
             active.clear()
             selDays.clear()
             selPeriods.clear()
+            clearSearch()
             mode.value = null
           } else {
             active.clear()
+            clearSearch()
             mode.value = 'outer'
             days.forEach(d => selDays.add(d))
             periods.forEach(p => selPeriods.add(p.id))
@@ -247,13 +497,45 @@
           return teachersMap.value[teacher] || teacher[0]
         }
 
+        // 蓋層操作
+        function openOverlay() {
+          if (searchMode.value === 'teacher') overlayTab.value = 2
+          else if (searchMode.value === 'class') overlayTab.value = 3
+          else if (searchMode.value === 'room') overlayTab.value = 4
+          else overlayTab.value = 1
+          overlayOpen.value = true
+        }
+
+        function selectMode1() {
+          active.clear()
+          selDays.clear()
+          selPeriods.clear()
+          clearSearch()
+          mode.value = null
+          overlayOpen.value = false
+        }
+
+        function selectSearch(sMode, value) {
+          active.clear()
+          selDays.clear()
+          selPeriods.clear()
+          mode.value = null
+          searchMode.value = sMode
+          searchValue.value = value
+          overlayOpen.value = false
+        }
+
         return {
-          days, periods,
+          days, periods, teacherOrder, uniqueClasses, classGroupedList, uniqueRooms,
           isInnerMode, isOuterMode, selDays, selPeriods,
           isActive, toggle, toggleDay, togglePeriod, toggleGroup, isGroupActive,
-          batchTeachers, cellHas, shortOf,
+          batchTeachers, cellHas, shortOf, shortClass,
+          getCellEntry, searchMode, searchValue, modeName,
           hasAny, toggleAll, goDetail,
-          abbrStyle, abbrInnerStyle
+          abbrStyle, abbrInnerStyle,
+          overlayOpen, overlayTab, openOverlay, selectMode1, selectSearch,
+          periodTimes, timePanelOpen, timePanelPeriod,
+          startLongPress, cancelLongPress, handlePeriodClick
         }
       }
     }).mount('#app')

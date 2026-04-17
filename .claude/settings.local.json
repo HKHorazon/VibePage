@@ -44,7 +44,12 @@
       "Bash(npx @skills-hub-ai/cli install openclaw-medical-pdf-processing-pro)",
       "Bash(npx @skills-hub-ai/cli install astro-pdf-processing)",
       "Bash(npx @skills-hub-ai/cli install scientific-skills-pdf)",
-      "Bash(python -c \"import pdfplumber; print\\('ok'\\)\")"
+      "Bash(python -c \"import pdfplumber; print\\('ok'\\)\")",
+      "Edit(/.claude/skills/ship-local/**)",
+      "Bash(curl -s http://localhost:8080)"
+    ],
+    "additionalDirectories": [
+      "d:\\VibeWeb\\.claude\\skills"
     ]
   }
 }

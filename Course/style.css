@@ -6,10 +6,18 @@
   --head-text: #666;
   --period-text: #555;
 
-  --cell-h: 44px;
-  --gap: 3px;
+  --body-pad: 8px;
   --head-h: 24px;
+  --gap: 3px;
   --sep: 6px;
+  --btn-h: 38px;
+  --btn-mt: 8px;
+  --title-h: 31px; /* font15×1.4≈21px + padding-bottom 10px */
+  --aspect-w: 10;  /* 整體寬高比分子，改 9 即為 9:16 */
+  --aspect-h: 16;
+
+  /* overhead = pad×2(16) + title(31) + head-h(24) + gaps 12×3(36) + seps 2×6(12) + btn-mt(8) + btn-h(38) = 165px */
+  --cell-h: max(16px, calc((100dvh - 165px) / 12));
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,19 +25,73 @@
 
 body {
   background: var(--bg);
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 12px 8px;
+  padding: var(--body-pad);
 }
 
 #app {
   width: 100%;
-  max-width: 560px;
+  max-width: calc(var(--aspect-w) / var(--aspect-h) * 100dvh);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+/* 標題按鈕 */
+.title-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.title-main {
+  font-size: 15px;
+  font-weight: 700;
+  color: #666;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.05em;
+  flex: 0 0 30%;
+  transition: color 0.12s;
+}
+
+.title-mode {
+  flex: 1;
+  font-size: 11px;
+  color: #444;
+  font-family: system-ui, sans-serif;
+  background: #1a1a1a;
+  border: 1px solid #252525;
+  border-radius: 4px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.title-mode.mode--click  { color: #c090e8; background: #200e2e; border-color: #3a1e50; }
+.title-mode.mode--teacher{ color: #6aaaf0; background: #111c2a; border-color: #1e3550; }
+.title-mode.mode--class  { color: #66cc88; background: #111e15; border-color: #1c3a22; }
+.title-mode.mode--room   { color: #e09040; background: #201508; border-color: #3a2210; }
+
+.title-bar:hover .title-main { color: #aaa; }
+.title-bar:hover .title-mode.mode--click   { color: #ddb0ff; border-color: #5a2e80; }
+.title-bar:hover .title-mode.mode--teacher { color: #90c8ff; border-color: #2a4a70; }
+.title-bar:hover .title-mode.mode--class   { color: #88ee99; border-color: #2a5533; }
+.title-bar:hover .title-mode.mode--room    { color: #f0b060; border-color: #553218; }
+
+/* Layout */
 .layout {
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: flex-start;
   gap: 4px;
@@ -113,6 +175,7 @@ body {
   border: 1px solid var(--cell-border);
   cursor: pointer;
   transition: background 0.12s, border-color 0.12s;
+  overflow: hidden;
 }
 .cell--slot:active { opacity: 0.8; }
 
@@ -122,12 +185,52 @@ body {
   border-color: var(--cell-active) !important;
 }
 
+/* 搜尋模式選中：偏暖白 */
+.cell--search.cell--active {
+  background: #f0f0ee !important;
+  border-color: #d0d0cc !important;
+}
+
 /* 午後（5節）與夜間（A節）分隔 */
 .cell--lunch-start.cell--slot,
 .cell--lunch-start.cell--period,
 .cell--night-start.cell--slot,
 .cell--night-start.cell--period {
   margin-top: var(--sep);
+}
+
+/* 搜尋模式格子內容 */
+.cell-detail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2px 4px;
+  overflow: hidden;
+  gap: 1px;
+}
+
+.cell-detail-course {
+  font-size: 10px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.cell-detail-meta {
+  font-size: 9px;
+  color: #555;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* 縮寫顯示 */
@@ -179,12 +282,10 @@ body {
   cursor: pointer;
   user-select: none;
   transition: color 0.12s, border-color 0.12s;
-  /* 早：4 格 + 3 gap */
   height: calc(4 * var(--cell-h) + 3 * var(--gap));
 }
 
 .time-block--ext {
-  /* 午/晚：4 格 + 3 gap + sep（含首格 margin-top）*/
   height: calc(4 * var(--cell-h) + 3 * var(--gap) + var(--sep));
 }
 
@@ -199,8 +300,8 @@ body {
 .btn-row {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
-  width: 100%;
+  margin-top: var(--btn-mt);
+  flex-shrink: 0;
 }
 
 .btn {
@@ -232,8 +333,230 @@ body {
 }
 .btn--detail:hover { border-color: #2e5a50; color: #7ab8a8; }
 
-/* 桌機版 */
+/* ─── 全畫面蓋層 ─── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.overlay-panel {
+  width: 100%;
+  max-width: 560px;
+  background: #161616;
+  border-top: 1px solid #2c2c2c;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 72vh;
+  overflow: hidden;
+}
+
+.overlay-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 14px 12px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #202020;
+}
+
+.tab-btn {
+  height: 42px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: color 0.12s, border-color 0.12s, background 0.12s, opacity 0.12s;
+  user-select: none;
+  opacity: 0.55;
+}
+.tab-btn:hover { opacity: 0.85; }
+.tab-btn.active { opacity: 1; border-color: rgba(255,255,255,0.1); }
+
+/* 自由 — 薔薇紫 */
+.tab-btn--reset {
+  background: #271a30;
+  color: #a870c8;
+}
+.tab-btn--reset:hover { background: #31203c; }
+.tab-btn--reset.active { background: #31203c; color: #cc99e8; }
+
+/* 依老師 — 靛藍 */
+.tab-btn:nth-child(2) {
+  background: #1a2a44;
+  color: #7ab4e8;
+}
+.tab-btn:nth-child(2):hover { background: #1e3252; }
+.tab-btn:nth-child(2).active { background: #1e3252; color: #a0cfff; }
+
+/* 依班級 — 苔綠 */
+.tab-btn:nth-child(3) {
+  background: #1a2e1e;
+  color: #72b87e;
+}
+.tab-btn:nth-child(3):hover { background: #1e3824; }
+.tab-btn:nth-child(3).active { background: #1e3824; color: #9dd9a8; }
+
+/* 依教室 — 琥珀橘 */
+.tab-btn:nth-child(4) {
+  background: #2e1e0e;
+  color: #c88840;
+}
+.tab-btn:nth-child(4):hover { background: #382510; }
+.tab-btn:nth-child(4).active { background: #382510; color: #e8a85a; }
+
+.overlay-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px 20px;
+}
+
+.search-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.search-sep {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: #444;
+  font-family: system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  padding: 6px 2px 2px;
+  border-top: 1px solid #222;
+  margin-top: 2px;
+}
+
+.search-item {
+  min-height: 46px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+  background: #1c1c1c;
+  border: 1px solid #2a2a2a;
+  color: #b0b0b0;
+  text-align: center;
+  padding: 10px 8px;
+  line-height: 1.4;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+  user-select: none;
+}
+
+.search-item:hover { color: #e0e0e0; border-color: #444; background: #242424; }
+
+.search-item.active {
+  background: #0e1e1c;
+  border-color: #1e5050;
+  color: #4a9080;
+}
+
+/* 節次時間面板 */
+.time-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+}
+
+.time-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  z-index: 151;
+  background: #161616;
+  border-left: 1px solid #2a2a2a;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px 32px;
+  font-family: system-ui, sans-serif;
+}
+
+.time-panel--open {
+  transform: translateX(0);
+  box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+}
+
+.time-panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.time-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid #1e1e1e;
+  flex-shrink: 0;
+}
+
+.time-panel-row--sep {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.time-panel-row--active {
+  background: #1e2020;
+  margin: 0 -18px;
+  padding-left: 18px;
+  padding-right: 18px;
+  border-radius: 0;
+}
+
+.time-panel-row--active .time-panel-id { color: #c0c0c0; }
+.time-panel-row--active .time-panel-time { color: #c0c0c0; }
+
+.time-panel-id {
+  font-size: 15px;
+  font-weight: 700;
+  color: #555;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.time-panel-times {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-panel-time {
+  font-size: 15px;
+  font-weight: 500;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.time-panel-dash {
+  font-size: 13px;
+  color: #3a3a3a;
+}
+
+/* 較大螢幕：放寬 overlay 寬度，四欄排列 */
 @media (min-width: 560px) {
-  :root { --cell-h: 52px; --gap: 4px; }
-  #app { max-width: 640px; }
+  .overlay-panel { max-width: calc(var(--aspect-w) / var(--aspect-h) * 100dvh); }
+  .search-list { grid-template-columns: repeat(4, 1fr); }
+  .cell-detail-course { font-size: 11px; }
+  .cell-detail-meta { font-size: 10px; }
 }

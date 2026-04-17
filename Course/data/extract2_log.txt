@@ -1,0 +1,37 @@
+夜四技多遊系4年⼄班: 2
+夜四技多遊系4年甲班: 3
+夜四技多遊系3年⼄班: 12
+夜四技多遊系3年甲班: 12
+夜四技多遊系2年甲班: 19
+夜四技多遊系1年甲班: 20
+⽇四技多遊系4年⼄班: 5
+⽇四技多遊系4年甲班: 3
+⽇四技多遊系3年⼄班: 16
+⽇四技多遊系3年甲班: 16
+⽇四技多遊系2年⼄班: 22
+⽇四技多遊系2年甲班: 19
+⽇四技多遊系1年⼄班: 21
+⽇四技多遊系1年甲班: 21
+TOTAL: 191
+
+Samples:
+{'class': '夜四技多遊系4年⼄班', 'day': '五', 'period': 'C', 'course': '履歷製作技巧', 'teacher': '林煒凱', 'room': 'MB209'}
+{'class': '夜四技多遊系4年⼄班', 'day': '五', 'period': 'D', 'course': '履歷製作技巧', 'teacher': '林煒凱', 'room': 'MB209'}
+{'class': '夜四技多遊系4年甲班', 'day': '三', 'period': 'A', 'course': '互動媒體製作(⼆)', 'teacher': '洪明顯', 'room': 'G501'}
+{'class': '夜四技多遊系4年甲班', 'day': '五', 'period': 'A', 'course': '互動媒體製作(⼆)', 'teacher': '洪明顯', 'room': 'G501'}
+{'class': '夜四技多遊系4年甲班', 'day': '五', 'period': 'B', 'course': '互動媒體製作(⼆)', 'teacher': '洪明顯', 'room': 'G501'}
+{'class': '夜四技多遊系3年⼄班', 'day': '二', 'period': 'A', 'course': '(*)光雕投影藝術創作', 'teacher': '王瑋名', 'room': 'MB209'}
+{'class': '夜四技多遊系3年⼄班', 'day': '三', 'period': 'A', 'course': '⺠主與法治', 'teacher': '賴昱棠', 'room': ''}
+{'class': '夜四技多遊系3年⼄班', 'day': '四', 'period': 'A', 'course': '(*)職業美姿與禮儀', 'teacher': '吳綉華', 'room': 'MB208'}
+{'class': '夜四技多遊系3年⼄班', 'day': '五', 'period': 'A', 'course': '⾃媒體經營與管理', 'teacher': '', 'room': 'MB208'}
+{'class': '夜四技多遊系3年⼄班', 'day': '二', 'period': 'B', 'course': '(*)光雕投影藝術創作', 'teacher': '王瑋名', 'room': 'MB209'}
+{'class': '夜四技多遊系3年⼄班', 'day': '三', 'period': 'B', 'course': '⺠主與法治', 'teacher': '賴昱棠', 'room': ''}
+{'class': '夜四技多遊系3年⼄班', 'day': '四', 'period': 'B', 'course': '(*)職業美姿與禮儀', 'teacher': '吳綉華', 'room': 'MB208'}
+{'class': '夜四技多遊系3年⼄班', 'day': '五', 'period': 'B', 'course': '⾃媒體經營與管理', 'teacher': '', 'room': 'MB208'}
+{'class': '夜四技多遊系3年⼄班', 'day': '二', 'period': 'C', 'course': '(*)光雕投影藝術創作', 'teacher': '王瑋名', 'room': 'MB209'}
+{'class': '夜四技多遊系3年⼄班', 'day': '四', 'period': 'C', 'course': '(*)直播技巧', 'teacher': '林煒凱', 'room': 'MB209'}
+{'class': '夜四技多遊系3年⼄班', 'day': '四', 'period': 'D', 'course': '(*)直播技巧', 'teacher': '林煒凱', 'room': 'MB209'}
+{'class': '夜四技多遊系3年⼄班', 'day': '五', 'period': 'D', 'course': '專題製作(⼆)', 'teacher': '劉明昆', 'room': 'EB101'}
+{'class': '夜四技多遊系3年甲班', 'day': '一', 'period': 'A', 'course': '(*)VR遊戲實作', 'teacher': '洪明顯', 'room': 'G501'}
+{'class': '夜四技多遊系3年甲班', 'day': '三', 'period': 'A', 'course': '⺠主與法治', 'teacher': '賴昱棠', 'room': 'M204'}
+{'class': '夜四技多遊系3年甲班', 'day': '五', 'period': 'A', 'course': '⾃媒體經營與管理', 'teacher': '林⼦堯', 'room': 'MB208'}
