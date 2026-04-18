@@ -186,9 +186,9 @@ body {
 
 .cell-slot-star {
   position: absolute;
-  bottom: 1px;
-  right: 2px;
-  font-size: 20px;
+  top: 1px;
+  left: 2px;
+  font-size: 16px;
   line-height: 1;
   color: #c8a820;
   pointer-events: none;
