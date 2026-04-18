@@ -9,10 +9,9 @@
 <body>
   <div id="app" v-cloak>
 
-    <!-- 標題按鈕 -->
-    <div class="title-bar" @click="openOverlay">
+    <!-- 標題 -->
+    <div class="title-bar">
       <span class="title-main">多遊系課表</span>
-      <span class="title-mode" :class="`mode--${searchMode || 'click'}`">{{ modeName }}</span>
     </div>
 
     <div class="layout" :class="{'mode-inner': isInnerMode, 'mode-outer': isOuterMode}" @click="timeModeOn = false">
@@ -60,18 +59,20 @@
           }"
           @click="toggle(day, p.id)"
         >
+          <!-- 選修星星（右下角，可被內容擋住） -->
+          <span v-if="isActive(day, p.id) && searchMode && cellHasOptional(day, p.id)" class="cell-slot-star">★</span>
           <!-- 搜尋模式：顯示課程詳情 -->
           <div v-if="isActive(day, p.id) && searchMode" class="cell-detail">
             <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
             <span class="cell-detail-meta">
               <template v-if="searchMode === 'teacher'">
-                {{ getCellEntry(day, p.id)?.room }}・{{ shortClass(getCellEntry(day, p.id)?.class) }}
+                <span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>・<span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
               </template>
               <template v-else-if="searchMode === 'class'">
-                {{ getCellEntry(day, p.id)?.teacher }}・{{ getCellEntry(day, p.id)?.room }}
+                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span>・<span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>
               </template>
               <template v-else>
-                {{ getCellEntry(day, p.id)?.teacher }}・{{ shortClass(getCellEntry(day, p.id)?.class) }}
+                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span>・<span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
               </template>
             </span>
           </div>
@@ -115,6 +116,7 @@
       <button class="btn btn--toggle" @click="toggleAll">
         {{ hasAny ? '清空' : '全選' }}
       </button>
+      <span class="title-mode" :class="`mode--${searchMode || 'click'}`" @click="openOverlay">{{ modeName }}</span>
       <button class="btn btn--detail" @click="goDetail">詳細</button>
     </div>
 
@@ -159,6 +161,59 @@
             >{{ r }}</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 詳細蓋層 -->
+    <div class="overlay detail-overlay" v-if="detailOpen" @click="detailOpen=false">
+      <div class="detail-panel" @click.stop>
+
+        <div class="detail-header">
+          <div class="detail-header-left">
+            <span class="detail-title">詳細資料</span>
+            <span v-if="detailSearchLabel" class="detail-subtitle">{{ detailSearchLabel }}</span>
+          </div>
+          <button class="detail-close" @click="detailOpen=false">✕</button>
+        </div>
+
+        <!-- 小型預覽格 -->
+        <div class="detail-mini-wrap">
+          <div class="detail-mini-grid">
+            <div class="dmg-corner"></div>
+            <div v-for="day in days" :key="day" class="dmg-head">{{ day }}</div>
+            <template v-for="p in periods" :key="p.id">
+              <div class="dmg-period" :class="{'dmg-sep': p.id==='5' || p.id==='A'}">{{ p.label }}</div>
+              <div v-for="day in days" :key="day"
+                class="dmg-slot" :class="{
+                  'dmg-slot--active': detailMiniIsActive(day, p.id),
+                  'dmg-slot--highlight': detailMiniHighlight(day, p.id),
+                  'dmg-sep': p.id==='5' || p.id==='A'
+                }"></div>
+            </template>
+          </div>
+        </div>
+
+        <!-- 課程清單 -->
+        <div class="detail-list">
+          <div v-if="!detailCourseCards.length" class="detail-empty">選取時段無課程資料</div>
+          <div v-for="card in detailCourseCards"
+            :key="card.teacher+'|'+card.course+'|'+card.room+'|'+card.class"
+            class="detail-course-card"
+            :class="{'dcc--active': activeCard === card.teacher+'|'+card.course+'|'+card.room+'|'+card.class}"
+            @mouseenter="!isMobile && setActiveCard(card.teacher+'|'+card.course+'|'+card.room+'|'+card.class)"
+            @mouseleave="!isMobile && clearActiveCard()"
+            @click="isMobile && toggleActiveCard(card.teacher+'|'+card.course+'|'+card.room+'|'+card.class)"
+          >
+            <span class="dcc-slots">{{ card.slots.join(' ') }}</span>
+            <span class="dcc-course"><span v-if="card.optional" class="dcc-optional-star">★</span>{{ card.course }}</span>
+            <div class="dcc-info">
+              <span class="dcc-room">{{ card.room }}</span>
+              <span class="dcc-teacher">{{ card.teacher }}</span>
+              <span class="dcc-class">{{ shortClass(card.class) }}</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -218,6 +273,7 @@
         // 蓋層
         const overlayOpen = ref(false)
         const overlayTab = ref(2)
+        const detailOpen = ref(false)
 
         onMounted(async () => {
           try {
@@ -231,7 +287,10 @@
           } catch (e) {}
           window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })
           window.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && overlayOpen.value) overlayOpen.value = false
+            if (e.key === 'Escape') {
+              if (overlayOpen.value) overlayOpen.value = false
+              else if (detailOpen.value) detailOpen.value = false
+            }
           })
         })
 
@@ -240,7 +299,10 @@
 
         const outerActiveCells = computed(() => {
           const result = new Set()
-          selDays.forEach(day => selPeriods.forEach(period => result.add(`${day}_${period}`)))
+          if (!selDays.size && !selPeriods.size) return result
+          const daysToUse = selDays.size ? [...selDays] : days
+          const periodsToUse = selPeriods.size ? [...selPeriods] : periods.map(p => p.id)
+          daysToUse.forEach(day => periodsToUse.forEach(period => result.add(`${day}_${period}`)))
           return result
         })
 
@@ -363,7 +425,12 @@
         function isActive(day, period) {
           if (searchMode.value && searchValue.value) return searchActiveCells.value.has(key(day, period))
           if (isInnerMode.value) return active.has(key(day, period))
-          if (isOuterMode.value) return selDays.has(day) && selPeriods.has(period)
+          if (isOuterMode.value) {
+            if (!selDays.size && !selPeriods.size) return false
+            const dayMatch = !selDays.size || selDays.has(day)
+            const periodMatch = !selPeriods.size || selPeriods.has(period)
+            return dayMatch && periodMatch
+          }
           return false
         }
 
@@ -449,11 +516,81 @@
         }
 
         function goDetail() {
-          // 待實作
+          if (!hasAny.value) return
+          detailOpen.value = true
         }
+
+        function detailMiniIsActive(day, period) {
+          return detailActiveCells.value.has(`${day}_${period}`)
+        }
+
+        const activeCard = ref(null)
+
+        function setActiveCard(key) { activeCard.value = key }
+        function clearActiveCard() { activeCard.value = null }
+        function toggleActiveCard(key) { activeCard.value = activeCard.value === key ? null : key }
+
+        function detailMiniHighlight(day, period) {
+          if (!activeCard.value) return false
+          const card = detailCourseCards.value.find(c => (c.teacher+'|'+c.course+'|'+c.room+'|'+c.class) === activeCard.value)
+          return card ? card.rawSlots.has(`${day}_${period}`) : false
+        }
+
+        const DAY_ORDER    = ['一','二','三','四','五']
+        const PERIOD_ORDER = ['1','2','3','4','5','6','7','8','9','10','A','B','C','D']
+
+        const detailActiveCells = computed(() => {
+          if (searchMode.value && searchValue.value) return searchActiveCells.value
+          if (isInnerMode.value) return active
+          if (isOuterMode.value) return outerActiveCells.value
+          return new Set()
+        })
+
+        const detailSearchLabel = computed(() => {
+          if (searchMode.value === 'teacher') return `依老師：${searchValue.value}`
+          if (searchMode.value === 'class')   return `依班級：${shortClass(searchValue.value)}`
+          if (searchMode.value === 'room')    return `依教室：${searchValue.value}`
+          return null
+        })
+
+        const detailCourseCards = computed(() => {
+          const cells = detailActiveCells.value
+          if (!cells.size) return []
+          const cardMap = new Map()
+          cells.forEach(k => {
+            const [day, period] = k.split('_')
+            schedule.value
+              .filter(s => {
+                if (s.day !== day || s.period !== period) return false
+                if (searchMode.value && searchValue.value) return s[searchMode.value] === searchValue.value
+                return true
+              })
+              .forEach(s => {
+                const key = `${s.teacher}|${s.course}|${s.room}|${s.class}`
+                if (!cardMap.has(key)) {
+                  const sorted = schedule.value
+                    .filter(e => e.teacher === s.teacher && e.course === s.course && e.room === s.room && e.class === s.class)
+                    .sort((a, b) => {
+                      const di = DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day)
+                      return di !== 0 ? di : PERIOD_ORDER.indexOf(a.period) - PERIOD_ORDER.indexOf(b.period)
+                    })
+                  const rawSlots = new Set(sorted.map(e => `${e.day}_${e.period}`))
+                  const slots = sorted.map(e => `${e.day}${e.period.replace(/[0-9A-Z]/g, c => String.fromCharCode(c.charCodeAt(0) + (c <= '9' ? 0xFF10 - 0x30 : 0xFF21 - 0x41)))}`)
+                  cardMap.set(key, { teacher: s.teacher, course: s.course, room: s.room, class: s.class, optional: s.optional || false, slots, rawSlots })
+                }
+              })
+          })
+          return [...cardMap.values()]
+        })
 
         function cellHas(day, period, teacher) {
           return schedule.value.some(s => s.day === day && s.period === period && s.teacher === teacher)
+        }
+        function cellHasOptional(day, period) {
+          return schedule.value.some(s =>
+            s.day === day && s.period === period && s.optional &&
+            (!searchMode.value || !searchValue.value || s[searchMode.value] === searchValue.value)
+          )
         }
         function shortOf(teacher) {
           return teachersMap.value[teacher] || teacher[0]
@@ -492,11 +629,13 @@
           isInnerMode, isOuterMode, selDays, selPeriods,
           isActive, toggle, toggleDay, togglePeriod, toggleGroup, isGroupActive,
           batchTeachers, cellHas, shortOf, shortClass,
-          getCellEntry, searchMode, searchValue, modeName,
+          getCellEntry, searchMode, searchValue, modeName, cellHasOptional,
           hasAny, toggleAll, goDetail,
           abbrStyle, abbrInnerStyle,
           overlayOpen, overlayTab, openOverlay, selectMode1, selectSearch,
           periodTimes, timeModeOn,
+          detailOpen, detailSearchLabel, detailCourseCards, detailMiniIsActive, detailMiniHighlight,
+          activeCard, setActiveCard, clearActiveCard, toggleActiveCard,
         }
       }
     }).mount('#app')
