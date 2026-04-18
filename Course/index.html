@@ -66,13 +66,13 @@
             <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
             <span class="cell-detail-meta">
               <template v-if="searchMode === 'teacher'">
-                <span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>・<span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
+                <span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
               </template>
               <template v-else-if="searchMode === 'class'">
-                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span>・<span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>
+                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>
               </template>
               <template v-else>
-                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span>・<span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
+                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
               </template>
             </span>
           </div>
