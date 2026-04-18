@@ -563,7 +563,7 @@
               .filter(s => {
                 if (s.day !== day || s.period !== period) return false
                 if (searchMode.value && searchValue.value) return s[searchMode.value] === searchValue.value
-                return true
+                return listedTeachers.value.has(s.teacher)
               })
               .forEach(s => {
                 const key = `${s.teacher}|${s.course}|${s.room}|${s.class}`
