@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   --bg: #090912;
@@ -33,7 +33,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--body-pad);
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
 }
 
 /* 掃描線 */
@@ -74,7 +74,7 @@ body::before {
   font-size: 15px;
   font-weight: 600;
   color: #00e5ff;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   letter-spacing: 0.12em;
   text-align: center;
   text-transform: uppercase;
@@ -87,7 +87,7 @@ body::before {
   height: var(--btn-h);
   font-size: 15px;
   color: #4a9aa8;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   background: #0a0a18;
   border: 1px solid #1a2a35;
   border-radius: 3px;
@@ -161,7 +161,7 @@ body::before {
   justify-content: center;
   border-radius: 2px;
   font-size: 11px;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   user-select: none;
 }
 
@@ -368,7 +368,7 @@ body::before {
   color: #203040;
   font-size: 12px;
   font-weight: 600;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   cursor: pointer;
   user-select: none;
   transition: color 0.12s, border-color 0.12s, background 0.12s, box-shadow 0.12s;
@@ -409,7 +409,7 @@ body::before {
   border-radius: 3px;
   font-size: 16px;
   font-weight: 600;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   letter-spacing: 0.06em;
   cursor: pointer;
   user-select: none;
@@ -486,7 +486,7 @@ body::before {
   border-radius: 3px;
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   letter-spacing: 0.05em;
   cursor: pointer;
   border: 1px solid transparent;
@@ -565,7 +565,7 @@ body::before {
   grid-column: 1 / -1;
   font-size: 14px;
   color: #203040;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 6px 2px 2px;
@@ -577,7 +577,7 @@ body::before {
   min-height: 69px;
   border-radius: 3px;
   font-size: 20px;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   cursor: pointer;
   background: #0c0c1e;
   border: 1px solid #1a1a35;
@@ -614,7 +614,7 @@ body::before {
   height: 24px;
   font-size: 14px;
   font-weight: 700;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   color: #203040;
   background: #0c0c1e;
   border: 1px solid #1a1a35;
@@ -656,7 +656,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   user-select: none;
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
 }
@@ -750,7 +750,7 @@ body::before {
   border-radius: 2px;
   font-size: 12px;
   font-weight: 600;
-  font-family: 'Lucida Console', 'Chakra Petch', system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   letter-spacing: 0.04em;
   cursor: pointer;
   background: #0c0c1e;
