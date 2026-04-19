@@ -342,7 +342,7 @@ body::before {
   line-height: 1;
   text-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
 }
-.abbr-absent { color: rgba(0, 229, 255, 0.22); }
+.abbr-absent { color: rgba(0, 229, 255, 0.22); text-shadow: none; }
 
 /* 右側 早/午/晚 */
 .time-col {
