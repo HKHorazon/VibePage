@@ -193,6 +193,14 @@
           </div>
         </div>
 
+        <!-- 排序列 -->
+        <div class="detail-sort-bar">
+          <button v-for="s in sortOptions" :key="s.key"
+            class="sort-btn" :class="{'sort-btn--active': sortKey === s.key}"
+            @click.stop="toggleSort(s.key)"
+          >{{ s.label }}<span v-if="sortKey === s.key" class="sort-dir">{{ sortDir === 'asc' ? '↑' : '↓' }}</span></button>
+        </div>
+
         <!-- 課程清單 -->
         <div class="detail-list">
           <div v-if="!detailCourseCards.length" class="detail-empty">選取時段無課程資料</div>
@@ -206,11 +214,9 @@
           >
             <span class="dcc-slots">{{ card.slots.join(' ') }}</span>
             <span class="dcc-course"><span v-if="card.optional" class="dcc-optional-star">★</span>{{ card.course }}</span>
-            <div class="dcc-info">
-              <span class="dcc-room">{{ card.room }}</span>
-              <span class="dcc-teacher">{{ card.teacher }}</span>
-              <span class="dcc-class">{{ shortClass(card.class) }}</span>
-            </div>
+            <span class="dcc-class">{{ shortClass(card.class) }}</span>
+            <span class="dcc-room">{{ card.room }}</span>
+            <span class="dcc-teacher">{{ card.teacher }}</span>
           </div>
         </div>
 
@@ -524,6 +530,25 @@
           return detailActiveCells.value.has(`${day}_${period}`)
         }
 
+        const sortKey = ref(null)
+        const sortDir = ref('asc')
+        const sortOptions = [
+          { key: 'slots',   label: '時段' },
+          { key: 'course',  label: '課程' },
+          { key: 'class',   label: '班級' },
+          { key: 'room',    label: '教室' },
+          { key: 'teacher', label: '老師' },
+        ]
+        function toggleSort(key) {
+          if (sortKey.value === key) {
+            if (sortDir.value === 'asc') sortDir.value = 'desc'
+            else { sortKey.value = null; sortDir.value = 'asc' }
+          } else {
+            sortKey.value = key
+            sortDir.value = 'asc'
+          }
+        }
+
         const activeCard = ref(null)
 
         function setActiveCard(key) { activeCard.value = key }
@@ -580,7 +605,30 @@
                 }
               })
           })
-          return [...cardMap.values()]
+          const cards = [...cardMap.values()]
+          if (!sortKey.value) return cards
+          return cards.sort((a, b) => {
+            let va, vb
+            if (sortKey.value === 'slots') {
+              const firstIdx = card => {
+                let minIdx = Infinity
+                card.rawSlots.forEach(k => {
+                  const [d, p] = k.split('_')
+                  const idx = DAY_ORDER.indexOf(d) * 100 + PERIOD_ORDER.indexOf(p)
+                  if (idx < minIdx) minIdx = idx
+                })
+                return minIdx
+              }
+              va = firstIdx(a); vb = firstIdx(b)
+            } else if (sortKey.value === 'class') {
+              va = shortClass(a.class); vb = shortClass(b.class)
+            } else {
+              va = a[sortKey.value] || ''; vb = b[sortKey.value] || ''
+            }
+            if (va < vb) return sortDir.value === 'asc' ? -1 : 1
+            if (va > vb) return sortDir.value === 'asc' ? 1 : -1
+            return 0
+          })
         })
 
         function cellHas(day, period, teacher) {
@@ -636,6 +684,7 @@
           periodTimes, timeModeOn,
           detailOpen, detailSearchLabel, detailCourseCards, detailMiniIsActive, detailMiniHighlight,
           activeCard, setActiveCard, clearActiveCard, toggleActiveCard,
+          sortKey, sortDir, sortOptions, toggleSort,
         }
       }
     }).mount('#app')

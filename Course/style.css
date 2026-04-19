@@ -720,24 +720,64 @@ body::before {
   padding: 10px 16px 8px;
   border-bottom: 1px solid #111128;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
 }
 .detail-mini-grid {
   display: grid;
   grid-template-columns: 14px repeat(5, 1fr);
   gap: 2px;
+  width: 80%;
 }
 .dmg-corner  { height: 12px; }
-.dmg-head    { height: 12px; font-size: 9px; color: #203040; text-align: center; letter-spacing: 0.08em; }
-.dmg-period  { height: 9px; font-size: 8px; color: #182428; display: flex; align-items: center; justify-content: center; }
+.dmg-head    { height: 12px; font-size: 9px; color: #4db8cc; text-align: center; letter-spacing: 0.08em; }
+.dmg-period  { height: 9px; font-size: 8px; color: #3a9aaa; display: flex; align-items: center; justify-content: center; }
 .dmg-slot    { height: 9px; background: #111128; border-radius: 1px; }
 .dmg-slot--active    { background: #001820; border: 1px solid #004858; box-shadow: 0 0 4px rgba(0, 229, 255, 0.3); }
 .dmg-slot--highlight { outline: 2px solid #ffc107; outline-offset: -2px; }
 .dmg-sep     { margin-top: 3px; }
 
+.detail-sort-bar {
+  display: grid;
+  grid-template-columns: 4fr 8fr 3fr 3fr 3fr;
+  gap: 4px;
+  padding: 6px 22px 8px;
+  border-bottom: 1px solid #111128;
+  flex-shrink: 0;
+}
+.sort-btn {
+  height: 28px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  background: #0c0c1e;
+  border: 1px solid #1a1a35;
+  color: #304050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: color 0.12s, border-color 0.12s, background 0.12s, box-shadow 0.12s;
+  user-select: none;
+}
+.sort-btn:hover { color: #00e5ff; border-color: #006070; background: #001820; }
+.sort-btn--active {
+  color: #00e5ff;
+  border-color: #004858;
+  background: #001820;
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.1);
+}
+.sort-dir { font-size: 10px; opacity: 0.8; }
+
 .detail-list {
   flex: 1; overflow-y: auto;
   padding: 8px 12px 20px;
   display: flex; flex-direction: column; gap: 2px;
+  scrollbar-gutter: stable;
 }
 .detail-empty { font-size: 13px; color: #203040; text-align: center; padding: 28px 0; letter-spacing: 0.05em; }
 
@@ -745,12 +785,12 @@ body::before {
   background: #0d0d1e;
   border: 1px solid #1a1a35;
   border-radius: 2px;
-  padding: 8px 10px;
+  padding: 6px 10px;
   display: grid;
-  grid-template-columns: 3fr 4fr 3fr;
-  gap: 6px;
-  align-items: stretch;
-  min-height: 52px;
+  grid-template-columns: 4fr 8fr 3fr 3fr 3fr;
+  gap: 4px;
+  align-items: center;
+  min-height: 44px;
   transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
   cursor: default;
 }
@@ -767,44 +807,29 @@ body::before {
 .dcc--active .dcc-slots  { color: #a855f7; }
 
 .dcc-slots {
-  font-size: 12px; color: #304050; font-variant-numeric: tabular-nums;
-  line-height: 1.6; display: flex; align-items: center; word-break: break-all;
-  letter-spacing: 0.03em;
+  font-size: 13px; color: #73aae0; font-variant-numeric: tabular-nums;
+  line-height: 1.5; word-break: break-all; letter-spacing: 0.03em;
 }
 .dcc-course {
-  font-size: 13px; font-weight: 600; color: #c0d8e0;
+  font-size: 14px; font-weight: 600; color: #c0d8e0;
   line-height: 1.4; display: flex; align-items: center; gap: 4px;
+  overflow: hidden;
 }
 .dcc-optional-star {
-  font-size: 13px;
+  font-size: 12px;
   color: #ffc107;
   flex-shrink: 0;
   text-shadow: 0 0 6px rgba(255, 193, 7, 0.5);
 }
-.dcc-info {
-  display: grid;
-  grid-template-areas: "class teacher" "room room";
-  grid-template-columns: 1fr 1fr;
-  gap: 1px 4px;
-  align-self: center;
+.dcc-class {
+  font-size: 13px; color: #00c853;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .dcc-room {
-  grid-area: room;
-  font-size: 12px; color: #ff7043;
-  text-align: center;
+  font-size: 13px; color: #ff7043;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .dcc-teacher {
-  grid-area: teacher;
-  font-size: 12px; color: #00b4cc;
-  text-align: right;
+  font-size: 13px; color: #00b4cc;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  max-width: 4em;
-  justify-self: end;
-}
-.dcc-class {
-  grid-area: class;
-  font-size: 12px; color: #00c853;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  max-width: 4em;
 }
