@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horazon資料文庫</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="site-header">
+      <div class="container">
+        <span class="site-title">Horazon 資料文庫</span>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <p class="hero-eyebrow">Knowledge Base</p>
+        <h1 class="hero-title">文章目錄</h1>
+        <p class="hero-desc">選擇一篇文章開始閱讀</p>
+      </section>
+
+      <hr class="section-divider">
+
+      <section class="article-list">
+        <div v-if="loading" class="state-msg">載入中…</div>
+        <div v-else-if="error" class="state-msg">無法載入文章列表</div>
+        <template v-else>
+          <p class="article-count">共 {{ articles.length }} 篇文章</p>
+          <a
+            v-for="article in articles"
+            :key="article.file"
+            :href="article.file"
+            class="article-card"
+          >
+            <div class="article-card-title">{{ article.title }}</div>
+            <div class="article-card-meta">{{ article.date }}</div>
+            <div class="article-card-summary">{{ article.summary }}</div>
+          </a>
+        </template>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import { createApp, reactive, onMounted } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const state = reactive({
+          articles: [],
+          loading: true,
+          error: false,
+        })
+
+        onMounted(async () => {
+          try {
+            const res = await fetch('./Data/articles.json')
+            if (!res.ok) throw new Error()
+            state.articles = await res.json()
+          } catch {
+            state.error = true
+          } finally {
+            state.loading = false
+          }
+        })
+
+        return state
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
