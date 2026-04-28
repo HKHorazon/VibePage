@@ -286,6 +286,50 @@
           }
         }
 
+        function parseCSV(text) {
+          const rows = []
+          let row = [], field = '', inQuote = false
+          for (let i = 0; i < text.length; i++) {
+            const ch = text[i]
+            if (inQuote) {
+              if (ch === '"') { if (text[i+1] === '"') { field += '"'; i++ } else inQuote = false }
+              else field += ch
+            } else {
+              if (ch === '"') inQuote = true
+              else if (ch === ',') { row.push(field); field = '' }
+              else if (ch === '\n') { row.push(field); rows.push(row); row = []; field = '' }
+              else if (ch !== '\r') field += ch
+            }
+          }
+          if (field || row.length) { row.push(field); rows.push(row) }
+          return rows
+        }
+
+        async function loadFromSheet() {
+          const url = 'https://docs.google.com/spreadsheets/d/105Uf5rh8b6URZc1Ch4HQqKe4NUA7dYQ-FEvYk6eKZtM/gviz/tq?tqx=out:csv&gid=0'
+          try {
+            const res = await fetch(url)
+            if (!res.ok) return
+            const rows = parseCSV(await res.text())
+            if (rows.length < 2) return
+            const h = rows[0].map(s => s.trim().toLowerCase())
+            const idx = { name: h.indexOf('name'), stars: h.indexOf('stars'), url: h.indexOf('url'), desc: h.indexOf('desc'), tip: h.indexOf('tip') }
+            for (let r = 1; r < rows.length; r++) {
+              const row = rows[r]
+              const name = idx.name >= 0 ? row[idx.name]?.trim() : ''
+              if (!name) continue
+              const item = items.find(i => i.name === name)
+              if (!item) continue
+              if (idx.stars >= 0 && row[idx.stars]?.trim()) item.stars = parseInt(row[idx.stars]) || item.stars
+              if (idx.url   >= 0 && row[idx.url]?.trim())   item.url   = row[idx.url].trim()
+              if (idx.desc  >= 0 && row[idx.desc]?.trim())  item.desc  = row[idx.desc].trim()
+              if (idx.tip   >= 0 && row[idx.tip]?.trim())   item.tip   = row[idx.tip].trim()
+            }
+          } catch { /* 保留預設值 */ }
+        }
+
+        loadFromSheet()
+
         return { expanded, toggle, items, toggleItem }
       }
     }).mount('#app')
