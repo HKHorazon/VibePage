@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,9 @@
   <link rel="stylesheet" href="../framework/tailwind.min.css" />
   <link rel="stylesheet" href="./style.css" />
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'Microsoft JhengHei', sans-serif;">
+
+<body
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'Microsoft JhengHei', sans-serif;">
 
   <div id="app">
 
@@ -38,7 +41,7 @@
           <div class="teacher-profile">
 
             <div class="teacher-avatar">
-              <img src="./data/Avatar.jpg" alt="張仕明老師" width="104" height="104" loading="lazy" class="avatar-img">
+              <img src="./src/Avatar.jpg" alt="張仕明老師" width="104" height="104" loading="lazy" class="avatar-img">
             </div>
 
             <!-- 聯絡資訊 -->
@@ -57,11 +60,13 @@
                   <span class="contact-icon">🏢</span>
                   <span class="contact-val">研究室: MB10303 &bull; (分機 5420)</span>
                 </a>
-                <a href="https://line.me/ti/p/~horazon" target="_blank" rel="noopener" class="contact-row contact-link-row">
+                <a href="https://line.me/ti/p/~horazon" target="_blank" rel="noopener"
+                  class="contact-row contact-link-row">
                   <span class="contact-icon">💬</span>
                   <span class="contact-val">LINE: &nbsp;horazon</span>
                 </a>
-                <a href="https://discordapp.com/users/697434436945576006" target="_blank" rel="noopener" class="contact-row contact-link-row">
+                <a href="https://discordapp.com/users/697434436945576006" target="_blank" rel="noopener"
+                  class="contact-row contact-link-row">
                   <span class="contact-icon">🎮</span>
                   <span class="contact-val">Discord: &nbsp;chaos_horazon</span>
                 </a>
@@ -163,7 +168,8 @@
     </main>
 
     <footer class="site-footer">
-      <a href="https://ext.hk.edu.tw/%E5%BC%98%E6%84%9B%E7%AF%89%E5%A4%A2%E5%8A%A9%E5%AD%B8%E9%87%91/" target="_blank" rel="noopener" class="footer-link">
+      <a href="https://ext.hk.edu.tw/%E5%BC%98%E6%84%9B%E7%AF%89%E5%A4%A2%E5%8A%A9%E5%AD%B8%E9%87%91/" target="_blank"
+        rel="noopener" class="footer-link">
         弘光科技大學 弘愛築夢助學計畫
       </a>
       <p class="footer-contact">學務處課指組 H101 &bull; 04-26318652 ext. 1502</p>
@@ -292,7 +298,7 @@
           for (let i = 0; i < text.length; i++) {
             const ch = text[i]
             if (inQuote) {
-              if (ch === '"') { if (text[i+1] === '"') { field += '"'; i++ } else inQuote = false }
+              if (ch === '"') { if (text[i + 1] === '"') { field += '"'; i++ } else inQuote = false }
               else field += ch
             } else {
               if (ch === '"') inQuote = true
@@ -321,9 +327,9 @@
               const item = items.find(i => i.name === name)
               if (!item) continue
               if (idx.stars >= 0 && row[idx.stars]?.trim()) item.stars = parseInt(row[idx.stars]) || item.stars
-              if (idx.url   >= 0 && row[idx.url]?.trim())   item.url   = row[idx.url].trim()
-              if (idx.desc  >= 0 && row[idx.desc]?.trim())  item.desc  = row[idx.desc].trim()
-              if (idx.tip   >= 0 && row[idx.tip]?.trim())   item.tip   = row[idx.tip].trim()
+              if (idx.url >= 0 && row[idx.url]?.trim()) item.url = row[idx.url].trim()
+              if (idx.desc >= 0 && row[idx.desc]?.trim()) item.desc = row[idx.desc].trim()
+              if (idx.tip >= 0 && row[idx.tip]?.trim()) item.tip = row[idx.tip].trim()
             }
           } catch { /* 保留預設值 */ }
         }
@@ -335,4 +341,5 @@
     }).mount('#app')
   </script>
 </body>
+
 </html>
