@@ -4,5 +4,11 @@
     "file": "articles/webgame.html",
     "date": "2026-04-27",
     "summary": "了解 HTML、CSS、JavaScript 如何協同打造一款可在手機運行的網頁小遊戲。"
+  },
+  {
+    "title": "【自主學習小組報告】手機網頁動態互動專案開發實錄",
+    "file": "articles/article_work.html",
+    "date": "2026-05-06",
+    "summary": "紀錄小組學習手機網頁動態互動專案，透過 AI 輔助開發的完整八單元歷程。"
   }
 ]
