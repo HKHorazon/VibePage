@@ -291,6 +291,23 @@
             teachersMap.value = t
             teacherOrder.value = Object.keys(t)
           } catch (e) {}
+
+          // 自動高亮今天 + 目前節次
+          const now = new Date()
+          const todayDay = { 1:'一', 2:'二', 3:'三', 4:'四', 5:'五' }[now.getDay()]
+          if (todayDay) {
+            const hhmm = now.getHours() * 100 + now.getMinutes()
+            let currentPeriod = null
+            for (const [id, time] of Object.entries(periodTimes)) {
+              const [sh, sm] = time.start.split(':').map(Number)
+              const [eh, em] = time.end.split(':').map(Number)
+              if (hhmm >= sh * 100 + sm && hhmm <= eh * 100 + em) { currentPeriod = id; break }
+            }
+            mode.value = 'outer'
+            selDays.add(todayDay)
+            if (currentPeriod) selPeriods.add(currentPeriod)
+          }
+
           window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })
           window.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
