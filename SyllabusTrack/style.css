@@ -1,0 +1,21 @@
+:root {
+  --color-bg: #111827;
+  --color-surface: #1f2937;
+  --color-border: #374151;
+  --color-text: #f9fafb;
+  --color-muted: #9ca3af;
+  --color-blue: #3b82f6;
+  --color-green: #22c55e;
+  --color-gray-bar: #374151;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+[v-cloak] { display: none; }

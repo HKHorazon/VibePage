@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyllabusTrack</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <p>{{ activeCourse ? activeCourse.name : '尚無課程' }}</p>
+  </div>
+
+  <script type="module">
+    import { createApp, ref, reactive, computed, onMounted, nextTick, watch } from '../framework/vue.esm-browser.js'
+
+    function uuid() { return crypto.randomUUID() }
+    const STORAGE_KEY = 'syllabustrack_data'
+    const SNAPSHOT_PREFIX = 'syllabustrack_snapshot_'
+
+    function loadData() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { courses: [], activeCourseId: null } }
+      catch { return { courses: [], activeCourseId: null } }
+    }
+    function saveData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)) }
+    function loadSnapshot(courseId) {
+      try { return JSON.parse(localStorage.getItem(SNAPSHOT_PREFIX + courseId)) || {} }
+      catch { return {} }
+    }
+    function saveSnapshot(courseId, units) {
+      const snap = {}
+      units.forEach(u => { snap[u.id] = u.progress })
+      localStorage.setItem(SNAPSHOT_PREFIX + courseId, JSON.stringify(snap))
+    }
+    function calcWeekNumber(semesterStart, logLen) {
+      if (semesterStart) {
+        const diff = new Date() - new Date(semesterStart)
+        return Math.max(1, Math.floor(diff / (7 * 86400000)) + 1)
+      }
+      return logLen + 1
+    }
+    function formatDate(d) { return d.replace(/-/g, '/') }
+    function todayStr() { return new Date().toISOString().slice(0, 10) }
+
+    createApp({
+      setup() {
+        const data = reactive(loadData())
+
+        const activeCourse = computed(() =>
+          data.courses.find(c => c.id === data.activeCourseId) || null
+        )
+
+        function persist() { saveData(data) }
+
+        onMounted(() => {
+          if (!data.activeCourseId && data.courses.length) {
+            data.activeCourseId = data.courses[0].id
+          }
+        })
+
+        return { data, activeCourse, persist, uuid, loadSnapshot, saveSnapshot, calcWeekNumber, formatDate, todayStr }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
