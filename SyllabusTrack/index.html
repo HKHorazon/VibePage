@@ -77,9 +77,21 @@
     <main class="app-main">
       <div v-if="!activeCourse" class="empty-state">請先新增課程</div>
       <template v-else>
-        <!-- 一般模式（後續 Task 填入） -->
+        <!-- 一般模式 -->
         <div v-if="!editMode" class="unit-list">
-          <div class="empty-state">單元列表（Task 3）</div>
+          <div v-if="!activeCourse.units.length" class="empty-state">尚無單元，點右上角 ✏️ 新增</div>
+          <div v-for="unit in activeCourse.units" :key="unit.id" class="unit-row">
+            <span class="unit-name">{{ unit.name }}</span>
+            <div class="unit-bar">
+              <div
+                v-for="(_, i) in 4" :key="i"
+                class="unit-cell"
+                :class="'cell--' + cellColor(unit, i)"
+                @click="clickCell(unit, i)"
+              ></div>
+            </div>
+            <span class="unit-pct" :class="'pct--' + progressTextColor(unit)">{{ unit.progress }}%</span>
+          </div>
         </div>
         <!-- 編輯模式（後續 Task 填入） -->
         <div v-else class="unit-list">
@@ -180,6 +192,41 @@
         const editMode = ref(false)
         const logOpen = ref(false)
 
+        // 快照
+        const snapshot = computed(() => {
+          if (!activeCourse.value) return {}
+          return loadSnapshot(activeCourse.value.id)
+        })
+
+        // 某單元某格的顏色：'blue' | 'green' | 'gray'
+        function cellColor(unit, cellIndex) {
+          const cellProgress = (cellIndex + 1) * 25
+          const base = snapshot.value[unit.id] ?? 0
+          if (cellProgress <= base) return 'blue'
+          if (cellProgress <= unit.progress) return 'green'
+          return 'gray'
+        }
+
+        // 百分比文字顏色
+        function progressTextColor(unit) {
+          const base = snapshot.value[unit.id] ?? 0
+          if (unit.progress === 0) return 'gray'
+          if (unit.progress > base) return 'green'
+          return 'blue'
+        }
+
+        // 點擊進度格
+        function clickCell(unit, cellIndex) {
+          if (editMode.value) return
+          const target = (cellIndex + 1) * 25
+          if (unit.progress === target) {
+            unit.progress = Math.max(0, target - 25)
+          } else {
+            unit.progress = target
+          }
+          persist()
+        }
+
         onMounted(() => {
           if (!data.activeCourseId && data.courses.length) {
             data.activeCourseId = data.courses[0].id
@@ -192,7 +239,8 @@
           data, activeCourse, persist, formatDate,
           addCourse, renameCourse, deleteCourse, selectCourse,
           semesterStart, currentWeek,
-          isMobile, dropdownOpen, sidebarOpen, editMode, logOpen
+          isMobile, dropdownOpen, sidebarOpen, editMode, logOpen,
+          snapshot, cellColor, progressTextColor, clickCell
         }
       }
     }).mount('#app')
