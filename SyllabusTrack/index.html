@@ -427,6 +427,10 @@
           noteDialogOpen.value = false
         }
 
+        watch(activeCourse, c => {
+          document.title = c ? `${c.name} — SyllabusTrack` : 'SyllabusTrack'
+        }, { immediate: true })
+
         onMounted(() => {
           if (!data.activeCourseId && data.courses.length) {
             data.activeCourseId = data.courses[0].id
