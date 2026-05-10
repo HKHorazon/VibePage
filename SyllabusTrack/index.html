@@ -102,7 +102,7 @@
         <div class="bottom-bar" v-if="!editMode">
           <div v-if="noChangeMsg" class="no-change-msg">本週尚無進度變動</div>
           <button class="bottom-btn bottom-btn--primary" @click="openRecordWeek">記錄本週</button>
-          <button class="bottom-btn" @click="logOpen = true">週誌</button>
+          <button class="bottom-btn" @click="openLog">週誌</button>
         </div>
 
         <!-- 備註 dialog -->
@@ -113,6 +113,48 @@
             <div class="dialog-actions">
               <button class="dialog-btn" @click="noteDialogOpen = false">取消</button>
               <button class="dialog-btn dialog-btn--primary" @click="confirmRecordWeek">確認記錄</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 週誌 Overlay -->
+        <div v-if="logOpen" class="log-backdrop" @click="logOpen = false">
+          <div class="log-panel" @click.stop>
+            <!-- 標題 -->
+            <div class="log-header">
+              <span class="log-title">週誌 — {{ activeCourse.name }}</span>
+              <button class="log-close" @click="logOpen = false">✕</button>
+            </div>
+
+            <!-- 週次切換列 -->
+            <div class="log-week-nav" v-if="sortedLog.length">
+              <button class="log-nav-btn" @click="logPrev" :disabled="logIndex >= sortedLog.length - 1">←</button>
+              <span class="log-week-label">第 {{ currentLogEntry.week }} 週</span>
+              <button class="log-nav-btn" @click="logNext" :disabled="logIndex <= 0">→</button>
+            </div>
+
+            <!-- 內容 -->
+            <div class="log-body">
+              <div v-if="!sortedLog.length" class="empty-state">尚無週誌紀錄</div>
+              <template v-else-if="currentLogEntry">
+                <div class="log-meta">{{ formatDate(currentLogEntry.date) }}</div>
+                <div v-if="currentLogEntry.note" class="log-note">{{ currentLogEntry.note }}</div>
+                <div class="log-changes">
+                  <div v-for="ch in currentLogEntry.changes" :key="ch.unitId" class="log-change-row">
+                    <div class="log-change-header">
+                      <span class="log-change-name">{{ ch.unitName }}</span>
+                      <span class="log-change-pct">{{ ch.from }}% → {{ ch.to }}%</span>
+                    </div>
+                    <div class="log-change-bar">
+                      <div
+                        v-for="(_, i) in 4" :key="i"
+                        class="unit-cell log-cell"
+                        :class="'cell--' + logCellColor(ch, i)"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -265,6 +307,34 @@
           noteDialogOpen.value = true
         }
 
+        const logIndex = ref(0)
+
+        const sortedLog = computed(() => {
+          if (!activeCourse.value) return []
+          return [...activeCourse.value.weeklyLog].reverse()
+        })
+
+        const currentLogEntry = computed(() => sortedLog.value[logIndex.value] || null)
+
+        function openLog() {
+          logIndex.value = 0
+          logOpen.value = true
+        }
+
+        function logPrev() {
+          if (logIndex.value < sortedLog.value.length - 1) logIndex.value++
+        }
+        function logNext() {
+          if (logIndex.value > 0) logIndex.value--
+        }
+
+        function logCellColor(change, cellIndex) {
+          const cellProgress = (cellIndex + 1) * 25
+          if (cellProgress <= change.from) return 'blue'
+          if (cellProgress <= change.to) return 'green'
+          return 'gray'
+        }
+
         function confirmRecordWeek() {
           const course = activeCourse.value
           const snap = snapshot.value
@@ -299,7 +369,8 @@
           semesterStart, currentWeek,
           isMobile, dropdownOpen, sidebarOpen, editMode, logOpen,
           snapshot, cellColor, progressTextColor, clickCell,
-          noteDialogOpen, noteInput, noChangeMsg, openRecordWeek, confirmRecordWeek
+          noteDialogOpen, noteInput, noChangeMsg, openRecordWeek, confirmRecordWeek,
+          logIndex, sortedLog, currentLogEntry, openLog, logPrev, logNext, logCellColor
         }
       }
     }).mount('#app')
