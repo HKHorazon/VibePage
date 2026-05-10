@@ -389,6 +389,7 @@
         function deleteUnit(unit) {
           if (!confirm(`確定刪除「${unit.name}」？`)) return
           const idx = activeCourse.value.units.findIndex(u => u.id === unit.id)
+          if (idx === -1) return
           activeCourse.value.units.splice(idx, 1)
           persist()
         }
