@@ -9,7 +9,83 @@
 </head>
 <body>
   <div id="app" v-cloak>
-    <p>{{ activeCourse ? activeCourse.name : '尚無課程' }}</p>
+    <!-- 頂部導覽 -->
+    <header class="app-header">
+      <!-- 桌機：下拉選單 -->
+      <div class="course-dropdown-wrap" v-if="!isMobile">
+        <button class="course-dropdown-btn" @click.stop="dropdownOpen = !dropdownOpen">
+          {{ activeCourse ? activeCourse.name : '選擇課程' }} ▾
+        </button>
+        <div v-if="dropdownOpen" class="course-dropdown-menu" @click.stop>
+          <div
+            v-for="c in data.courses" :key="c.id"
+            class="course-dropdown-item"
+            :class="{ active: c.id === data.activeCourseId }"
+            @click="selectCourse(c.id); dropdownOpen = false"
+          >
+            <span>{{ c.name }}</span>
+            <span class="course-item-actions">
+              <button @click.stop="renameCourse(c)">✏️</button>
+              <button @click.stop="deleteCourse(c)">🗑️</button>
+            </span>
+          </div>
+          <div class="course-dropdown-add" @click="addCourse(); dropdownOpen = false">＋ 新增課程</div>
+          <div class="dropdown-semester" @click.stop>
+            <label>學期開始日</label>
+            <input type="date" v-model="semesterStart" class="semester-input">
+          </div>
+        </div>
+      </div>
+      <!-- 手機：漢堡 + 課程名稱 -->
+      <template v-else>
+        <button class="hamburger-btn" @click="sidebarOpen = true">☰</button>
+        <span class="mobile-course-name">{{ activeCourse ? activeCourse.name : '選擇課程' }}</span>
+      </template>
+      <!-- 週次標示 -->
+      <span v-if="currentWeek && activeCourse" class="week-badge">第 {{ currentWeek }} 週</span>
+      <!-- 編輯按鈕 -->
+      <button v-if="activeCourse && !editMode" class="edit-btn" @click="editMode = true">✏️</button>
+      <button v-if="editMode" class="edit-btn edit-btn--done" @click="editMode = false">完成編輯</button>
+    </header>
+
+    <!-- 手機側欄 -->
+    <div v-if="sidebarOpen" class="sidebar-backdrop" @click="sidebarOpen = false">
+      <div class="sidebar" @click.stop>
+        <div class="sidebar-title">課程列表</div>
+        <div
+          v-for="c in data.courses" :key="c.id"
+          class="sidebar-item"
+          :class="{ active: c.id === data.activeCourseId }"
+          @click="selectCourse(c.id); sidebarOpen = false"
+        >
+          <span>{{ c.name }}</span>
+          <span class="course-item-actions">
+            <button @click.stop="renameCourse(c)">✏️</button>
+            <button @click.stop="deleteCourse(c)">🗑️</button>
+          </span>
+        </div>
+        <div class="sidebar-add" @click="addCourse()">＋ 新增課程</div>
+        <div class="sidebar-semester">
+          <label>學期開始日</label>
+          <input type="date" v-model="semesterStart" class="semester-input">
+        </div>
+      </div>
+    </div>
+
+    <!-- 主體 -->
+    <main class="app-main">
+      <div v-if="!activeCourse" class="empty-state">請先新增課程</div>
+      <template v-else>
+        <!-- 一般模式（後續 Task 填入） -->
+        <div v-if="!editMode" class="unit-list">
+          <div class="empty-state">單元列表（Task 3）</div>
+        </div>
+        <!-- 編輯模式（後續 Task 填入） -->
+        <div v-else class="unit-list">
+          <div class="empty-state">編輯模式（Task 6）</div>
+        </div>
+      </template>
+    </main>
   </div>
 
   <script type="module">
@@ -53,13 +129,70 @@
 
         function persist() { saveData(data) }
 
+        // 課程管理
+        function addCourse() {
+          const name = prompt('課程名稱：')
+          if (!name || !name.trim()) return
+          const c = { id: uuid(), name: name.trim(), units: [], weeklyLog: [] }
+          data.courses.push(c)
+          data.activeCourseId = c.id
+          persist()
+        }
+
+        function renameCourse(course) {
+          const name = prompt('新課程名稱：', course.name)
+          if (!name || !name.trim()) return
+          course.name = name.trim()
+          persist()
+        }
+
+        function deleteCourse(course) {
+          if (!confirm(`確定刪除「${course.name}」及所有資料？`)) return
+          const idx = data.courses.findIndex(c => c.id === course.id)
+          data.courses.splice(idx, 1)
+          localStorage.removeItem(SNAPSHOT_PREFIX + course.id)
+          data.activeCourseId = data.courses.length ? data.courses[0].id : null
+          persist()
+        }
+
+        function selectCourse(id) {
+          data.activeCourseId = id
+          persist()
+        }
+
+        // 學期設定
+        if (!('semesterStart' in data)) data.semesterStart = ''
+        const semesterStart = computed({
+          get: () => data.semesterStart,
+          set: v => { data.semesterStart = v; persist() }
+        })
+
+        const currentWeek = computed(() => {
+          if (!activeCourse.value) return null
+          return calcWeekNumber(data.semesterStart, activeCourse.value.weeklyLog.length)
+        })
+
+        // UI 狀態
+        const isMobile = ref(window.innerWidth < 560)
+        const dropdownOpen = ref(false)
+        const sidebarOpen = ref(false)
+        const editMode = ref(false)
+        const logOpen = ref(false)
+
         onMounted(() => {
           if (!data.activeCourseId && data.courses.length) {
             data.activeCourseId = data.courses[0].id
           }
+          window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })
+          window.addEventListener('click', () => { dropdownOpen.value = false })
         })
 
-        return { data, activeCourse, persist, formatDate }
+        return {
+          data, activeCourse, persist, formatDate,
+          addCourse, renameCourse, deleteCourse, selectCourse,
+          semesterStart, currentWeek,
+          isMobile, dropdownOpen, sidebarOpen, editMode, logOpen
+        }
       }
     }).mount('#app')
   </script>
