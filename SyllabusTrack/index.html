@@ -249,6 +249,7 @@
         const noteDialogOpen = ref(false)
         const noteInput = ref('')
         const noChangeMsg = ref(false)
+        let noChangeMsgTimer = null
 
         function openRecordWeek() {
           if (!activeCourse.value) return
@@ -256,7 +257,8 @@
           const changed = activeCourse.value.units.some(u => u.progress !== (snap[u.id] ?? 0))
           if (!changed) {
             noChangeMsg.value = true
-            setTimeout(() => { noChangeMsg.value = false }, 2000)
+            clearTimeout(noChangeMsgTimer)
+            noChangeMsgTimer = setTimeout(() => { noChangeMsg.value = false }, 2000)
             return
           }
           noteInput.value = ''
