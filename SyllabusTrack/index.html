@@ -93,9 +93,32 @@
             <span class="unit-pct" :class="'pct--' + progressTextColor(unit)">{{ unit.progress }}%</span>
           </div>
         </div>
-        <!-- 編輯模式（後續 Task 填入） -->
+        <!-- 編輯模式 -->
         <div v-else class="unit-list">
-          <div class="empty-state">編輯模式（Task 6）</div>
+          <div
+            v-for="(unit, idx) in activeCourse.units"
+            :key="unit.id"
+            class="unit-row unit-row--edit"
+            draggable="true"
+            @dragstart="onDragStart(idx)"
+            @dragover="onDragOver($event, idx)"
+            @dragend="onDragEnd"
+          >
+            <span class="drag-handle">☰</span>
+            <template v-if="editingUnitId === unit.id">
+              <input
+                class="unit-name-input"
+                v-model="editingUnitName"
+                @blur="commitRename(unit)"
+                @keyup.enter="commitRename(unit)"
+                @keyup.escape="editingUnitId = null"
+                autofocus
+              >
+            </template>
+            <span v-else class="unit-name unit-name--edit" @click="startRename(unit)">{{ unit.name }}</span>
+            <button class="unit-delete-btn" @click="deleteUnit(unit)">✕</button>
+          </div>
+          <button class="add-unit-btn" @click="addUnit">＋ 新增單元</button>
         </div>
 
         <!-- 底部按鈕 -->
@@ -335,6 +358,54 @@
           return 'gray'
         }
 
+        const editingUnitId = ref(null)
+        const editingUnitName = ref('')
+        let dragSrcIndex = null
+
+        function addUnit() {
+          if (!activeCourse.value) return
+          const u = { id: uuid(), name: '新單元', progress: 0 }
+          activeCourse.value.units.push(u)
+          persist()
+          nextTick(() => {
+            editingUnitId.value = u.id
+            editingUnitName.value = u.name
+          })
+        }
+
+        function startRename(unit) {
+          editingUnitId.value = unit.id
+          editingUnitName.value = unit.name
+        }
+
+        function commitRename(unit) {
+          if (editingUnitName.value.trim()) {
+            unit.name = editingUnitName.value.trim()
+            persist()
+          }
+          editingUnitId.value = null
+        }
+
+        function deleteUnit(unit) {
+          if (!confirm(`確定刪除「${unit.name}」？`)) return
+          const idx = activeCourse.value.units.findIndex(u => u.id === unit.id)
+          activeCourse.value.units.splice(idx, 1)
+          persist()
+        }
+
+        function onDragStart(index) { dragSrcIndex = index }
+
+        function onDragOver(e, index) {
+          e.preventDefault()
+          if (dragSrcIndex === null || dragSrcIndex === index) return
+          const units = activeCourse.value.units
+          const moved = units.splice(dragSrcIndex, 1)[0]
+          units.splice(index, 0, moved)
+          dragSrcIndex = index
+        }
+
+        function onDragEnd() { dragSrcIndex = null; persist() }
+
         function confirmRecordWeek() {
           const course = activeCourse.value
           const snap = snapshot.value
@@ -370,7 +441,9 @@
           isMobile, dropdownOpen, sidebarOpen, editMode, logOpen,
           snapshot, cellColor, progressTextColor, clickCell,
           noteDialogOpen, noteInput, noChangeMsg, openRecordWeek, confirmRecordWeek,
-          logIndex, sortedLog, currentLogEntry, openLog, logPrev, logNext, logCellColor
+          logIndex, sortedLog, currentLogEntry, openLog, logPrev, logNext, logCellColor,
+          editingUnitId, editingUnitName, addUnit, startRename, commitRename, deleteUnit,
+          onDragStart, onDragOver, onDragEnd
         }
       }
     }).mount('#app')
