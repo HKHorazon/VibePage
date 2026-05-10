@@ -41,6 +41,7 @@
         <button class="hamburger-btn" @click="sidebarOpen = true">☰</button>
         <span class="mobile-course-name">{{ activeCourse ? activeCourse.name : '選擇課程' }}</span>
       </template>
+      <div class="header-spacer"></div>
       <!-- 週次標示 -->
       <span v-if="currentWeek && activeCourse" class="week-badge">第 {{ currentWeek }} 週</span>
       <!-- 編輯按鈕 -->
@@ -64,7 +65,7 @@
             <button @click.stop="deleteCourse(c)">🗑️</button>
           </span>
         </div>
-        <div class="sidebar-add" @click="addCourse()">＋ 新增課程</div>
+        <div class="sidebar-add" @click="addCourse(); sidebarOpen = false">＋ 新增課程</div>
         <div class="sidebar-semester">
           <label>學期開始日</label>
           <input type="date" v-model="semesterStart" class="semester-input">
