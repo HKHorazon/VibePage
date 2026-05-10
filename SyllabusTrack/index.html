@@ -97,6 +97,25 @@
         <div v-else class="unit-list">
           <div class="empty-state">編輯模式（Task 6）</div>
         </div>
+
+        <!-- 底部按鈕 -->
+        <div class="bottom-bar" v-if="!editMode">
+          <div v-if="noChangeMsg" class="no-change-msg">本週尚無進度變動</div>
+          <button class="bottom-btn bottom-btn--primary" @click="openRecordWeek">記錄本週</button>
+          <button class="bottom-btn" @click="logOpen = true">週誌</button>
+        </div>
+
+        <!-- 備註 dialog -->
+        <div v-if="noteDialogOpen" class="dialog-backdrop" @click="noteDialogOpen = false">
+          <div class="dialog-box" @click.stop>
+            <div class="dialog-title">本週備註（可留空）</div>
+            <textarea v-model="noteInput" class="dialog-textarea" placeholder="例：今天上完 Ch2，學生反應良好" rows="3"></textarea>
+            <div class="dialog-actions">
+              <button class="dialog-btn" @click="noteDialogOpen = false">取消</button>
+              <button class="dialog-btn dialog-btn--primary" @click="confirmRecordWeek">確認記錄</button>
+            </div>
+          </div>
+        </div>
       </template>
     </main>
   </div>
@@ -227,6 +246,43 @@
           persist()
         }
 
+        const noteDialogOpen = ref(false)
+        const noteInput = ref('')
+        const noChangeMsg = ref(false)
+
+        function openRecordWeek() {
+          if (!activeCourse.value) return
+          const snap = snapshot.value
+          const changed = activeCourse.value.units.some(u => u.progress !== (snap[u.id] ?? 0))
+          if (!changed) {
+            noChangeMsg.value = true
+            setTimeout(() => { noChangeMsg.value = false }, 2000)
+            return
+          }
+          noteInput.value = ''
+          noteDialogOpen.value = true
+        }
+
+        function confirmRecordWeek() {
+          const course = activeCourse.value
+          const snap = snapshot.value
+          const changes = course.units
+            .filter(u => u.progress !== (snap[u.id] ?? 0))
+            .map(u => ({ unitId: u.id, unitName: u.name, from: snap[u.id] ?? 0, to: u.progress }))
+
+          const entry = {
+            id: uuid(),
+            week: calcWeekNumber(data.semesterStart, course.weeklyLog.length),
+            date: todayStr(),
+            note: noteInput.value.trim(),
+            changes
+          }
+          course.weeklyLog.push(entry)
+          saveSnapshot(course.id, course.units)
+          persist()
+          noteDialogOpen.value = false
+        }
+
         onMounted(() => {
           if (!data.activeCourseId && data.courses.length) {
             data.activeCourseId = data.courses[0].id
@@ -240,7 +296,8 @@
           addCourse, renameCourse, deleteCourse, selectCourse,
           semesterStart, currentWeek,
           isMobile, dropdownOpen, sidebarOpen, editMode, logOpen,
-          snapshot, cellColor, progressTextColor, clickCell
+          snapshot, cellColor, progressTextColor, clickCell,
+          noteDialogOpen, noteInput, noChangeMsg, openRecordWeek, confirmRecordWeek
         }
       }
     }).mount('#app')
