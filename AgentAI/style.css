@@ -222,12 +222,14 @@ body {
 }
 
 .article-body h2 {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--accent-text);
   margin: 32px 0 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  background: var(--accent-dim);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 .article-body h2:first-child { margin-top: 0; }
 

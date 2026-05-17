@@ -8,7 +8,8 @@
       "Bash(mv prompt-design.html 02-prompt-design.html)",
       "Bash(mv antigravity-setup.html 03-antigravity-setup.html)",
       "Bash(mv hands-on-filing.html 04-hands-on-filing.html)",
-      "Bash(mv plan-model.html 05-plan-model.html)"
+      "Bash(mv plan-model.html 05-plan-model.html)",
+      "Bash(Test-Path \"d:\\\\Projects_Others\\\\VibePage\\\\AgentAI\\\\src\\\\articles\\\\04-hands-on-filing.html\")"
     ]
   }
 }

@@ -1,2 +1,47 @@
-<h2>Antigravity 安裝與使用</h2>
-<p>（內容待補）</p>
+<h2>前言</h2>
+
+<p>Antigravity 是 Google 推出的 Agent AI 開發工具。它的介面和你可能聽過的 VS Code（一款廣泛使用的程式編輯器）長得幾乎一模一樣——但它不只是編輯器，而是一個以 AI 代理為核心的操作平台：你說目標，AI 自己規劃步驟、執行任務、甚至修正錯誤。</p>
+
+<p>簡單說：VS Code 是「你寫程式的地方」，Antigravity 是「你下指令、AI 幫你寫程式的地方」。</p>
+
+<br>
+
+<h2>下載與安裝</h2>
+
+<p>前往官網 <a href="https://antigravity.google/" target="_blank">antigravity.google</a>，下載對應你電腦系統的安裝檔（Windows / Mac / Linux），執行後照步驟安裝即可。安裝完成後，用 Google 帳號登入。</p>
+<p>費用方面：有免費公測額度，超出後需使用 Google AI Credits 購買點數。如果你已有 Google One 或 Gemini Advanced 訂閱，部分額度會直接整合進去。</p>
+<p>Antigraviy 有兩個介面，正上方的Open Agent Manager / Open Editor 可開啟另一個介面。</p>
+
+<br>
+
+<h2>介面一：Editor（編輯器）</h2>
+
+<p>打開 Antigravity 後，你看到的主畫面就是 Editor。外觀和 VS Code 幾乎相同——左側是檔案列表，中間是主要工作區，右側可以開側邊欄。</p>
+<p>和 VS Code 不同的地方在於，這裡有一個對話輸入框，你可以直接用自然語言告訴 AI 你想做什麼，例如：「幫我建一個可以記錄待辦事項的網頁」。AI 會自己在工作區裡建立檔案、寫程式碼、完成任務。</p>
+<p>你不需要懂程式語言，只需要說清楚你想要的結果。</p>
+<img src="./src/image/03_editor.png" alt="Antigravity Editor 介面" style="max-width:100%;border-radius:8px;margin:12px 0;">
+
+<br>
+
+<h2>介面二：Agent Manager（代理人控制台）</h2>
+
+<p>Agent Manager 是 Antigravity 的第二個核心介面，專門用來監控 AI 正在執行的工作。</p>
+<p>當你下達一個比較複雜的任務，AI 可能會同時處理多個步驟：建立資料庫、寫後端邏輯、產生前端畫面……Agent Manager 讓你能看到每個步驟的執行狀態、查看 AI 的執行計畫，也可以在中途暫停或調整方向。</p>
+<p>你可以把它想成「任務追蹤面板」——不用去盯著程式碼，只需要看進度、確認結果。</p>
+<img src="./src/image/03_agentMaster.png" alt="Antigravity Agent Manager 介面" style="max-width:100%;border-radius:8px;margin:12px 0;">
+
+<br>
+
+<h2>和 Claude Code 的差異</h2>
+
+<p>我比較喜歡Claude Code，但本教學使用的Antigravity定位相似，都是 Agent AI 開發工具。主要差異在於：</p>
+<table>
+  <thead><tr><th></th><th>Antigravity</th><th>Claude Code</th></tr></thead>
+  <tbody>
+    <tr><td>介面</td><td>圖形介面（類 VS Code）</td><td>終端機指令列</td></tr>
+    <tr><td>上手門檻</td><td>較低，視覺化操作</td><td>較高，需熟悉終端機</td></tr>
+    <tr><td>背後模型</td><td>主要使用 Gemini 3</td><td>使用 Claude 系列模型</td></tr>
+    <tr><td>適合對象</td><td>有 Google 訂閱的使用者</td><td>習慣指令列的使用者</td></tr>
+  </tbody>
+</table>
+<p>如果你已經有 Google 訂閱、或是比較習慣圖形介面，Antigravity 是很合理的起點。</p>
