@@ -36,6 +36,7 @@ VibeWeb 是一個**純靜態網頁專案集**，不使用任何建置工具、�
 - 簡單內容直接硬編碼在 `index.html` 的 Vue `setup()` 函式內的 `reactive()` 物件
 - 較複雜或獨立的資料會放在子專案的 `res/` 資料夾，以 JSON 或 XML 等格式儲存，並由前端非同步載入
 - `Data/*.md` 檔案是**內容規劃文件**，供開發參考，不由網頁程式讀取
+- **Google Sheets 作為資料來源**：將試算表發布為 CSV（檔案 → 共用 → 發布到網路 → CSV），以 `fetch` 讀取公開 CSV URL，再用 `Papa.parse` 或手動 split 解析；適合需要非工程師維護資料的場景。URL 格式：`https://docs.google.com/spreadsheets/d/<SHEET_ID>/export?format=csv&gid=<GID>`
 
 ### 響應式版面
 - 手機：1 欄（< 560px）

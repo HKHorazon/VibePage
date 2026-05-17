@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "01-intro",
+    "title": "什麼是 Agent AI？",
+    "desc": "概念與基本架構介紹"
+  },
+  {
+    "slug": "02-prompt-design",
+    "title": "各家 AI 公司的產品布局",
+    "desc": "主要 AI 公司在三個層級的產品對照"
+  },
+  {
+    "slug": "03-antigravity-setup",
+    "title": "Antigravity 安裝與使用",
+    "desc": "從零開始設定 Google Antigravity Agent"
+  },
+  {
+    "slug": "04-hands-on-filing",
+    "title": "牛刀小試：檔案管理",
+    "desc": "讓 Agent 幫你自動整理與分類檔案"
+  },
+  {
+    "slug": "05-plan-model",
+    "title": "計畫模式與模型選擇",
+    "desc": ""
+  },
+  {
+    "slug": "06-why-md-python",
+    "title": "為什麼是 Markdown 和 Python？",
+    "desc": "Agent AI 最常用的兩種語言格式，原因與用途"
+  },
+  {
+    "slug": "07-hands-on-edit",
+    "title": "牛刀小試：改變文件",
+    "desc": "讓 Agent 批次修改文件內容"
+  },
+  {
+    "slug": "08-what-is-skill",
+    "title": "什麼是 Skill？為什麼需要？",
+    "desc": "擴充 Agent 能力的方式與使用時機"
+  },
+  {
+    "slug": "09-what-is-mcp",
+    "title": "什麼是 MCP？為什麼需要？",
+    "desc": "讓 Agent 連接外部工具與服務的標準協定"
+  },
+  {
+    "slug": "about",
+    "title": "關於作者",
+    "desc": ""
+  }
+]

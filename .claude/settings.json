@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8083/)",
-      "Edit(/.claude/skills/course-parse-pdf/**)"
+      "Edit(/.claude/skills/course-parse-pdf/**)",
+      "Edit(/.claude/skills/vibe-page/**)",
+      "Bash(mv intro.html 01-intro.html)",
+      "Bash(mv prompt-design.html 02-prompt-design.html)",
+      "Bash(mv antigravity-setup.html 03-antigravity-setup.html)",
+      "Bash(mv hands-on-filing.html 04-hands-on-filing.html)",
+      "Bash(mv plan-model.html 05-plan-model.html)"
     ]
   }
 }

@@ -292,20 +292,46 @@
             teacherOrder.value = Object.keys(t)
           } catch (e) {}
 
-          // 自動高亮今天 + 目前節次
+          // 自動高亮今天 + 目前節次（或下一節 / 下一日全天）
           const now = new Date()
-          const todayDay = { 1:'一', 2:'二', 3:'三', 4:'四', 5:'五' }[now.getDay()]
+          const dayNum = now.getDay()
+          const dayMap = { 1:'一', 2:'二', 3:'三', 4:'四', 5:'五' }
+          const todayDay = dayMap[dayNum]
+          const hhmm = now.getHours() * 100 + now.getMinutes()
+          const periodOrder = ['1','2','3','4','5','6','7','8','9','10','A','B','C','D']
+
+          let currentPeriod = null
           if (todayDay) {
-            const hhmm = now.getHours() * 100 + now.getMinutes()
-            let currentPeriod = null
             for (const [id, time] of Object.entries(periodTimes)) {
               const [sh, sm] = time.start.split(':').map(Number)
               const [eh, em] = time.end.split(':').map(Number)
               if (hhmm >= sh * 100 + sm && hhmm <= eh * 100 + em) { currentPeriod = id; break }
             }
-            mode.value = 'outer'
+          }
+
+          mode.value = 'outer'
+
+          const selectNextWeekday = () => {
+            const nextNum = (dayNum === 5 || dayNum === 6 || dayNum === 0) ? 1 : dayNum + 1
+            selDays.add(dayMap[nextNum])
+          }
+
+          if (todayDay && currentPeriod) {
             selDays.add(todayDay)
-            if (currentPeriod) selPeriods.add(currentPeriod)
+            selPeriods.add(currentPeriod)
+          } else if (todayDay) {
+            const nextPeriod = periodOrder.find(id => {
+              const [sh, sm] = periodTimes[id].start.split(':').map(Number)
+              return sh * 100 + sm > hhmm
+            })
+            if (nextPeriod) {
+              selDays.add(todayDay)
+              selPeriods.add(nextPeriod)
+            } else {
+              selectNextWeekday()
+            }
+          } else {
+            selectNextWeekday()
           }
 
           window.addEventListener('resize', () => { isMobile.value = window.innerWidth < 560 })

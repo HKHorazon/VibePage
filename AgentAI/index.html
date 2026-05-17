@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent AI 教學</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" v-cloak>
+
+    <!-- Header -->
+    <header class="app-header">
+      <span class="header-logo">Agent<span>AI</span></span>
+      <div class="header-divider" v-if="currentArticle"></div>
+      <span class="header-article-title" v-if="currentArticle">{{ currentArticle.title }}</span>
+      <button class="hamburger" @click.stop="drawerOpen = !drawerOpen" aria-label="選單">☰</button>
+    </header>
+
+    <!-- Mobile backdrop -->
+    <div class="drawer-backdrop" :class="{ open: drawerOpen }" @click="drawerOpen = false"></div>
+
+    <div class="app-layout">
+
+      <!-- Sidebar -->
+      <nav class="sidebar" :class="{ open: drawerOpen }" @click.stop>
+        <div class="sidebar-section-label">文章目錄</div>
+        <div
+          v-for="(article, index) in mainArticles"
+          :key="article.slug"
+          class="nav-item"
+          :class="{ active: currentSlug === article.slug }"
+          @click="selectArticle(article.slug)"
+        >
+          <span class="nav-title"><span class="nav-num">{{ index + 1 }}.</span> {{ article.title }}</span>
+        </div>
+        <div class="sidebar-footer">
+          <div
+            class="nav-item nav-item--about"
+            :class="{ active: currentSlug === 'about' }"
+            @click="selectArticle('about')"
+          >
+            <span class="nav-title">關於作者</span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <main class="content-area">
+        <div v-if="loading" class="loading-state">載入中…</div>
+
+        <template v-else-if="currentArticle">
+          <div class="article-meta">
+            <h1 class="article-title">{{ currentArticle.title }}</h1>
+            <p class="article-desc">{{ currentArticle.desc }}</p>
+          </div>
+          <div class="article-body" v-html="articleHtml"></div>
+        </template>
+      </main>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import { createApp, ref, computed, onMounted } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const articles = ref([])
+        const currentSlug = ref(null)
+        const articleHtml = ref('')
+        const loading = ref(false)
+        const drawerOpen = ref(false)
+
+        const mainArticles = computed(() =>
+          articles.value.filter(a => a.slug !== 'about')
+        )
+
+        const currentArticle = computed(() =>
+          articles.value.find(a => a.slug === currentSlug.value) || null
+        )
+
+        async function selectArticle(slug) {
+          if (currentSlug.value === slug) { drawerOpen.value = false; return }
+          loading.value = true
+          drawerOpen.value = false
+          currentSlug.value = slug
+          try {
+            const res = await fetch(`./src/articles/${slug}.html`)
+            articleHtml.value = await res.text()
+          } catch(e) {
+            articleHtml.value = '<p>文章載入失敗，請確認檔案是否存在。</p>'
+          } finally {
+            loading.value = false
+          }
+        }
+
+        onMounted(async () => {
+          try {
+            const res = await fetch('./src/articles.json')
+            articles.value = await res.json()
+            if (articles.value.length) selectArticle(articles.value[0].slug)
+          } catch(e) {}
+        })
+
+        return {
+          articles, mainArticles, currentSlug, currentArticle,
+          articleHtml, loading, drawerOpen,
+          selectArticle,
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
