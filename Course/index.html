@@ -52,17 +52,22 @@
           :key="day"
           class="cell cell--slot"
           :class="{
-            'cell--active': isActive(day, p.id),
+            'cell--active': !isFreeMode && isActive(day, p.id),
             'cell--night-start': p.id === 'A',
             'cell--lunch-start': p.id === '5',
-            'cell--search': searchMode && isActive(day, p.id)
+            'cell--search': !isFreeMode && searchMode && isActive(day, p.id),
+            'free-cell--yellow': isFreeMode && (freeCells[`${day}_${p.id}`] ?? 0) === 1,
+            'free-cell--red':    isFreeMode && (freeCells[`${day}_${p.id}`] ?? 0) === 2,
           }"
-          @click="toggle(day, p.id)"
+          @click="isFreeMode ? toggleFreeCell(day, p.id) : toggle(day, p.id)"
         >
-          <!-- 選修星星（右下角，可被內容擋住） -->
-          <span v-if="isActive(day, p.id) && searchMode && cellHasOptional(day, p.id)" class="cell-slot-star">★</span>
+          <!-- 個人空閒模式 -->
+          <template v-if="isFreeMode">
+            <span v-if="isFreeTeacherSlot(day, p.id)" class="free-label">上課</span>
+          </template>
+          <span v-else-if="isActive(day, p.id) && searchMode && cellHasOptional(day, p.id)" class="cell-slot-star">★</span>
           <!-- 搜尋模式：顯示課程詳情 -->
-          <div v-if="isActive(day, p.id) && searchMode" class="cell-detail">
+          <div v-else-if="isActive(day, p.id) && searchMode" class="cell-detail">
             <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
             <span class="cell-detail-meta">
               <template v-if="searchMode === 'teacher'">
@@ -116,7 +121,7 @@
       <button class="btn btn--toggle" @click="toggleAll">
         {{ hasAny ? '清空' : '全選' }}
       </button>
-      <span class="title-mode" :class="`mode--${searchMode || 'click'}`" @click="openOverlay">{{ modeName }}</span>
+      <span class="title-mode" :class="isFreeMode ? 'mode--free' : `mode--${searchMode || 'click'}`" @click="openOverlay">{{ modeName }}</span>
       <button class="btn btn--detail" @click="goDetail">詳細</button>
     </div>
 
@@ -128,8 +133,18 @@
           <button class="tab-btn" :class="{active: overlayTab===2}" @click="overlayTab=2">依老師</button>
           <button class="tab-btn" :class="{active: overlayTab===3}" @click="overlayTab=3">依班級</button>
           <button class="tab-btn" :class="{active: overlayTab===4}" @click="overlayTab=4">依教室</button>
+          <button class="tab-btn tab-btn--free" :class="{active: overlayTab===5}" @click="overlayTab=5">個人空閒</button>
         </div>
         <div class="overlay-content">
+          <!-- 個人空閒：選老師 -->
+          <div v-if="overlayTab===5" class="search-list">
+            <button
+              v-for="t in teacherOrder" :key="t"
+              class="search-item"
+              :class="{active: freeTeacher===t}"
+              @click="selectFreeMode(t)"
+            >{{ t }}</button>
+          </div>
           <!-- 依老師 -->
           <div v-if="overlayTab===2" class="search-list">
             <button
@@ -275,6 +290,11 @@
         // 搜尋模式：null | 'teacher' | 'class' | 'room'
         const searchMode = ref(null)
         const searchValue = ref('')
+
+        // 個人空閒模式
+        const freeTeacher = ref('')
+        const freeCells = ref({}) // key → 0(無)|1(黃)|2(紅)
+        const isFreeMode = computed(() => !!freeTeacher.value)
 
         // 蓋層
         const overlayOpen = ref(false)
@@ -423,6 +443,7 @@
         }
 
         const modeName = computed(() => {
+          if (isFreeMode.value) return `個人空閒－${freeTeacher.value}`
           if (searchMode.value === 'teacher' && searchValue.value) return `老師模式－${searchValue.value}`
           if (searchMode.value === 'class' && searchValue.value) return `班級模式－${shortClass(searchValue.value)}`
           if (searchMode.value === 'room' && searchValue.value) return `教室模式－${searchValue.value}`
@@ -542,6 +563,7 @@
         }
 
         const hasAny = computed(() => {
+          if (isFreeMode.value) return true
           if (searchMode.value && searchValue.value) return true
           if (isInnerMode.value) return active.size > 0
           if (isOuterMode.value) return selDays.size > 0 || selPeriods.size > 0
@@ -554,6 +576,7 @@
             selDays.clear()
             selPeriods.clear()
             clearSearch()
+            clearFreeMode()
             mode.value = null
           } else {
             active.clear()
@@ -687,13 +710,52 @@
           return teachersMap.value[teacher] || teacher[0]
         }
 
+        // 個人空閒模式
+        function isFreeTeacherSlot(day, period) {
+          if (!freeTeacher.value) return false
+          return schedule.value.some(s => s.day === day && s.period === period && s.teacher === freeTeacher.value)
+        }
+
+        function freeCellClass(day, period) {
+          const v = freeCells.value[`${day}_${period}`] ?? 0
+          return { 'free-cell--yellow': v === 1, 'free-cell--red': v === 2 }
+        }
+
+        function toggleFreeCell(day, period) {
+          if (!isFreeMode.value) return
+          const k = `${day}_${period}`
+          const cur = freeCells.value[k] ?? 0
+          freeCells.value = { ...freeCells.value, [k]: (cur + 1) % 3 }
+        }
+
+        function selectFreeMode(teacher) {
+          active.clear()
+          selDays.clear()
+          selPeriods.clear()
+          clearSearch()
+          mode.value = null
+          freeTeacher.value = teacher
+          const init = {}
+          schedule.value
+            .filter(s => s.teacher === teacher)
+            .forEach(s => { init[`${s.day}_${s.period}`] = 2 })
+          freeCells.value = init
+          overlayOpen.value = false
+        }
+
         // 蓋層操作
         function openOverlay() {
-          if (searchMode.value === 'teacher') overlayTab.value = 2
+          if (isFreeMode.value) overlayTab.value = 5
+          else if (searchMode.value === 'teacher') overlayTab.value = 2
           else if (searchMode.value === 'class') overlayTab.value = 3
           else if (searchMode.value === 'room') overlayTab.value = 4
           else overlayTab.value = 1
           overlayOpen.value = true
+        }
+
+        function clearFreeMode() {
+          freeTeacher.value = ''
+          freeCells.value = {}
         }
 
         function selectMode1() {
@@ -701,6 +763,7 @@
           selDays.clear()
           selPeriods.clear()
           clearSearch()
+          clearFreeMode()
           mode.value = null
           overlayOpen.value = false
         }
@@ -709,6 +772,7 @@
           active.clear()
           selDays.clear()
           selPeriods.clear()
+          clearFreeMode()
           mode.value = null
           searchMode.value = sMode
           searchValue.value = value
@@ -728,6 +792,7 @@
           detailOpen, detailSearchLabel, detailCourseCards, detailMiniIsActive, detailMiniHighlight,
           activeCard, setActiveCard, clearActiveCard, toggleActiveCard,
           sortKey, sortDir, sortOptions, toggleSort,
+          isFreeMode, freeTeacher, freeCells, isFreeTeacherSlot, freeCellClass, toggleFreeCell, selectFreeMode,
         }
       }
     }).mount('#app')

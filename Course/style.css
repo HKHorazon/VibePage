@@ -5,8 +5,8 @@
   --cell-bg: #0e0e1c;
   --cell-border: #1a1a35;
   --cell-active: #001820;
-  --head-text: #006070;
-  --period-text: #1a3a45;
+  --head-text: #2a9db5;
+  --period-text: #2a6878;
 
   --body-pad: 8px;
   --head-h: 24px;
@@ -474,7 +474,7 @@ body::before {
 
 .overlay-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
   padding: 14px 12px 10px;
   flex-shrink: 0;
@@ -659,6 +659,53 @@ body::before {
   font-family: 'JetBrains Mono', 'Chakra Petch', system-ui, sans-serif;
   user-select: none;
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+/* 個人空閒 tab — 橘黃色系 */
+.tab-btn--free {
+  background: #1a1000;
+  color: #ffb300;
+}
+.tab-btn--free:hover { border-color: #7a4800; }
+.tab-btn--free.active {
+  background: #201600;
+  border-color: #ffb300;
+  text-shadow: 0 0 10px rgba(255, 179, 0, 0.7);
+  box-shadow: 0 0 12px rgba(255, 179, 0, 0.2), inset 0 0 10px rgba(255, 179, 0, 0.08);
+}
+
+/* 個人空閒 title-mode */
+.title-mode.mode--free {
+  color: #ffb300;
+  background: #181000;
+  border-color: #7a4800;
+  text-shadow: 0 0 10px rgba(255, 179, 0, 0.6);
+  box-shadow: 0 0 8px rgba(255, 179, 0, 0.15), inset 0 0 12px rgba(255, 179, 0, 0.05);
+}
+.title-mode:hover.mode--free { border-color: #c07800; box-shadow: 0 0 14px rgba(255, 179, 0, 0.3), inset 0 0 16px rgba(255, 179, 0, 0.08); }
+
+/* 個人空閒格子 */
+.cell--slot.free-cell--yellow {
+  background: rgba(255, 179, 0, 0.25) !important;
+  border-color: rgba(255, 179, 0, 0.4) !important;
+}
+.cell--slot.free-cell--red {
+  background: rgba(220, 50, 50, 0.35) !important;
+  border-color: rgba(220, 80, 80, 0.5) !important;
+}
+
+.free-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 160, 160, 0.95);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba(220, 50, 50, 0.6);
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* 較大螢幕 */
