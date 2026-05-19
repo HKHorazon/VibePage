@@ -235,6 +235,7 @@ body::before {
   transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
   overflow: hidden;
   position: relative;
+  position: relative;
 }
 .cell--slot:hover:not(.cell--active) {
   background: #111128;
@@ -314,6 +315,8 @@ body::before {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  display: flex;
+  gap: 3px;
 }
 .cdm-teacher { color: #7dd3fc; }
 .cdm-room    { color: #67e8f9; }
@@ -685,11 +688,11 @@ body::before {
 .title-mode:hover.mode--free { border-color: #c07800; box-shadow: 0 0 14px rgba(255, 179, 0, 0.3), inset 0 0 16px rgba(255, 179, 0, 0.08); }
 
 /* 個人空閒格子 */
-.cell--slot.free-cell--yellow {
+.cell--slot.free-slot--yellow {
   background: rgba(255, 179, 0, 0.25) !important;
   border-color: rgba(255, 179, 0, 0.4) !important;
 }
-.cell--slot.free-cell--red {
+.cell--slot.free-slot--red {
   background: rgba(220, 50, 50, 0.35) !important;
   border-color: rgba(220, 80, 80, 0.5) !important;
 }

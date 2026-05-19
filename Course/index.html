@@ -24,7 +24,7 @@
         class="cell cell--head cell--clickable"
         v-for="day in days" :key="day"
         :class="{ 'cell--outer-active': isOuterMode && selDays.has(day) }"
-        @click="toggleDay(day)"
+        @click="!isFreeMode && toggleDay(day)"
       >{{ day }}</div>
 
       <!-- 課表列 -->
@@ -36,7 +36,7 @@
             'cell--lunch-start': p.id === '5',
             'cell--outer-active': isOuterMode && selPeriods.has(p.id)
           }"
-          @click="togglePeriod(p.id)"
+          @click="!isFreeMode && togglePeriod(p.id)"
         >{{ p.label }}</div>
         <div
           v-if="timeModeOn"
@@ -52,12 +52,12 @@
           :key="day"
           class="cell cell--slot"
           :class="{
-            'cell--active': !isFreeMode && isActive(day, p.id),
+            'cell--active':      !isFreeMode && isActive(day, p.id),
             'cell--night-start': p.id === 'A',
             'cell--lunch-start': p.id === '5',
-            'cell--search': !isFreeMode && searchMode && isActive(day, p.id),
-            'free-cell--yellow': isFreeMode && (freeCells[`${day}_${p.id}`] ?? 0) === 1,
-            'free-cell--red':    isFreeMode && (freeCells[`${day}_${p.id}`] ?? 0) === 2,
+            'cell--search':      !isFreeMode && searchMode && isActive(day, p.id),
+            'free-slot--yellow': isFreeMode && freeCells[`${day}_${p.id}`] === 1,
+            'free-slot--red':    isFreeMode && freeCells[`${day}_${p.id}`] === 2,
           }"
           @click="isFreeMode ? toggleFreeCell(day, p.id) : toggle(day, p.id)"
         >
@@ -65,34 +65,39 @@
           <template v-if="isFreeMode">
             <span v-if="isFreeTeacherSlot(day, p.id)" class="free-label">上課</span>
           </template>
-          <span v-else-if="isActive(day, p.id) && searchMode && cellHasOptional(day, p.id)" class="cell-slot-star">★</span>
-          <!-- 搜尋模式：顯示課程詳情 -->
-          <div v-else-if="isActive(day, p.id) && searchMode" class="cell-detail">
-            <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
-            <span class="cell-detail-meta">
-              <template v-if="searchMode === 'teacher'">
-                <span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
-              </template>
-              <template v-else-if="searchMode === 'class'">
-                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>
-              </template>
-              <template v-else>
-                <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
-              </template>
-            </span>
-          </div>
-          <!-- 點擊模式：顯示老師縮寫 -->
-          <div v-else-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
-            <div class="abbr-inner" :style="abbrInnerStyle">
-              <span
-                v-for="t in batchTeachers"
-                :key="t"
-                class="abbr-item"
-                :class="{ 'abbr-absent': !cellHas(day, p.id, t) }"
-                :style="abbrStyle"
-              >{{ shortOf(t) }}</span>
+
+          <!-- 非個人空閒模式 -->
+          <template v-else>
+            <!-- 選修星星 -->
+            <span v-if="isActive(day, p.id) && searchMode && cellHasOptional(day, p.id)" class="cell-slot-star">★</span>
+            <!-- 搜尋模式：課程詳情 -->
+            <div v-if="isActive(day, p.id) && searchMode" class="cell-detail">
+              <span class="cell-detail-course">{{ getCellEntry(day, p.id)?.course }}</span>
+              <span class="cell-detail-meta">
+                <template v-if="searchMode === 'teacher'">
+                  <span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
+                </template>
+                <template v-else-if="searchMode === 'class'">
+                  <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-room">{{ getCellEntry(day, p.id)?.room }}</span>
+                </template>
+                <template v-else>
+                  <span class="cdm-teacher">{{ getCellEntry(day, p.id)?.teacher }}</span><span class="cdm-class">{{ shortClass(getCellEntry(day, p.id)?.class) }}</span>
+                </template>
+              </span>
             </div>
-          </div>
+            <!-- 點擊模式：老師縮寫 -->
+            <div v-else-if="isActive(day, p.id) && batchTeachers.length" class="abbr-wrap">
+              <div class="abbr-inner" :style="abbrInnerStyle">
+                <span
+                  v-for="t in batchTeachers"
+                  :key="t"
+                  class="abbr-item"
+                  :class="{ 'abbr-absent': !cellHas(day, p.id, t) }"
+                  :style="abbrStyle"
+                >{{ shortOf(t) }}</span>
+              </div>
+            </div>
+          </template><!-- end v-else (非個人空閒) -->
         </div>
         </template>
       </template>
@@ -103,15 +108,15 @@
       <div class="time-spacer"></div>
       <div class="time-block"
         :class="{ 'time-block--active': isOuterMode && isGroupActive('早') }"
-        @click="toggleGroup('早')">早</div>
+        @click="!isFreeMode && toggleGroup('早')">早</div>
       <div class="time-sep"></div>
       <div class="time-block time-block--ext-lg"
         :class="{ 'time-block--active': isOuterMode && isGroupActive('午') }"
-        @click="toggleGroup('午')">午</div>
+        @click="!isFreeMode && toggleGroup('午')">午</div>
       <div class="time-sep"></div>
       <div class="time-block time-block--ext"
         :class="{ 'time-block--active': isOuterMode && isGroupActive('晚') }"
-        @click="toggleGroup('晚')">晚</div>
+        @click="!isFreeMode && toggleGroup('晚')">晚</div>
     </div>
 
     </div><!-- layout -->
@@ -257,20 +262,20 @@
         ]
 
         const periodTimes = {
-          '1': { start: '08:10', end: '09:00' },
-          '2': { start: '09:10', end: '10:00' },
-          '3': { start: '10:10', end: '11:00' },
-          '4': { start: '11:05', end: '11:55' },
-          '5': { start: '12:50', end: '13:40' },
-          '6': { start: '13:45', end: '14:35' },
-          '7': { start: '14:40', end: '15:30' },
-          '8': { start: '15:35', end: '16:25' },
-          '9': { start: '16:35', end: '17:25' },
+          '1':  { start: '08:10', end: '09:00' },
+          '2':  { start: '09:10', end: '10:00' },
+          '3':  { start: '10:10', end: '11:00' },
+          '4':  { start: '11:05', end: '11:55' },
+          '5':  { start: '12:50', end: '13:40' },
+          '6':  { start: '13:45', end: '14:35' },
+          '7':  { start: '14:40', end: '15:30' },
+          '8':  { start: '15:35', end: '16:25' },
+          '9':  { start: '16:35', end: '17:25' },
           '10': { start: '17:30', end: '18:15' },
-          'A': { start: '18:20', end: '19:05' },
-          'B': { start: '19:10', end: '19:55' },
-          'C': { start: '20:00', end: '20:45' },
-          'D': { start: '20:50', end: '21:35' },
+          'A':  { start: '18:20', end: '19:05' },
+          'B':  { start: '19:10', end: '19:55' },
+          'C':  { start: '20:00', end: '20:45' },
+          'D':  { start: '20:50', end: '21:35' },
         }
 
         const timeModeOn = ref(false)
@@ -292,8 +297,9 @@
         const searchValue = ref('')
 
         // 個人空閒模式
+        // freeCells: reactive 物件，key = `${day}_${period}`，值 0(無)|1(黃)|2(紅)
         const freeTeacher = ref('')
-        const freeCells = ref({}) // key → 0(無)|1(黃)|2(紅)
+        const freeCells = reactive({})
         const isFreeMode = computed(() => !!freeTeacher.value)
 
         // 蓋層
@@ -383,7 +389,6 @@
           schedule.value
             .filter(s => {
               if (s[searchMode.value] !== searchValue.value) return false
-              // teacher/room modes: only show listed teachers
               if (searchMode.value !== 'class') return listedTeachers.value.has(s.teacher)
               return true
             })
@@ -432,7 +437,6 @@
 
         function shortClass(cls) {
           if (!cls) return ''
-          // "⽇四技多遊系2年⼄班" → "日二乙"（日/進 + 一二三四 + 甲/乙）
           const CN = ['', '一', '二', '三', '四', '五', '六']
           const rawType = cls[0].normalize('NFKC')
           const type = rawType === '夜' ? '進' : rawType
@@ -516,8 +520,13 @@
           searchValue.value = ''
         }
 
+        function clearFreeMode() {
+          freeTeacher.value = ''
+          Object.keys(freeCells).forEach(k => delete freeCells[k])
+        }
+
         function toggle(day, period) {
-          if (searchMode.value) return  // 搜尋模式下格子不可點選
+          if (searchMode.value) return
           if (mode.value !== 'inner') {
             selDays.clear()
             selPeriods.clear()
@@ -562,6 +571,34 @@
           return groupPeriods[name].some(p => selPeriods.has(p))
         }
 
+        // 個人空閒：格子狀態
+        function isFreeTeacherSlot(day, period) {
+          if (!freeTeacher.value) return false
+          return schedule.value.some(s => s.day === day && s.period === period && s.teacher === freeTeacher.value)
+        }
+
+        function toggleFreeCell(day, period) {
+          const k = `${day}_${period}`
+          const cur = freeCells[k] ?? 0
+          freeCells[k] = (cur + 1) % 3
+        }
+
+        function selectFreeMode(teacher) {
+          active.clear()
+          selDays.clear()
+          selPeriods.clear()
+          clearSearch()
+          mode.value = null
+          // 清舊資料
+          Object.keys(freeCells).forEach(k => delete freeCells[k])
+          freeTeacher.value = teacher
+          // 初始化：老師上課格設為紅色(2)
+          schedule.value
+            .filter(s => s.teacher === teacher)
+            .forEach(s => { freeCells[`${s.day}_${s.period}`] = 2 })
+          overlayOpen.value = false
+        }
+
         const hasAny = computed(() => {
           if (isFreeMode.value) return true
           if (searchMode.value && searchValue.value) return true
@@ -581,6 +618,7 @@
           } else {
             active.clear()
             clearSearch()
+            clearFreeMode()
             mode.value = 'outer'
             days.forEach(d => selDays.add(d))
             periods.forEach(p => selPeriods.add(p.id))
@@ -588,7 +626,7 @@
         }
 
         function goDetail() {
-          if (!hasAny.value) return
+          if (!hasAny.value || isFreeMode.value) return
           detailOpen.value = true
         }
 
@@ -605,21 +643,21 @@
           { key: 'room',    label: '教室' },
           { key: 'teacher', label: '老師' },
         ]
-        function toggleSort(key) {
-          if (sortKey.value === key) {
+        function toggleSort(k) {
+          if (sortKey.value === k) {
             if (sortDir.value === 'asc') sortDir.value = 'desc'
             else { sortKey.value = null; sortDir.value = 'asc' }
           } else {
-            sortKey.value = key
+            sortKey.value = k
             sortDir.value = 'asc'
           }
         }
 
         const activeCard = ref(null)
 
-        function setActiveCard(key) { activeCard.value = key }
+        function setActiveCard(k) { activeCard.value = k }
         function clearActiveCard() { activeCard.value = null }
-        function toggleActiveCard(key) { activeCard.value = activeCard.value === key ? null : key }
+        function toggleActiveCard(k) { activeCard.value = activeCard.value === k ? null : k }
 
         function detailMiniHighlight(day, period) {
           if (!activeCard.value) return false
@@ -657,8 +695,8 @@
                 return listedTeachers.value.has(s.teacher)
               })
               .forEach(s => {
-                const key = `${s.teacher}|${s.course}|${s.room}|${s.class}`
-                if (!cardMap.has(key)) {
+                const ck = `${s.teacher}|${s.course}|${s.room}|${s.class}`
+                if (!cardMap.has(ck)) {
                   const sorted = schedule.value
                     .filter(e => e.teacher === s.teacher && e.course === s.course && e.room === s.room && e.class === s.class)
                     .sort((a, b) => {
@@ -667,7 +705,7 @@
                     })
                   const rawSlots = new Set(sorted.map(e => `${e.day}_${e.period}`))
                   const slots = sorted.map(e => `${e.day}${e.period.replace(/[0-9A-Z]/g, c => String.fromCharCode(c.charCodeAt(0) + (c <= '9' ? 0xFF10 - 0x30 : 0xFF21 - 0x41)))}`)
-                  cardMap.set(key, { teacher: s.teacher, course: s.course, room: s.room, class: s.class, optional: s.optional || false, slots, rawSlots })
+                  cardMap.set(ck, { teacher: s.teacher, course: s.course, room: s.room, class: s.class, optional: s.optional || false, slots, rawSlots })
                 }
               })
           })
@@ -710,39 +748,6 @@
           return teachersMap.value[teacher] || teacher[0]
         }
 
-        // 個人空閒模式
-        function isFreeTeacherSlot(day, period) {
-          if (!freeTeacher.value) return false
-          return schedule.value.some(s => s.day === day && s.period === period && s.teacher === freeTeacher.value)
-        }
-
-        function freeCellClass(day, period) {
-          const v = freeCells.value[`${day}_${period}`] ?? 0
-          return { 'free-cell--yellow': v === 1, 'free-cell--red': v === 2 }
-        }
-
-        function toggleFreeCell(day, period) {
-          if (!isFreeMode.value) return
-          const k = `${day}_${period}`
-          const cur = freeCells.value[k] ?? 0
-          freeCells.value = { ...freeCells.value, [k]: (cur + 1) % 3 }
-        }
-
-        function selectFreeMode(teacher) {
-          active.clear()
-          selDays.clear()
-          selPeriods.clear()
-          clearSearch()
-          mode.value = null
-          freeTeacher.value = teacher
-          const init = {}
-          schedule.value
-            .filter(s => s.teacher === teacher)
-            .forEach(s => { init[`${s.day}_${s.period}`] = 2 })
-          freeCells.value = init
-          overlayOpen.value = false
-        }
-
         // 蓋層操作
         function openOverlay() {
           if (isFreeMode.value) overlayTab.value = 5
@@ -751,11 +756,6 @@
           else if (searchMode.value === 'room') overlayTab.value = 4
           else overlayTab.value = 1
           overlayOpen.value = true
-        }
-
-        function clearFreeMode() {
-          freeTeacher.value = ''
-          freeCells.value = {}
         }
 
         function selectMode1() {
@@ -792,7 +792,7 @@
           detailOpen, detailSearchLabel, detailCourseCards, detailMiniIsActive, detailMiniHighlight,
           activeCard, setActiveCard, clearActiveCard, toggleActiveCard,
           sortKey, sortDir, sortOptions, toggleSort,
-          isFreeMode, freeTeacher, freeCells, isFreeTeacherSlot, freeCellClass, toggleFreeCell, selectFreeMode,
+          isFreeMode, freeTeacher, freeCells, isFreeTeacherSlot, toggleFreeCell, selectFreeMode,
         }
       }
     }).mount('#app')
