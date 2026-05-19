@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML 基礎 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
+      <a href="../index.html" class="back-btn">← 回目錄</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="article-body">
+      <h1>HTML：網頁的骨架</h1>
+      <span class="article-date">2026-05-19</span>
+
+      <hr>
+
+      <h2>基本文件結構</h2>
+      <p>每一個 HTML 檔案都從這個骨架開始。</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-Hant"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;我的網頁&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- 內容放這裡 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <h2>標題與段落</h2>
+      <p>標題有六個層級，<code>&lt;h1&gt;</code> 最大，<code>&lt;h6&gt;</code> 最小。</p>
+      <pre><code>&lt;h1&gt;主標題&lt;/h1&gt;
+&lt;h2&gt;副標題&lt;/h2&gt;
+&lt;h3&gt;小標題&lt;/h3&gt;
+
+&lt;p&gt;這是一個段落，可以放一般文字內容。&lt;/p&gt;</code></pre>
+
+      <h2>清單</h2>
+      <p>無序清單用 <code>&lt;ul&gt;</code>，有序清單用 <code>&lt;ol&gt;</code>，項目都是 <code>&lt;li&gt;</code>。</p>
+      <pre><code>&lt;ul&gt;
+  &lt;li&gt;蘋果&lt;/li&gt;
+  &lt;li&gt;香蕉&lt;/li&gt;
+  &lt;li&gt;橘子&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;第一步&lt;/li&gt;
+  &lt;li&gt;第二步&lt;/li&gt;
+  &lt;li&gt;第三步&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+      <h2>連結與圖片</h2>
+      <p><code>&lt;a&gt;</code> 建立超連結，<code>&lt;img&gt;</code> 插入圖片。</p>
+      <pre><code>&lt;a href="https://www.google.com"&gt;前往 Google&lt;/a&gt;
+
+&lt;img src="photo.jpg" alt="一張照片"&gt;</code></pre>
+
+      <h2>區塊容器</h2>
+      <p><code>&lt;div&gt;</code> 是最常用的容器，用來包住一組元素方便統一管理。</p>
+      <pre><code>&lt;div class="card"&gt;
+  &lt;h2&gt;卡片標題&lt;/h2&gt;
+  &lt;p&gt;卡片內容說明文字。&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+      <h2>按鈕與輸入</h2>
+      <pre><code>&lt;button&gt;點我&lt;/button&gt;
+
+&lt;input type="text" placeholder="請輸入文字"&gt;
+
+&lt;input type="number" placeholder="請輸入數字"&gt;</code></pre>
+
+      <h2>畫布（Canvas）</h2>
+      <p>製作互動動畫或遊戲時使用，JavaScript 負責在上面繪圖。</p>
+      <pre><code>&lt;canvas id="myCanvas" width="400" height="300"&gt;&lt;/canvas&gt;</code></pre>
+
+    </article>
+  </main>
+</body>
+</html>

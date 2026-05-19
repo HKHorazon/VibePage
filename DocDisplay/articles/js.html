@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript 基礎 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
+      <a href="../index.html" class="back-btn">← 回目錄</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="article-body">
+      <h1>JavaScript：網頁的大腦</h1>
+      <span class="article-date">2026-05-19</span>
+
+      <hr>
+
+      <h2>JS 寫在哪裡</h2>
+      <p>寫在 HTML 的 <code>&lt;script&gt;</code> 標籤裡，通常放在 <code>&lt;body&gt;</code> 最底部。</p>
+      <pre><code>&lt;body&gt;
+  &lt;!-- 其他內容 --&gt;
+
+  &lt;script&gt;
+    // JavaScript 寫在這裡
+    console.log("Hello!")
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+      <h2>變數</h2>
+      <p>用來儲存資料。<code>let</code> 可以改變，<code>const</code> 不能改變。</p>
+      <pre><code>let score = 0          // 數字
+let name = "小明"      // 文字
+let isAlive = true     // 布林值（true / false）
+
+const MAX_SPEED = 10   // 固定不變的值</code></pre>
+
+      <h2>條件判斷</h2>
+      <p>「如果...就...否則...」的邏輯。</p>
+      <pre><code>if (score >= 100) {
+  console.log("過關！")
+} else if (score >= 50) {
+  console.log("繼續加油")
+} else {
+  console.log("再試一次")
+}</code></pre>
+
+      <h2>函式</h2>
+      <p>把一段程式打包成一個名字，需要時呼叫它。</p>
+      <pre><code>function jump() {
+  bird.y -= 80    // 小鳥往上移動
+}
+
+function addScore(points) {
+  score += points
+  console.log("目前分數：" + score)
+}</code></pre>
+
+      <h2>事件監聽</h2>
+      <p>偵測使用者的操作，再執行對應的函式。</p>
+      <pre><code>// 點擊按鈕
+document.getElementById("startBtn").addEventListener("click", startGame)
+
+// 鍵盤按下空白鍵
+document.addEventListener("keydown", function(e) {
+  if (e.code === "Space") {
+    jump()
+  }
+})
+
+// 手機觸控
+window.addEventListener("touchstart", jump)</code></pre>
+
+      <h2>操作 HTML 元素</h2>
+      <p>用 JS 抓取頁面上的元素，然後修改它的內容或樣式。</p>
+      <pre><code>// 抓取元素
+let scoreEl = document.getElementById("score")
+let box = document.querySelector(".box")
+
+// 修改文字
+scoreEl.textContent = "分數：" + score
+
+// 修改樣式
+box.style.backgroundColor = "red"
+box.style.display = "none"    // 隱藏元素</code></pre>
+
+      <h2>遊戲迴圈</h2>
+      <p>每秒重複執行 60 次，讓畫面持續更新。</p>
+      <pre><code>function gameLoop() {
+  update()    // 更新所有物件的位置
+  draw()      // 重新繪製畫面
+  requestAnimationFrame(gameLoop)
+}
+
+// 啟動迴圈
+requestAnimationFrame(gameLoop)</code></pre>
+
+      <h2>Canvas 繪圖</h2>
+      <p>在畫布上畫圖形，是遊戲的核心技術。</p>
+      <pre><code>let canvas = document.getElementById("myCanvas")
+let ctx = canvas.getContext("2d")
+
+// 畫一個填滿的矩形
+ctx.fillStyle = "#3b82f6"
+ctx.fillRect(x, y, width, height)
+
+// 清除畫布（每次更新前先清除）
+ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+// 畫圓形
+ctx.beginPath()
+ctx.arc(x, y, radius, 0, Math.PI * 2)
+ctx.fill()</code></pre>
+
+    </article>
+  </main>
+</body>
+</html>

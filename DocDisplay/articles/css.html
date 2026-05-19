@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 基礎 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
+      <a href="../index.html" class="back-btn">← 回目錄</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="article-body">
+      <h1>CSS：網頁的外觀</h1>
+      <span class="article-date">2026-05-19</span>
+
+      <hr>
+
+      <h2>CSS 寫在哪裡</h2>
+      <p>通常獨立一個 <code>.css</code> 檔案，再用 <code>&lt;link&gt;</code> 引入 HTML。</p>
+      <pre><code>&lt;!-- 在 HTML 的 &lt;head&gt; 裡加這行 --&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+
+      <h2>選擇器語法</h2>
+      <p>選擇器決定「要改哪個元素」，大括號內是要套用的樣式。</p>
+      <pre><code>/* 標籤選擇器 */
+p {
+  color: #333;
+}
+
+/* class 選擇器 */
+.card {
+  background: white;
+  border-radius: 8px;
+}
+
+/* id 選擇器 */
+#title {
+  font-size: 2rem;
+}</code></pre>
+
+      <h2>顏色與背景</h2>
+      <pre><code>body {
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+}
+
+.highlight {
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  color: white;
+}</code></pre>
+
+      <h2>字體與文字</h2>
+      <pre><code>h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.8;
+  text-align: center;
+}</code></pre>
+
+      <h2>尺寸與間距</h2>
+      <p><code>margin</code> 是外距，<code>padding</code> 是內距。</p>
+      <pre><code>.box {
+  width: 300px;
+  height: 200px;
+  margin: 16px;       /* 外距，推開周圍元素 */
+  padding: 24px;      /* 內距，內容與邊框的距離 */
+}</code></pre>
+
+      <h2>Flexbox 排版</h2>
+      <p>最常用的現代排版方式，讓子元素自動對齊。</p>
+      <pre><code>.container {
+  display: flex;
+  justify-content: center;   /* 水平置中 */
+  align-items: center;       /* 垂直置中 */
+  gap: 16px;                 /* 子元素間距 */
+}
+
+/* 讓畫面填滿整個視窗 */
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+}</code></pre>
+
+      <h2>互動效果</h2>
+      <p><code>:hover</code> 在滑鼠移上去時套用，<code>transition</code> 讓變化有動畫感。</p>
+      <pre><code>.btn {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #2563eb;
+}</code></pre>
+
+    </article>
+  </main>
+</body>
+</html>
