@@ -14,22 +14,31 @@ description: "VibeWeb 本地伺服器技能。啟動本地 HTTP server 並顯示
 1. `python --version` 或 `python3 --version`
 2. `node --version`
 
-## 步驟 2：啟動本地 HTTP server
+## 步驟 2：選擇 Port
+
+Port 範圍固定為 **8080～8089**，每次必須選一個與上次不同的 port：
+
+1. 執行 `netstat -ano | findstr :808` 查看目前哪些 port 已被佔用
+2. 從 8080～8089 中選一個**目前未被使用**的 port
+3. 若所有 port 都被佔用，告知使用者
+
+目的是強制瀏覽器視為新連線，避免快取問題。
+
+## 步驟 3：啟動本地 HTTP server
 
 在 VibeWeb 根目錄以 **background 模式**啟動伺服器，優先 Python，其次 Node.js：
 
 ```bash
-# 優先嘗試 Python（在 VibeWeb 根目錄執行）
-python -m http.server 8080
+# 優先嘗試 Python（PORT 為上一步選定的 port）
+python -m http.server <PORT>
 
 # 若 Python 不可用，改用 Node.js
-npx serve -l 8080 .
+npx serve -l <PORT> .
 ```
 
-- 若 8080 port 已被佔用，改用 8081，再試 8082，依此類推
 - 確認伺服器成功啟動後再顯示連結
 
-## 步驟 3：顯示連結表格
+## 步驟 4：顯示連結表格
 
 伺服器啟動後，掃描根目錄下有 `index.html` 的子資料夾（排除 `framework/`），列出所有子專案：
 
