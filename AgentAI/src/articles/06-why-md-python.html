@@ -1,2 +1,43 @@
-<h2>為什麼是 Markdown 和 Python？</h2>
-<p>（內容待補）</p>
+<h2>前言</h2>
+
+<p>用 Agent AI 一段時間後，你會發現 AI 產出的東西幾乎都是兩種格式：文字類用 <strong>Markdown</strong>，程式類用 <strong>Python</strong>。這不是巧合，而是有理由的選擇。</p>
+
+<br>
+
+<h2>為什麼是 Markdown？</h2>
+
+<p>Markdown 是一種輕量標記語言——用幾個符號就能表示標題、清單、粗體、表格，純文字就能讀懂，也能被轉成格式化的 HTML。</p>
+
+<p>AI 偏好 Markdown 有幾個原因：</p>
+<ul>
+  <li><strong>結構清晰</strong>：AI 在輸出時需要有邏輯地組織內容，Markdown 的層級結構剛好符合這個需求</li>
+  <li><strong>通用性高</strong>：幾乎所有筆記軟體、文件平台、程式碼倉庫都支援 Markdown（Notion、GitHub、Obsidian……）</li>
+  <li><strong>對 AI 友善</strong>：Markdown 本身就是純文字，AI 讀和寫都不需要額外處理，不像 Word 或 PDF 需要特殊解析</li>
+</ul>
+
+<p>你在跟 AI 對話、看 AI 輸出的筆記、甚至這篇文章的原始格式，背後都是 Markdown。</p>
+<p>不過 Markdown 對 AI 來說很友善，但不一定適合人類直接閱讀。沒有渲染工具的話，滿是 `#`、`**`、`---` 的原始文字讀起來並不直觀。</p>
+
+<br>
+
+<h2>為什麼是 Python？</h2>
+
+<p>Python 是目前 AI 最常用來執行任務的程式語言。當你叫 AI「幫我批次改名所有檔案」或「把這份 Excel 整理成表格」，它寫的腳本十之八九是 Python。</p>
+
+<p>原因很直接：</p>
+<ul>
+  <li><strong>語法接近自然語言</strong>：Python 寫起來像說話，AI 生成的程式碼容易讓人看懂</li>
+  <li><strong>生態豐富</strong>：幾乎任何任務都有現成的函式庫可用，AI 可以直接調用</li>
+  <li><strong>跨平台</strong>：Windows、Mac、Linux 都能執行，不需要額外設定</li>
+  <li><strong>訓練資料多</strong>：大量 Python 程式碼存在於網路上，AI 對它的掌握程度遠高於其他語言</li>
+</ul>
+
+<p>值得一提的是，<strong>TypeScript</strong> 近年也逐漸成為 Agent AI 偏好的語言之一。主要原因很簡單：網頁開發是 AI 最常被要求處理的任務大宗，而網頁的世界本來就是 JavaScript／TypeScript 的地盤。遇到任何跟網頁、前端、或 Node.js 有關的任務，AI 自然會選 TypeScript 而非 Python。</p>
+
+<br>
+
+<h2>延伸：有人提倡用 HTML 取代 Markdown</h2>
+
+<p>因此，近年有聲音主張直接用 <strong>HTML</strong> 作為 AI 輸出的格式——理由是 HTML 語意更精確、瀏覽器原生支援、排版彈性更大，而且 AI 本來就對 HTML 有很強的掌握能力。</p>
+
+<p>這個論點在技術圈有一定支持者，但目前 Markdown 仍是主流。對大多數使用者來說，Markdown 夠用、夠簡單；HTML 的門檻稍高，需要使用者願意接受標籤語法。這個趨勢值得留意，但還沒到需要立刻換的程度。</p>

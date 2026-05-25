@@ -48,7 +48,15 @@
       "Edit(/.claude/skills/ship-local/**)",
       "Bash(curl -s http://localhost:8080)",
       "Bash(python -)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(git -C \"d:/VibeWeb\" pull)",
+      "Bash(findstr \":8080\")",
+      "Bash(findstr LISTENING)",
+      "Bash(python -m http.server 8080 --directory \"d:\\\\VibeWeb\")",
+      "Bash(findstr :8080)",
+      "Bash(findstr :808)",
+      "Bash(python -m http.server 8081 --directory \"d:/Projects_Other/VibeWeb\")",
+      "Bash(python -m http.server 8082 --directory \"d:/Projects_Other/VibeWeb\")"
     ],
     "additionalDirectories": [
       "d:\\VibeWeb\\.claude\\skills"

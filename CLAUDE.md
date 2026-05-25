@@ -65,11 +65,13 @@ VibeWeb 是一個**純靜態網頁專案集**，不使用任何建置工具、�
 
 ```bash
 # Python（若已安裝）
-python -m http.server 8080
+python -m http.server <PORT>
 
 # Node.js（若已安裝）
-npx serve .
+npx serve -l <PORT> .
 ```
+
+Port 固定在 **8080～8089** 範圍內，每次啟動必須選一個與上次不同的 port，強制瀏覽器視為新連線以避免快取問題。
 
 沒有 lint、test、build 指令。
 
