@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遊戲專案開發進度追蹤</title>
+    <style>
+        :root {
+            --bg-color: #080511;
+            --container-bg: rgba(20, 16, 35, 0.65);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --deleted-color: #f43f5e;
+            --success-color: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.12) 0%, transparent 45%), 
+                radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 45%), 
+                #080511;
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa, #f472b6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(167, 139, 250, 0.15);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--container-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 45px rgba(124, 58, 237, 0.08);
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 0.6rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .item-row:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .item-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            gap: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 漸層字體效果 */
+        .item-row.h1 > .item-content > span { 
+            font-size: 1.45rem; 
+            font-weight: 800; 
+            background: linear-gradient(to right, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .item-row.h2 > .item-content > span { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            background: linear-gradient(to right, #60a5fa, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 0.2rem;
+        }
+        .item-row.h3 > .item-content { 
+            font-size: 1rem; 
+            color: #cbd5e1; 
+        }
+
+        .indent-h2 { margin-left: 2rem; border-left: 2px solid rgba(255,255,255,0.03); padding-left: 1rem; }
+        .indent-h3 { margin-left: 4rem; border-left: 2px solid rgba(255,255,255,0.03); padding-left: 1rem; }
+
+        .checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .checkbox:hover {
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
+        }
+        .checkbox:checked {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            top: -2px;
+            left: 3px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .item-row:hover .actions {
+            opacity: 1;
+        }
+
+        .btn-delete {
+            background: rgba(244, 63, 94, 0.05);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: #fb7185;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-delete:hover {
+            background: var(--deleted-color);
+            border-color: var(--deleted-color);
+            color: white;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-undo {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: none;
+            transition: all 0.2s;
+        }
+        .btn-undo:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .is-deleted .item-content {
+            text-decoration: line-through;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .is-deleted .checkbox { display: none; }
+        .is-deleted .btn-delete { display: none; }
+        .is-deleted .btn-undo { display: block; }
+        .is-deleted .actions { opacity: 1; }
+
+        .collapsible-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--text-muted);
+        }
+        .collapsed .collapsible-icon {
+            transform: rotate(-90deg);
+        }
+        .children-container {
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stats {
+            text-align: center;
+            color: #a78bfa;
+            margin-bottom: 2rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.15);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        button.action-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        button.action-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 項目數量藥丸樣式 */
+        .item-badge {
+            margin-left: auto;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .item-row.h1 > .item-badge {
+            color: #d8b4fe;
+            background: rgba(192, 132, 252, 0.08);
+            border-color: rgba(192, 132, 252, 0.15);
+        }
+        .item-row.h2 > .item-badge {
+            color: #93c5fd;
+            background: rgba(96, 165, 250, 0.08);
+            border-color: rgba(96, 165, 250, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>遊戲專案開發進度追蹤</h1>
+    </div>
+    
+    <div class="controls">
+        <button class="action-btn" onclick="expandAll()">全部展開</button>
+        <button class="action-btn" onclick="collapseAll()">全部折疊</button>
+        <button class="action-btn" onclick="exportJSON()" style="color: #3b82f6; border-color: rgba(59, 130, 246, 0.5);">匯出 JSON</button>
+        <button class="action-btn" onclick="triggerImport()" style="color: #10b981; border-color: rgba(16, 185, 129, 0.5);">匯入 JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importJSON(event)">
+        <button class="action-btn" onclick="resetProgress()" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.5);">重置進度</button>
+    </div>
+
+    <div class="stats" id="globalStats">總進度: 0%</div>
+
+    <div class="container" id="app"></div>
+
+    <script>
+        const rawMd = `
+# 企劃與設計
+## 核心機制與規則
+### 概念草案
+### 核心規則定義
+### 數值參數表建立
+## 關卡與內容配置
+### 關卡配置草圖
+### 空間與動線規劃
+### 機制與物件配置清單
+### 難度與平衡企劃
+## 敘事與體驗
+### 世界觀與背景設定
+### 故事大綱與角色設定
+### 劇情演進與事件流程
+### 劇情文本與對白撰寫
+# 視聽藝術與素材
+## 準備階段
+### 色彩計畫與情緒板
+### 整體美術風格定調
+## 2D 視覺資源
+### 概念草圖
+### 線稿確認
+### 完稿上色
+### 拆件與切圖
+### 動畫製作
+### 引擎內預製體設定
+## 3D 視覺資源
+### 概念設計
+### 粗模建立
+### 高模與拓撲
+### 拆 UV 與貼圖
+### 骨架綁定
+### 動畫製作
+### 引擎內預製體設定
+## 介面視覺
+### 流程與邏輯規劃
+### 線框草圖
+### 視覺風格提案
+### 切圖匯出
+### 引擎內排版
+## 環境場景
+### 氛圍圖
+### 組件與地形製作
+### 場景拼貼
+### 燈光與環境設定
+## 視覺特效
+### 動態參考
+### 貼圖與材質製作
+### 粒子系統架設
+### 引擎內配置與微調
+## 聲音設計
+### 風格參考與需求表
+### 草稿與素材採樣
+### 混音與後製完成
+### 引擎內動態配置與觸發
+# 程式與技術實作
+## 核心機制與互動
+### 基礎邏輯
+### 原型雛形開發
+### 實機遊玩驗證
+### 操作手感與打磨迭代
+## 使用者介面邏輯
+### UI 元件綁定
+### 事件監聽器設置
+### 資料與視圖同步
+### 轉場與動態控制
+## 遊戲循環與狀態管理
+### 狀態機架構設計
+### 流程控制實作
+### 勝負與結算條件判定
+### 場景與階段切換邏輯
+# 整合與品質保證
+## 全流程整合
+### 各系統獨立運作正常
+### 主選單至結算的完整迴圈
+## 除錯與優化
+### 問題記錄與重現
+### 程式碼修復
+### 效能檢測與優化
+## 完成與展示內容
+### 宣傳海報完稿
+### 宣傳影片
+### 衍生商品與其他展覽內容
+`;
+
+        const tree = [];
+        let curH1 = null, curH2 = null;
+        rawMd.split('\n').forEach(line => {
+            line = line.trim();
+            if(!line) return;
+            if(line.startsWith('# ')) {
+                curH1 = { id: 'h1-'+tree.length, type: 'h1', title: line.substring(2).trim(), children: [] };
+                tree.push(curH1);
+            } else if(line.startsWith('## ')) {
+                curH2 = { id: curH1.id+'-h2-'+curH1.children.length, type: 'h2', title: line.substring(3).trim(), children: [] };
+                curH1.children.push(curH2);
+            } else if(line.startsWith('### ')) {
+                curH2.children.push({ id: curH2.id+'-h3-'+curH2.children.length, type: 'h3', title: line.substring(4).trim() });
+            }
+        });
+
+        let state = JSON.parse(localStorage.getItem('gameProgressState') || '{}');
+        const saveState = () => localStorage.setItem('gameProgressState', JSON.stringify(state));
+
+        const getStatus = (id) => state[id] || { checked: false, deleted: false, collapsed: false };
+        const setStatus = (id, key, val) => {
+            if(!state[id]) state[id] = { checked: false, deleted: false, collapsed: false };
+            state[id][key] = val;
+            saveState();
+        };
+
+        const app = document.getElementById('app');
+
+        function renderNode(node, level, parentDOM) {
+            const status = getStatus(node.id);
+            
+            const wrapper = document.createElement('div');
+            if (level === 1) wrapper.className = 'card';
+            
+            const row = document.createElement('div');
+            row.className = 'item-row ' + node.type + (status.deleted ? ' is-deleted' : '');
+            if (level > 1) row.classList.add('indent-' + node.type);
+
+            const content = document.createElement('div');
+            content.className = 'item-content';
+            
+            const icon = document.createElement('div');
+            icon.className = 'collapsible-icon';
+            icon.innerHTML = (level < 3) ? '▼' : '•';
+            content.appendChild(icon);
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'checkbox';
+            checkbox.checked = status.checked;
+            checkbox.onclick = (e) => {
+                e.stopPropagation();
+                toggleCheck(node, e.target.checked);
+            };
+            content.appendChild(checkbox);
+
+            const title = document.createElement('span');
+            title.textContent = node.title;
+            content.appendChild(title);
+
+            row.appendChild(content);
+
+            const actions = document.createElement('div');
+            actions.className = 'actions';
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn-delete';
+            delBtn.textContent = '刪除/略過';
+            delBtn.onclick = (e) => {
+                e.stopPropagation();
+                setDelete(node, true);
+            };
+            
+            const undoBtn = document.createElement('button');
+            undoBtn.className = 'btn-undo';
+            undoBtn.textContent = '復原';
+            undoBtn.onclick = (e) => {
+                e.stopPropagation();
+                setDelete(node, false);
+            };
+
+            actions.appendChild(delBtn);
+            actions.appendChild(undoBtn);
+
+            if (level < 3) {
+                const badge = document.createElement('div');
+                badge.className = 'item-badge';
+                badge.id = 'badge-' + node.id;
+                badge.textContent = '(0/0)';
+                row.appendChild(badge);
+            }
+
+            row.appendChild(actions);
+            wrapper.appendChild(row);
+
+            const childrenContainer = document.createElement('div');
+            childrenContainer.className = 'children-container';
+            if(status.collapsed && level < 3) {
+                wrapper.classList.add('collapsed');
+                childrenContainer.style.maxHeight = '0px';
+            }
+
+
+
+            if (node.children) {
+                node.children.forEach(child => renderNode(child, level + 1, childrenContainer));
+            }
+            wrapper.appendChild(childrenContainer);
+
+            content.onclick = () => {
+                if(level === 3) {
+                    if(!status.deleted) {
+                        checkbox.checked = !checkbox.checked;
+                        toggleCheck(node, checkbox.checked);
+                    }
+                    return;
+                }
+                const isCol = wrapper.classList.toggle('collapsed');
+                setStatus(node.id, 'collapsed', isCol);
+                if (isCol) {
+                    childrenContainer.style.maxHeight = '0px';
+                } else {
+                    childrenContainer.style.maxHeight = childrenContainer.scrollHeight + 'px';
+                    setTimeout(()=> childrenContainer.style.maxHeight = 'none', 300);
+                }
+            };
+
+            wrapper.id = 'wrap-' + node.id;
+            parentDOM.appendChild(wrapper);
+        }
+
+        function getAllChildren(node, list = []) {
+            list.push(node);
+            if(node.children) node.children.forEach(c => getAllChildren(c, list));
+            return list;
+        }
+
+        function toggleCheck(node, checked) {
+            const all = getAllChildren(node);
+            all.forEach(n => setStatus(n.id, 'checked', checked));
+            reRender();
+        }
+
+        function setDelete(node, isDeleted) {
+            const all = getAllChildren(node);
+            all.forEach(n => setStatus(n.id, 'deleted', isDeleted));
+            if(isDeleted) all.forEach(n => setStatus(n.id, 'checked', false));
+            reRender();
+        }
+
+        function reRender() {
+            app.innerHTML = '';
+            tree.forEach(n => renderNode(n, 1, app));
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let totalActive = 0;
+            let totalChecked = 0;
+
+            const calcNode = (node) => {
+                const st = getStatus(node.id);
+                if(st.deleted) {
+                    const badge = document.getElementById('badge-' + node.id);
+                    if(badge) badge.textContent = '(已略過)';
+                    return {t:0, c:0};
+                }
+                
+                if(node.type === 'h3') {
+                    return { t: 1, c: st.checked ? 1 : 0 };
+                } else {
+                    let subT = 0, subC = 0;
+                    node.children.forEach(ch => {
+                        const res = calcNode(ch);
+                        subT += res.t;
+                        subC += res.c;
+                    });
+
+                    if (subT > 0 && subT === subC && !st.checked) {
+                        setStatus(node.id, 'checked', true);
+                        const cb = document.querySelector('#wrap-' + node.id + ' > .item-row .checkbox');
+                        if(cb) cb.checked = true;
+                    } else if ((subT === 0 || subT !== subC) && st.checked) {
+                        setStatus(node.id, 'checked', false);
+                        const cb = document.querySelector('#wrap-' + node.id + ' > .item-row .checkbox');
+                        if(cb) cb.checked = false;
+                    }
+
+                    const badge = document.getElementById('badge-' + node.id);
+                    if(badge) {
+                        badge.textContent = '(' + subC + '/' + subT + ')';
+                    }
+
+                    return { t: subT, c: subC };
+                }
+            };
+
+            tree.forEach(n => {
+                const r = calcNode(n);
+                totalActive += r.t;
+                totalChecked += r.c;
+            });
+
+            let totalDeleted = 0;
+            const countDeleted = (node, parentDeleted = false) => {
+                const st = getStatus(node.id);
+                const isDeleted = parentDeleted || st.deleted;
+                if (node.type === 'h3') {
+                    if (isDeleted) totalDeleted++;
+                } else if (node.children) {
+                    node.children.forEach(c => countDeleted(c, isDeleted));
+                }
+            };
+            tree.forEach(n => countDeleted(n, false));
+
+            document.getElementById('globalStats').textContent = '已完成項目: ' + totalChecked + ' / ' + totalActive + ' (已略過 ' + totalDeleted + ' 項目)';
+        }
+        
+        function expandAll() {
+            Object.keys(state).forEach(id => setStatus(id, 'collapsed', false));
+            reRender();
+        }
+        
+        function collapseAll() {
+            tree.forEach(n => {
+                setStatus(n.id, 'collapsed', true);
+                n.children.forEach(c => setStatus(c.id, 'collapsed', true));
+            });
+            reRender();
+        }
+        
+        function resetProgress() {
+            if(confirm('確定要清除所有進度與刪除標記嗎？')) {
+                localStorage.removeItem('gameProgressState');
+                state = {};
+                reRender();
+            }
+        }
+
+        function exportJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "game_progress_" + new Date().toISOString().slice(0,10) + ".json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function triggerImport() {
+            document.getElementById('importFile').click();
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedState = JSON.parse(e.target.result);
+                    if (typeof importedState === 'object' && importedState !== null) {
+                        state = importedState;
+                        saveState();
+                        reRender();
+                        alert('進度已成功匯入！');
+                    } else {
+                        alert('無效的 JSON 檔案格式！');
+                    }
+                } catch (err) {
+                    alert('讀取檔案失敗或 JSON 格式錯誤！');
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        reRender();
+    </script>
+</body>
+</html>
