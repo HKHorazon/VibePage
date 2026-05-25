@@ -199,10 +199,12 @@
             color: white;
         }
 
-        .is-deleted .item-content {
+        .is-deleted .item-content > span {
             text-decoration: line-through;
-            opacity: 0.3;
-            pointer-events: none;
+            opacity: 0.4;
+        }
+        .is-deleted .item-content > .collapsible-icon {
+            opacity: 0.4;
         }
         .is-deleted .checkbox { display: none; }
         .is-deleted .btn-delete { display: none; }
