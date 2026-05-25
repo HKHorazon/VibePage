@@ -113,14 +113,22 @@
         .indent-h3 { margin-left: 4rem; border-left: 2px solid rgba(255,255,255,0.03); padding-left: 1rem; }
 
         .checkbox {
-            appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.02);
             cursor: pointer;
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            line-height: 1;
+            user-select: none;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
@@ -128,19 +136,22 @@
             border-color: var(--accent-hover);
             box-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
         }
-        .checkbox:checked {
+        .checkbox.state-checked {
             background: var(--success-color);
             border-color: var(--success-color);
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
         }
-        .checkbox:checked::after {
+        .checkbox.state-checked::after {
             content: '✓';
-            position: absolute;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            top: -2px;
-            left: 3px;
+        }
+        .checkbox.state-triangle {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+        }
+        .checkbox.state-triangle::after {
+            content: '▲';
+            font-size: 11px;
         }
 
         .actions {
@@ -393,12 +404,15 @@
             }
         });
 
+        const STATES = ['none', 'checked', 'triangle'];
+        const cycleState = (s) => STATES[(STATES.indexOf(s) + 1) % STATES.length];
+
         let state = JSON.parse(localStorage.getItem('gameProgressState') || '{}');
         const saveState = () => localStorage.setItem('gameProgressState', JSON.stringify(state));
 
-        const getStatus = (id) => state[id] || { checked: false, deleted: false, collapsed: false };
+        const getStatus = (id) => state[id] || { state: 'none', deleted: false, collapsed: false };
         const setStatus = (id, key, val) => {
-            if(!state[id]) state[id] = { checked: false, deleted: false, collapsed: false };
+            if(!state[id]) state[id] = { state: 'none', deleted: false, collapsed: false };
             state[id][key] = val;
             saveState();
         };
@@ -423,13 +437,12 @@
             icon.innerHTML = (level < 3) ? '▼' : '•';
             content.appendChild(icon);
 
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.className = 'checkbox';
-            checkbox.checked = status.checked;
+            const checkbox = document.createElement('div');
+            checkbox.className = 'checkbox state-' + (status.state || 'none');
+            checkbox.id = 'cb-' + node.id;
             checkbox.onclick = (e) => {
                 e.stopPropagation();
-                toggleCheck(node, e.target.checked);
+                handleCheckboxClick(node);
             };
             content.appendChild(checkbox);
 
@@ -489,8 +502,7 @@
             content.onclick = () => {
                 if(level === 3) {
                     if(!status.deleted) {
-                        checkbox.checked = !checkbox.checked;
-                        toggleCheck(node, checkbox.checked);
+                        handleCheckboxClick(node);
                     }
                     return;
                 }
@@ -514,16 +526,25 @@
             return list;
         }
 
-        function toggleCheck(node, checked) {
-            const all = getAllChildren(node);
-            all.forEach(n => setStatus(n.id, 'checked', checked));
+        function handleCheckboxClick(node) {
+            const st = getStatus(node.id);
+            if(st.deleted) return;
+
+            if(node.type === 'h3') {
+                setStatus(node.id, 'state', cycleState(st.state || 'none'));
+            } else {
+                const leaves = getAllChildren(node).filter(n => n.type === 'h3' && !getStatus(n.id).deleted);
+                const allChecked = leaves.length > 0 && leaves.every(n => getStatus(n.id).state === 'checked');
+                const target = allChecked ? 'none' : 'checked';
+                leaves.forEach(n => setStatus(n.id, 'state', target));
+            }
             reRender();
         }
 
         function setDelete(node, isDeleted) {
             const all = getAllChildren(node);
             all.forEach(n => setStatus(n.id, 'deleted', isDeleted));
-            if(isDeleted) all.forEach(n => setStatus(n.id, 'checked', false));
+            if(isDeleted) all.forEach(n => setStatus(n.id, 'state', 'none'));
             reRender();
         }
 
@@ -536,41 +557,49 @@
         function updateProgress() {
             let totalActive = 0;
             let totalChecked = 0;
+            let totalTriangle = 0;
 
             const calcNode = (node) => {
                 const st = getStatus(node.id);
                 if(st.deleted) {
                     const badge = document.getElementById('badge-' + node.id);
                     if(badge) badge.textContent = '(已略過)';
-                    return {t:0, c:0};
+                    return { t: 0, c: 0, hasTriangle: false };
                 }
-                
+
                 if(node.type === 'h3') {
-                    return { t: 1, c: st.checked ? 1 : 0 };
+                    const s = st.state || 'none';
+                    return {
+                        t: 1,
+                        c: s === 'checked' ? 1 : 0,
+                        hasTriangle: s === 'triangle'
+                    };
                 } else {
-                    let subT = 0, subC = 0;
+                    let subT = 0, subC = 0, hasTri = false;
                     node.children.forEach(ch => {
                         const res = calcNode(ch);
                         subT += res.t;
                         subC += res.c;
+                        if(res.hasTriangle) hasTri = true;
                     });
 
-                    if (subT > 0 && subT === subC && !st.checked) {
-                        setStatus(node.id, 'checked', true);
-                        const cb = document.querySelector('#wrap-' + node.id + ' > .item-row .checkbox');
-                        if(cb) cb.checked = true;
-                    } else if ((subT === 0 || subT !== subC) && st.checked) {
-                        setStatus(node.id, 'checked', false);
-                        const cb = document.querySelector('#wrap-' + node.id + ' > .item-row .checkbox');
-                        if(cb) cb.checked = false;
+                    let derived;
+                    if (subT > 0 && subT === subC) derived = 'checked';
+                    else if (hasTri || subC > 0) derived = 'triangle';
+                    else derived = 'none';
+
+                    if ((st.state || 'none') !== derived) {
+                        setStatus(node.id, 'state', derived);
                     }
+                    const cb = document.getElementById('cb-' + node.id);
+                    if(cb) cb.className = 'checkbox state-' + derived;
 
                     const badge = document.getElementById('badge-' + node.id);
                     if(badge) {
                         badge.textContent = '(' + subC + '/' + subT + ')';
                     }
 
-                    return { t: subT, c: subC };
+                    return { t: subT, c: subC, hasTriangle: hasTri };
                 }
             };
 
@@ -579,6 +608,18 @@
                 totalActive += r.t;
                 totalChecked += r.c;
             });
+
+            const countTriangle = (node, parentDeleted = false) => {
+                const st = getStatus(node.id);
+                const isDeleted = parentDeleted || st.deleted;
+                if(isDeleted) return;
+                if(node.type === 'h3') {
+                    if((st.state || 'none') === 'triangle') totalTriangle++;
+                } else if(node.children) {
+                    node.children.forEach(c => countTriangle(c, isDeleted));
+                }
+            };
+            tree.forEach(n => countTriangle(n, false));
 
             let totalDeleted = 0;
             const countDeleted = (node, parentDeleted = false) => {
@@ -592,7 +633,9 @@
             };
             tree.forEach(n => countDeleted(n, false));
 
-            document.getElementById('globalStats').textContent = '已完成項目: ' + totalChecked + ' / ' + totalActive + ' (已略過 ' + totalDeleted + ' 項目)';
+            document.getElementById('globalStats').textContent =
+                '已完成項目: ' + totalChecked + ' / ' + totalActive +
+                ' (待處理 ▲ ' + totalTriangle + '，已略過 ' + totalDeleted + ')';
         }
         
         function expandAll() {
@@ -617,7 +660,12 @@
         }
 
         function exportJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+            const payload = {
+                version: 2,
+                schema: { state: ['none', 'checked', 'triangle'] },
+                data: state
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
             downloadAnchor.setAttribute("download", "game_progress_" + new Date().toISOString().slice(0,10) + ".json");
@@ -637,15 +685,20 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const importedState = JSON.parse(e.target.result);
-                    if (typeof importedState === 'object' && importedState !== null) {
-                        state = importedState;
-                        saveState();
-                        reRender();
-                        alert('進度已成功匯入！');
-                    } else {
+                    const parsed = JSON.parse(e.target.result);
+                    if (typeof parsed !== 'object' || parsed === null) {
                         alert('無效的 JSON 檔案格式！');
+                        return;
                     }
+                    if (parsed.version === 2 && parsed.data && typeof parsed.data === 'object') {
+                        state = parsed.data;
+                    } else {
+                        alert('不支援的檔案版本，請使用新版匯出的 JSON。');
+                        return;
+                    }
+                    saveState();
+                    reRender();
+                    alert('進度已成功匯入！');
                 } catch (err) {
                     alert('讀取檔案失敗或 JSON 格式錯誤！');
                 }
