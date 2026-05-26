@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>讓 3D 模型在臉上 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_5_讓3D模型在臉上.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>讓 3D 模型在臉上</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>原理</h2>
+        <p>AR Foundation 的 <code>ARFaceManager</code> 會即時偵測鏡頭中的臉，產生一個 <code>ARFace</code> 物件，並持續更新它的位置、旋轉與表情參數。我們只要把 3D 模型設成這個 <code>ARFace</code> 的子物件，它就會自動跟著臉走。</p>
+
+        <h2>步驟</h2>
+        <ol>
+          <li>在 Hierarchy 建立 <strong>AR Session</strong> 與 <strong>XR Origin (Mobile AR)</strong>。</li>
+          <li>把 XR Origin 的 Camera 模式改為 <strong>Front Facing</strong>（前鏡頭）。</li>
+          <li>在 XR Origin 上加 <code>AR Face Manager</code> 元件。</li>
+          <li>建立一個 <strong>Face Prefab</strong>：空物件 + 你的 3D 模型（眼鏡、面具、貓耳等）為其子物件。</li>
+          <li>把 Face Prefab 拖到 <code>AR Face Manager</code> 的 <em>Face Prefab</em> 欄位。</li>
+          <li>調整模型的 <em>Position / Rotation / Scale</em>，讓它對齊臉的中心點。</li>
+        </ol>
+
+        <h2>對齊小技巧</h2>
+        <ul>
+          <li>ARKit 臉部座標的 <strong>原點在鼻尖後方</strong>，往前是 +Z。</li>
+          <li>模型導入後若朝向相反，繞 Y 軸轉 180°。</li>
+          <li>眼鏡建議 Z 軸正值（往前推離臉一點點），避免穿模。</li>
+        </ul>
+
+        <p>確認手機 Build And Run 後，鏡頭對自己，3D 模型就會穩穩貼在臉上隨頭轉動。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

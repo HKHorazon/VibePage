@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 Antigravity 在 Unity 安裝 AR — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_4_用Antigravity在Unity安裝AR.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>用 Antigravity 在 Unity 安裝 AR</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>前置準備</h2>
+        <ol>
+          <li>下載並安裝 <strong>Unity Hub</strong> 與 <strong>Unity 6 LTS</strong>。</li>
+          <li>安裝 <strong>Antigravity</strong>，登入 Google 帳號。</li>
+        </ol>
+
+        <h2>操作流程</h2>
+        <ol>
+          <li>在 Unity Hub 新增一個 3D（URP）專案，命名 <code>FaceAR</code>。</li>
+          <li>開啟 Antigravity，把專案資料夾拖入工作區，建立新的 Agent 任務。</li>
+          <li>對 Agent 輸入指令：<br>
+            「在這個 Unity 專案中安裝 AR Foundation 與 ARKit / ARCore Face Tracking 套件，並建立一個會跟隨臉部的 Cube 範例場景。」
+          </li>
+          <li>Antigravity 會自動：
+            <ul>
+              <li>編輯 <code>Packages/manifest.json</code> 加入所需套件</li>
+              <li>建立 <code>Scenes/FaceTrackingDemo.unity</code></li>
+              <li>配置 AR Session、AR Face Manager、AR Camera</li>
+              <li>輸出操作記錄與截圖供你檢查</li>
+            </ul>
+          </li>
+          <li>檢視 Artifacts，按 Approve 套用變更。</li>
+          <li>在 Build Settings 切換到 Android 或 iOS，連線手機後 Build And Run。</li>
+        </ol>
+
+        <h2>驗證結果</h2>
+        <p>手機鏡頭對著自己，畫面就會出現跟著臉移動的方塊，AR 基礎環境即建置完成，可以接著開發實際配件了。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 Meshy AI 建立 3D 模型 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_6_用MeshyAI建立3D模型.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>用 Meshy AI 建立 3D 模型</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>Meshy AI 是什麼</h2>
+        <p>Meshy 是一個由 AI 生成 3D 模型的線上服務。輸入一段文字描述（Text to 3D）或上傳一張圖（Image to 3D），它就會在幾分鐘內產生帶貼圖的 3D 模型，並支援匯出 <code>.glb</code>、<code>.fbx</code>、<code>.obj</code> 等 Unity 可直接讀取的格式。</p>
+
+        <h2>建模流程</h2>
+        <ol>
+          <li>到 <strong>meshy.ai</strong> 註冊帳號（免費額度足夠課堂使用）。</li>
+          <li>選擇 <strong>Text to 3D</strong>，輸入提示詞，例如：<br>
+            <code>cute cat ear headband, cartoon style, soft pink fur, low poly</code>
+          </li>
+          <li>挑選喜歡的初稿（共 4 個草模），按 <em>Refine</em> 產生高品質版本。</li>
+          <li>在 Refine 結果頁面點 <em>Download</em>，選 <strong>GLB</strong> 格式。</li>
+        </ol>
+
+        <h2>導入 Unity</h2>
+        <ol>
+          <li>把 <code>.glb</code> 拖進 Unity 的 <code>Assets/Models/</code> 資料夾。</li>
+          <li>選取模型，在 Inspector 確認 <em>Scale Factor</em>（通常設 0.05～0.1 讓配件大小符合臉部）。</li>
+          <li>把模型拖入上一篇做好的 <strong>Face Prefab</strong> 中當子物件。</li>
+        </ol>
+
+        <h2>提示詞小撇步</h2>
+        <ul>
+          <li>加 <code>low poly</code> 可減面數，手機效能較好</li>
+          <li>加 <code>symmetrical</code> 讓左右對稱的配件（眼鏡、耳機）更工整</li>
+          <li>加 <code>front view, T-pose</code> 讓模型方向統一，省去後續旋轉</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

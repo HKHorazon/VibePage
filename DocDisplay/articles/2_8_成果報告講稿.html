@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成果報告講稿 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_8_成果報告講稿.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+      <h1>成果報告講稿</h1>
+      <span class="article-date">2026-05-26</span>
+
+      <hr>
+
+      <h2>第一段：遊戲引擎與 Unity</h2>
+      <p>大家好！這次我們的多元專題要挑戰的是臉部 AR 配件，就是那種 IG 濾鏡會出現的貓耳、眼鏡之類的東西。一開始我們先搞懂什麼叫遊戲引擎，老師說它就像一個工具箱，畫面、相機、按鈕都幫你準備好了，不用每樣都自己刻。我們選的是 Unity，因為它免費、可以做 iOS 也可以做 Android，YouTube 教學一大堆，超適合我們這種新手。</p>
+
+      <hr>
+
+      <h2>第二段：什麼是 AR</h2>
+      <p>AR 就是擴增實境啦！跟 VR 不一樣，VR 是直接把你丟進另一個世界，AR 是把虛擬東西「貼」在現實畫面上，所以你還是看得到自己。像 IG 濾鏡、寶可夢 GO、IKEA 那個能在房間預覽家具的功能，都是 AR。AR 可以偵測地板、認圖片、抓臉，我們這次要用的就是「抓臉」這個功能，讓配件可以乖乖跟著我們的臉跑、轉頭也不會掉。</p>
+
+      <hr>
+
+      <h2>第三段：Agent AI 與 Antigravity</h2>
+      <p>老實說，我們組裡沒有人寫過 Unity，C# 是什麼也不知道。後來老師介紹我們用 Google 的 Antigravity，它是一個 AI 會自己動手寫程式的軟體。我們只要用中文告訴它要幹嘛，它就會自己改檔案、裝套件、開終端機，每一步還會截圖給我們看，我們確認沒問題再按 Approve 就好。感覺有點像請了一個會寫程式的學長幫忙，我們負責動腦想創意，難的部分交給它處理。</p>
+
+      <hr>
+
+      <h2>第四段：建模與整合</h2>
+      <p>環境搞定後，我們用 Meshy AI 來做 3D 模型，只要打幾個英文關鍵字，幾分鐘後就會生出一個帶貼圖的配件，超神。把模型拖進 Unity，再叫 Antigravity 幫我們加切換按鈕跟拍照功能，然後 Build 到手機上。打開鏡頭那一刻真的滿感動的，貓耳、面具就這樣黏在我們臉上，還可以換來換去、拍照存到相簿。這次專題讓我們發現，就算技術完全不會，只要懂得怎麼用 AI，我們也可以做出原本以為自己根本做不到的東西。報告完畢，謝謝大家！</p>
+
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

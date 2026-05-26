@@ -8,15 +8,14 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
-      <a href="../index.html" class="back-btn">← 回目錄</a>
-    </div>
-  </header>
-
-  <main class="container">
-    <article class="article-body">
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_6_成果報告講稿.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
       <h1>成果報告講稿</h1>
       <span class="article-date">2026-05-19</span>
 
@@ -40,7 +39,13 @@
       <h2>第四段：AI 實作</h2>
       <p>我們知道 AI 可以直接做出這些東西，但老師說要先了解基礎才能真的用得起來，所以我們在學完之後，試著用 ChatGPT 製作了三款手機網頁小遊戲。過程中我們主要是用說的告訴 AI 想要什麼效果，AI 會幫我們生出程式碼，我們再貼上去看看有沒有動。雖然很多程式碼我們還是看不太懂，但大概知道每個部分是在做什麼。最後老師把我們的成果放到網路上，現在用手機就可以直接玩到我們自己做的遊戲。</p>
 
-    </article>
-  </main>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 加切換與匯出 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_7_Antigravity加切換與匯出.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>用 Antigravity 加上切換與匯出功能</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>目標</h2>
+        <p>目前 AR 場景只有一個固定配件。我們希望使用者能：</p>
+        <ul>
+          <li>按下按鈕切換不同的 3D 配件</li>
+          <li>截圖目前畫面並儲存到手機相簿</li>
+          <li>把成果分享出去</li>
+        </ul>
+        <p>這些功能不必自己從零寫，交給 Antigravity 代勞。</p>
+
+        <h2>切換配件</h2>
+        <p>在 Antigravity 開啟專案，建立 Agent 任務，輸入：</p>
+        <pre><code>請新增一個 AccessoryManager.cs，管理一個 Prefab 陣列。
+在 UI 加入「下一個」「上一個」兩顆按鈕，按下時切換目前掛在 ARFace 上的子物件。
+切換時舊配件 Destroy，新配件 Instantiate 為 ARFace 的子物件。</code></pre>
+        <p>Agent 會自動建立 C# 腳本、配置 Canvas、把按鈕事件接上方法，並輸出截圖讓你確認 UI 位置。</p>
+
+        <h2>截圖與匯出</h2>
+        <pre><code>請新增「拍照」按鈕，按下時：
+1. 用 ScreenCapture.CaptureScreenshotAsTexture() 抓畫面
+2. 在 Android 用 NativeGallery 套件儲存到相簿
+3. 在 iOS 用 Photos framework 儲存
+跳出「已儲存」的提示文字 1.5 秒後消失。</code></pre>
+        <p>Agent 會自動加入需要的套件、寫好平台分支判斷，並在 Artifacts 列出每個檔案的修改點。</p>
+
+        <h2>驗收</h2>
+        <ol>
+          <li>檢視 Antigravity 的 Artifacts，按 Approve 套用</li>
+          <li>Build And Run 到手機</li>
+          <li>測試「切換」「拍照」「相簿出現照片」三件事</li>
+          <li>若有 bug，把錯誤訊息貼回 Agent，讓它繼續修</li>
+        </ol>
+
+        <p>到這裡，一個可用的臉部 AR 配件 App 就完成了。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

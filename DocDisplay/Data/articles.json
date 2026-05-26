@@ -1,38 +1,100 @@
-[
-  {
-    "title": "手機網頁小遊戲製作基礎：從零開始的開發指南",
-    "file": "articles/webgame.html",
-    "date": "2026-04-27",
-    "summary": "了解 HTML、CSS、JavaScript 如何協同打造一款可在手機運行的網頁小遊戲。"
-  },
-  {
-    "title": "【自主學習小組報告】手機網頁動態互動專案開發實錄",
-    "file": "articles/article_work.html",
-    "date": "2026-05-06",
-    "summary": "紀錄小組學習手機網頁動態互動專案，透過 AI 輔助開發的完整八單元歷程。"
-  },
-  {
-    "title": "HTML 基礎：網頁的骨架",
-    "file": "articles/html.html",
-    "date": "2026-05-19",
-    "summary": "HTML 文件結構、標題段落、清單、連結圖片、區塊容器、畫布等常用語法速查。"
-  },
-  {
-    "title": "CSS 基礎：網頁的外觀",
-    "file": "articles/css.html",
-    "date": "2026-05-19",
-    "summary": "CSS 選擇器、顏色背景、字體、間距、Flexbox 排版、hover 互動效果語法速查。"
-  },
-  {
-    "title": "JavaScript 基礎：網頁的大腦",
-    "file": "articles/js.html",
-    "date": "2026-05-19",
-    "summary": "JS 變數、條件判斷、函式、事件監聽、DOM 操作、遊戲迴圈、Canvas 繪圖語法速查。"
-  },
-  {
-    "title": "成果報告講稿",
-    "file": "articles/script.html",
-    "date": "2026-05-19",
-    "summary": "以學生口吻介紹 HTML、CSS、JavaScript 三項技術的成果報告影片講稿。"
-  }
-]
+{
+  "categories": [
+    {
+      "code": "01",
+      "name": "網頁小遊戲(自主學習)",
+      "articles": [
+        {
+          "title": "手機網頁小遊戲製作基礎：從零開始的開發指南",
+          "file": "articles/1_1_網頁小遊戲入門.html",
+          "date": "2026-04-27",
+          "summary": "了解 HTML、CSS、JavaScript 如何協同打造一款可在手機運行的網頁小遊戲。"
+        },
+        {
+          "title": "【自主學習小組報告】手機網頁動態互動專案開發實錄",
+          "file": "articles/1_2_自主學習小組報告.html",
+          "date": "2026-05-06",
+          "summary": "紀錄小組學習手機網頁動態互動專案，透過 AI 輔助開發的完整八單元歷程。"
+        },
+        {
+          "title": "HTML 基礎：網頁的骨架",
+          "file": "articles/1_3_HTML基礎.html",
+          "date": "2026-05-19",
+          "summary": "HTML 文件結構、標題段落、清單、連結圖片、區塊容器、畫布等常用語法速查。"
+        },
+        {
+          "title": "CSS 基礎：網頁的外觀",
+          "file": "articles/1_4_CSS基礎.html",
+          "date": "2026-05-19",
+          "summary": "CSS 選擇器、顏色背景、字體、間距、Flexbox 排版、hover 互動效果語法速查。"
+        },
+        {
+          "title": "JavaScript 基礎：網頁的大腦",
+          "file": "articles/1_5_JavaScript基礎.html",
+          "date": "2026-05-19",
+          "summary": "JS 變數、條件判斷、函式、事件監聽、DOM 操作、遊戲迴圈、Canvas 繪圖語法速查。"
+        },
+        {
+          "title": "成果報告講稿",
+          "file": "articles/1_6_成果報告講稿.html",
+          "date": "2026-05-19",
+          "summary": "以學生口吻介紹 HTML、CSS、JavaScript 三項技術的成果報告影片講稿。"
+        }
+      ]
+    },
+    {
+      "code": "02",
+      "name": "臉部AR配件 (多元專題)",
+      "articles": [
+        {
+          "title": "遊戲引擎與 Unity",
+          "file": "articles/2_1_遊戲引擎與Unity.html",
+          "date": "2026-05-26",
+          "summary": "什麼是遊戲引擎、Unity 的角色與優勢，以及為何選 Unity 作為本專題的 AR 開發平台。"
+        },
+        {
+          "title": "什麼是 AR",
+          "file": "articles/2_2_什麼是AR.html",
+          "date": "2026-05-26",
+          "summary": "AR 擴增實境的定義、與 VR 的差異、四種核心能力，以及本專題會用到的臉部追蹤。"
+        },
+        {
+          "title": "Agent AI 與 Antigravity",
+          "file": "articles/2_3_AgentAI與Antigravity.html",
+          "date": "2026-05-26",
+          "summary": "認識代理型 AI、Google Antigravity 開發環境的特色，以及為何能降低新手學 Unity 的門檻。"
+        },
+        {
+          "title": "用 Antigravity 在 Unity 安裝 AR",
+          "file": "articles/2_4_用Antigravity在Unity安裝AR.html",
+          "date": "2026-05-26",
+          "summary": "透過 Antigravity Agent 自動安裝 AR Foundation、建立臉部追蹤範例場景，並 Build 到手機驗證。"
+        },
+        {
+          "title": "讓 3D 模型在臉上",
+          "file": "articles/2_5_讓3D模型在臉上.html",
+          "date": "2026-05-26",
+          "summary": "利用 AR Face Manager 與 Face Prefab，把 3D 模型掛到偵測到的臉上並隨頭部即時移動。"
+        },
+        {
+          "title": "用 Meshy AI 建立 3D 模型",
+          "file": "articles/2_6_用MeshyAI建立3D模型.html",
+          "date": "2026-05-26",
+          "summary": "用 Meshy AI 以文字或圖片生成 3D 配件、匯出 GLB 並導入 Unity 的完整流程與提示詞技巧。"
+        },
+        {
+          "title": "用 Antigravity 加切換與匯出功能",
+          "file": "articles/2_7_Antigravity加切換與匯出.html",
+          "date": "2026-05-26",
+          "summary": "請 Antigravity 自動寫出配件切換、截圖儲存到手機相簿等功能，並完成驗收。"
+        },
+        {
+          "title": "成果報告講稿",
+          "file": "articles/2_8_成果報告講稿.html",
+          "date": "2026-05-26",
+          "summary": "以學生口吻介紹遊戲引擎、AR、Antigravity 與 Meshy AI 的多元專題成果報告影片講稿。"
+        }
+      ]
+    }
+  ]
+}

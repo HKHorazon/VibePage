@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent AI 與 Antigravity — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_3_AgentAI與Antigravity.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>Agent AI 與 Antigravity</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>什麼是 Agent AI</h2>
+        <p>Agent AI（代理型 AI）是指能自己拆解任務、呼叫工具、讀寫檔案、執行指令，再依結果調整下一步的 AI。它不只是回答問題，而是在使用者授權範圍內，幫你把事情實際做完。</p>
+
+        <h2>什麼是 Antigravity</h2>
+        <p>Antigravity 是 Google 在 2025 年底推出的代理型開發環境，由 Gemini 3 驅動，介面類似一個進階版的 VS Code，但每個任務都交給 AI 代理執行。特色：</p>
+        <ul>
+          <li>內建 Agent Manager，可同時管理多個任務代理</li>
+          <li>直接操作編輯器、終端機、瀏覽器</li>
+          <li>自動產生 Artifacts（計畫、截圖、操作記錄）方便人類驗證</li>
+          <li>支援 MCP、子代理與規格驅動的開發流程</li>
+        </ul>
+
+        <h2>為什麼需要它</h2>
+        <ul>
+          <li>把繁瑣設定（環境、套件、樣板程式碼）交給 AI 自動處理</li>
+          <li>學習新技術時，能邊看 AI 操作邊學</li>
+          <li>減少初學者卡關時間，把心力放在創作與設計</li>
+        </ul>
+
+        <p>對沒寫過 Unity 的同學來說，這正是降低門檻的利器。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

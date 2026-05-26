@@ -8,15 +8,14 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
-      <a href="../index.html" class="back-btn">← 回目錄</a>
-    </div>
-  </header>
-
-  <main class="container">
-    <article class="article-body">
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_5_JavaScript基礎.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
       <h1>JavaScript：網頁的大腦</h1>
       <span class="article-date">2026-05-19</span>
 
@@ -118,7 +117,13 @@ ctx.beginPath()
 ctx.arc(x, y, radius, 0, Math.PI * 2)
 ctx.fill()</code></pre>
 
-    </article>
-  </main>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
 </body>
 </html>

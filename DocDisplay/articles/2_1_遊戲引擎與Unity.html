@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>遊戲引擎與 Unity — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_1_遊戲引擎與Unity.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>遊戲引擎與 Unity</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>什麼是遊戲引擎</h2>
+        <p>遊戲引擎是把繪圖、物理、音效、輸入、UI、場景管理等常見功能包成一整套工具的軟體框架。開發者不必從零實作每個系統，只要在引擎裡擺場景、寫腳本，就能跨平台輸出遊戲或互動內容。</p>
+
+        <h2>什麼是 Unity</h2>
+        <p>Unity 是目前最普及的跨平台引擎之一，由 Unity Technologies 開發。以 C# 作為主要腳本語言，提供視覺化編輯器、龐大的 Asset Store 與社群資源，能輸出到 Windows、macOS、iOS、Android、WebGL、主機、VR/AR 等平台。</p>
+
+        <h2>為什麼選 Unity</h2>
+        <ul>
+          <li>入門門檻低、中文教學資源豐富</li>
+          <li>2D 與 3D 都支援</li>
+          <li>AR Foundation、XR Interaction Toolkit 等套件讓 AR/VR 整合容易</li>
+          <li>免費版本即可商用（年營收門檻內）</li>
+        </ul>
+
+        <p>對本專題而言，使用 Unity 可以快速搭建 AR 場景並部署到手機，是適合課堂規模的選擇。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

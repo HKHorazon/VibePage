@@ -9,66 +9,121 @@
 </head>
 <body>
   <div id="app">
-    <header class="site-header">
-      <div class="container">
-        <span class="site-title">Horazon 資料文庫</span>
-      </div>
-    </header>
-
-    <main class="container">
+    <doc-layout
+      current-file=""
+      data-path="./Data/articles.json"
+      index-path="./index.html"
+      file-prefix="./"
+    >
       <section class="hero">
-        <p class="hero-eyebrow">Knowledge Base</p>
-        <h1 class="hero-title">文章目錄</h1>
-        <p class="hero-desc">選擇一篇文章開始閱讀</p>
+        <h1 class="hero-title">
+          <span class="brand-dark">Horazon</span>
+          <span class="brand-rainbow"><span class="brand-rainbow-sep">//</span> 資料文庫</span>
+        </h1>
+        <span class="hero-eyebrow">KNOWLEDGE.BASE / v1.0</span>
+        <div class="hero-divider"></div>
+
+        <ul class="stat-row">
+          <li class="stat">
+            <span class="stat-label">CATEGORIES</span>
+            <span class="stat-value">{{ stats.categoryCount }}</span>
+          </li>
+          <li class="stat">
+            <span class="stat-label">ARTICLES</span>
+            <span class="stat-value">{{ stats.articleCount }}</span>
+          </li>
+          <li class="stat">
+            <span class="stat-label">LAST.UPDATE</span>
+            <span class="stat-value stat-value--mono">{{ stats.lastUpdate || '—' }}</span>
+          </li>
+        </ul>
       </section>
 
-      <hr class="section-divider">
-
-      <section class="article-list">
-        <div v-if="loading" class="state-msg">載入中…</div>
-        <div v-else-if="error" class="state-msg">無法載入文章列表</div>
-        <template v-else>
-          <p class="article-count">共 {{ articles.length }} 篇文章</p>
-          <a
-            v-for="article in articles"
-            :key="article.file"
-            :href="article.file"
-            class="article-card"
-          >
-            <div class="article-card-title">{{ article.title }}</div>
-            <div class="article-card-meta">{{ article.date }}</div>
-            <div class="article-card-summary">{{ article.summary }}</div>
-          </a>
-        </template>
+      <section class="section">
+        <h2 class="section-title"><span class="section-title-slash">//</span> 簡介</h2>
+        <p class="intro-text">提供給學生學習、專題的筆記，從左側選擇文章開始閱讀。內容涵蓋網頁開發、互動專題、AR 應用等主題，以實作步驟與重點摘要為主，方便上課時引用、課後快速複習。每篇文章皆會隨課程進度持續整理與新增。</p>
       </section>
-    </main>
+
+      <section class="section" v-if="catList.length">
+        <h2 class="section-title"><span class="section-title-slash">//</span> 目前分類</h2>
+        <ul class="cat-list">
+          <li v-for="cat in catList" :key="cat.code" class="cat-item">
+            <a :href="cat.firstFile" class="cat-item-link">
+              <span class="cat-item-code">CAT_{{ cat.code }}</span>
+              <span class="cat-item-body">
+                <span class="cat-item-name">
+                  <span class="cat-item-main">{{ cat.mainName }}</span>
+                  <span v-if="cat.tag" class="cat-item-tag">{{ cat.tag }}</span>
+                </span>
+                <span class="cat-item-count">{{ cat.count }} 篇</span>
+              </span>
+              <span class="cat-item-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </doc-layout>
   </div>
 
   <script type="module">
-    import { createApp, reactive, onMounted } from '../framework/vue.esm-browser.js'
+    import { createApp, reactive, computed, onMounted } from '../framework/vue.esm-browser.js'
+    import { DocLayout } from './doc-layout.js'
+
+    const splitName = (name) => {
+      const m = String(name).match(/^(.*?)\s*[（(]([^（）()]+)[）)]\s*$/)
+      if (m) return { mainName: m[1].trim(), tag: m[2].trim() }
+      return { mainName: name, tag: '' }
+    }
 
     createApp({
+      components: { DocLayout },
       setup() {
-        const state = reactive({
-          articles: [],
-          loading: true,
-          error: false,
-        })
+        const state = reactive({ categories: [] })
 
         onMounted(async () => {
           try {
             const res = await fetch('./Data/articles.json')
             if (!res.ok) throw new Error()
-            state.articles = await res.json()
+            const data = await res.json()
+            state.categories = Array.isArray(data) ? [] : (data.categories || [])
           } catch {
-            state.error = true
-          } finally {
-            state.loading = false
+            state.categories = []
           }
         })
 
-        return state
-      }
+        const stats = computed(() => {
+          let articleCount = 0
+          let lastUpdate = ''
+          for (const cat of state.categories) {
+            for (const a of cat.articles || []) {
+              articleCount++
+              if (a.date && a.date > lastUpdate) lastUpdate = a.date
+            }
+          }
+          return {
+            categoryCount: state.categories.length,
+            articleCount,
+            lastUpdate,
+          }
+        })
+
+        const catList = computed(() =>
+          state.categories.map((c, i) => {
+            const code = c.code || String(i + 1).padStart(2, '0')
+            const { mainName, tag } = splitName(c.name || '未分類')
+            const first = (c.articles && c.articles[0]) || null
+            return {
+              code,
+              mainName,
+              tag,
+              count: (c.articles || []).length,
+              firstFile: first ? './' + first.file : '#',
+            }
+          })
+        )
+
+        return { state, stats, catList }
+      },
     }).mount('#app')
   </script>
 </body>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>什麼是 AR — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_2_什麼是AR.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>什麼是 AR</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <h2>定義</h2>
+        <p>AR（Augmented Reality，擴增實境）是把虛擬內容疊加到真實世界畫面上的技術。透過鏡頭、感測器與運算，讓 3D 模型、文字、特效像真的存在於現場一樣。</p>
+
+        <h2>AR 與 VR 的差別</h2>
+        <p>VR（虛擬實境）把使用者帶入完全虛擬的環境；AR 則保留真實場景，再加上虛擬資訊。常見的 AR 例子有 Snapchat 濾鏡、IG 臉部特效、Pokémon GO、IKEA Place 家具預覽、博物館導覽 App。</p>
+
+        <h2>AR 的核心能力</h2>
+        <ul>
+          <li><strong>平面偵測</strong>：辨識地板、桌面，可在上面擺放虛擬物件</li>
+          <li><strong>影像追蹤</strong>：辨識特定圖片，並在圖片上疊加內容</li>
+          <li><strong>臉部追蹤</strong>：取得臉部特徵點與表情，可貼濾鏡或配件</li>
+          <li><strong>環境光估算</strong>：讓虛擬物件融入現場光線，更顯真實</li>
+        </ul>
+
+        <p>本專題會用到「臉部追蹤」，讓 AR 配件能正確跟著使用者的臉移動與旋轉。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

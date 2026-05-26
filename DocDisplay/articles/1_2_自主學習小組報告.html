@@ -8,16 +8,15 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a href="../index.html" class="site-title">Horazon 資料文庫</a>
-      <a href="../index.html" class="back-btn">← 回目錄</a>
-    </div>
-  </header>
-
-  <main class="container">
-    <article class="article-body">
-      <h1>【自主學習小組報告】手機網頁動態互動專案開發實錄</h1>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_2_自主學習小組報告.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>【自主學習小組報告】手機網頁動態互動專案開發實錄</h1>
       <span class="article-date">2026-05-06</span>
 
       <hr>
@@ -84,7 +83,13 @@
       <p><strong>預期成效：</strong><br>
       我們完成了一個真正具備互動功能的手機網頁動態作品。透過這八個單元的合作與 AI 的輔助，我們從零開始掌握了開發流程，並成功將技術轉化為可展示的數位成品。</p>
 
-    </article>
-  </main>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
 </body>
 </html>
