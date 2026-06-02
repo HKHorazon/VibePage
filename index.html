@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horazon 網站一覽</title>
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --header-bg: #ffffff;
+      --card-bg: #ffffff;
+      --text: #1a1a2e;
+      --subtext: #666;
+      --border: #e0e4ed;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --btn-bg: #f0f2f5;
+      --btn-border: #dde0ea;
+      --accent: #4f6ef7;
+    }
+    body.dark {
+      --bg: #0f1117;
+      --header-bg: #1a1d27;
+      --card-bg: #1e2130;
+      --text: #e8eaf0;
+      --subtext: #9a9db0;
+      --border: #2a2d3e;
+      --shadow: 0 2px 12px rgba(0,0,0,0.35);
+      --btn-bg: #252839;
+      --btn-border: #3a3d4e;
+      --accent: #7b96ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .toggle-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      border-radius: 50%;
+      width: 2.4rem;
+      height: 2.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .toggle-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+    }
+    @media (max-width: 899px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 559px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.3s, border-color 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.13);
+    }
+    body.dark .card:hover {
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+    }
+
+    .card-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .card-sub {
+      font-size: 0.78rem;
+      color: var(--subtext);
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.22em 0.8em;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+    .badge-doing    { background: #dbeafe; color: #1d4ed8; }
+    .badge-done     { background: #dcfce7; color: #15803d; }
+    .badge-done-ext { background: #d1fae5; color: #047857; }
+    .badge-pause    { background: #f3f4f6; color: #6b7280; }
+
+    body.dark .badge-doing    { background: #1e3a8a30; color: #93c5fd; }
+    body.dark .badge-done     { background: #14532d30; color: #86efac; }
+    body.dark .badge-done-ext { background: #064e3b30; color: #6ee7b7; }
+    body.dark .badge-pause    { background: #37415130; color: #9ca3af; }
+
+    .card-link {
+      margin-top: auto;
+      padding-top: 0.5rem;
+      display: inline-block;
+      padding: 0.45em 1.1em;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      align-self: flex-start;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .card-link:hover { opacity: 0.85; transform: translateX(2px); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Horazon 網站一覽</h1>
+    <button class="toggle-btn" id="themeToggle" title="切換明暗模式">🌙</button>
+  </header>
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <script>
+    const projects = [
+      { name: '弘愛築夢',             sub: 'HungAi',               status: 'pause',    link: './HungAi/index.html' },
+      { name: 'SyllabusTrack',         sub: 'SyllabusTrack',        status: 'doing',    link: './SyllabusTrack/index.html' },
+      { name: 'Agent AI 教學',         sub: 'AgentAI',              status: 'doing',    link: './AgentAI/index.html' },
+      { name: '多遊系課表',             sub: 'Course',               status: 'done',     link: './Course/index.html' },
+      { name: '遊戲專案開發進度追蹤',   sub: 'ColledgeGameProject',  status: 'done-ext', link: './ColledgeGameProject/index.html' },
+      { name: 'Horazon 資料文庫',      sub: 'DocDisplay',           status: 'done-ext', link: './DocDisplay/index.html' },
+    ];
+
+    const badgeMap = {
+      doing:      { cls: 'badge-doing',    label: '開發中' },
+      done:       { cls: 'badge-done',     label: '已完成' },
+      'done-ext': { cls: 'badge-done-ext', label: '已完成・可新增資料' },
+      pause:      { cls: 'badge-pause',    label: '暫停' },
+    };
+
+    const grid = document.getElementById('grid');
+    projects.forEach(p => {
+      const b = badgeMap[p.status];
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-name">${p.name}</div>
+        <div class="card-sub">${p.sub}</div>
+        <span class="badge ${b.cls}">${b.label}</span>
+        <a class="card-link" href="${p.link}">前往 →</a>
+      `;
+      grid.appendChild(card);
+    });
+
+    const btn = document.getElementById('themeToggle');
+    const applyTheme = dark => {
+      document.body.classList.toggle('dark', dark);
+      btn.textContent = dark ? '☀️' : '🌙';
+    };
+    applyTheme(localStorage.getItem('theme') === 'dark');
+    btn.addEventListener('click', () => {
+      const dark = !document.body.classList.contains('dark');
+      applyTheme(dark);
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
