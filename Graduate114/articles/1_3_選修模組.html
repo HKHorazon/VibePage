@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>選修 — 模組 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .tab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2px;
+      width: 100%;
+    }
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.45rem 0.2rem;
+    }
+    .arrow-up, .arrow-down {
+      font-size: 1.3rem;
+      margin-left: 4px;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    .arrow-small {
+      font-size: 0.75rem;
+      margin-left: 1px;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    @media (min-width: 900px) {
+      .stat-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    @media (max-width: 899px) {
+      .stat-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat:last-child {
+        grid-column: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_3_選修模組.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>選修(39學分) - 模組</h1>
+
+        <div class="stat-row" style="margin-top: 1rem; margin-bottom: 2rem;">
+          <div class="stat">
+            <span class="stat-label">系上專業選修</span>
+            <span class="stat-value" style="color: var(--cyan);">19<span class="arrow-up" style="color: var(--cyan);">▲</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">外系選修</span>
+            <span class="stat-value" style="color: var(--magenta-bright);">20<span class="arrow-down" style="color: var(--magenta-bright);">▼</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">通識選修</span>
+            <span class="stat-value" style="color: var(--text);">6<span class="arrow-down" style="color: var(--text);">▼</span> <span style="font-size: 0.9rem;">學分</span></span>
+            <span style="font-size: 0.65rem; color: var(--text-dim); font-weight: 600; margin-top: 0.15rem; line-height: 1.2;">（體育至多 4<span class="arrow-small">▼</span>）</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">合計選修學分</span>
+            <span class="stat-value" style="color: var(--text);">39<span class="arrow-up" style="color: var(--text);">▲</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>規則</h2>
+        <p>「遊戲模組」與「多媒體模組」<strong>二選一</strong>，選定後該模組 6 門課<strong>全部都要修</strong>，不可跳課。</p>
+
+        <div class="tab-bar" style="margin-top: 2rem;">
+          <button
+            v-for="(mod, i) in modules" :key="mod.id"
+            type="button"
+            :class="['tab-btn', { active: activeTab === i }]"
+            @click="activeTab = i"
+          >{{ mod.label }}</button>
+        </div>
+        <div class="tab-panel">
+          <table style="margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th>課程名稱</th>
+                <th style="width: 100px; text-align: center;">學分</th>
+                <th style="width: 100px; text-align: center;">學期</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="c in modules[activeTab].courses" :key="c.name">
+                <td>{{ c.name }}</td>
+                <td style="text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">{{ c.credits }}</td>
+                <td style="text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">{{ c.semester }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note warn">
+          6 門課必須全修，漏修任何一門即不算完成模組門檻。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { createApp, ref } from '../../framework/vue.esm-browser.js'
+    import { DocLayout } from '../doc-layout.js'
+
+    createApp({
+      components: { DocLayout },
+      setup() {
+        const activeTab = ref(0)
+        const modules = ref([
+          {
+            id: 'game',
+            label: '遊戲模組（18 學分）',
+            courses: [
+              { name: '遊戲雛形設計', credits: 3, semester: '一下' },
+              { name: '遊戲程式設計', credits: 3, semester: '二上' },
+              { name: '基礎遊戲製作', credits: 3, semester: '二下' },
+              { name: '進階遊戲製作', credits: 3, semester: '三上' },
+              { name: '遊戲特效', credits: 3, semester: '三下' },
+              { name: 'XR 遊戲實作', credits: 3, semester: '四上' }
+            ]
+          },
+          {
+            id: 'media',
+            label: '多媒體模組（17 學分）',
+            courses: [
+              { name: '虛擬網紅與直播整合應用', credits: 3, semester: '一下' },
+              { name: '串流轉播實務', credits: 3, semester: '二上' },
+              { name: '基礎動畫製作', credits: 3, semester: '二下' },
+              { name: '進階動畫製作', credits: 3, semester: '三上' },
+              { name: '數位藝術製作', credits: 3, semester: '三下' },
+              { name: '多媒體數位發行', credits: 2, semester: '四上' }
+            ]
+          }
+        ])
+
+        return {
+          activeTab,
+          modules
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

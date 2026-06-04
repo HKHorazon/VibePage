@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>架構 & 必修 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 2px;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .badge.required {
+      background: var(--cyan-dim);
+      color: var(--cyan-deep);
+      border: 1px solid var(--border-cyan-soft);
+    }
+    .badge.general {
+      background: rgba(192, 38, 211, 0.08);
+      color: var(--magenta-bright);
+      border: 1px solid rgba(192, 38, 211, 0.2);
+    }
+    .semester-summary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      padding: 0.85rem 1.25rem;
+      background: var(--bg-surface-2);
+      border-top: 1px solid var(--border-soft);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .summary-item .label {
+      color: var(--text-dim);
+    }
+    .summary-item .val {
+      color: var(--cyan-deep);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .summary-item.general .val {
+      color: var(--magenta-bright);
+    }
+    .summary-item.total .val {
+      color: var(--text);
+    }
+    .tab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2px;
+      width: 100%;
+    }
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.45rem 0.2rem;
+    }
+    @media (max-width: 560px) {
+      .semester-summary {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_1_架構與必修.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>必修課程(59學分)</h1>
+
+        <div class="stat-row" style="margin-top: 1rem; margin-bottom: 2rem;">
+          <div class="stat">
+            <span class="stat-label">專業必修總計</span>
+            <span class="stat-value" style="color: var(--cyan);">59 學分</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">必修通識總計</span>
+            <span class="stat-value" style="color: var(--magenta-bright);">30 學分</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">合計必修學分</span>
+            <span class="stat-value" style="color: var(--text);">89 學分</span>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="tab-bar">
+          <button
+            v-for="(sem, i) in semesters" :key="sem.id"
+            type="button"
+            :class="['tab-btn', { active: activeTab === i }]"
+            @click="activeTab = i"
+          >{{ sem.label }}</button>
+        </div>
+        <div class="tab-panel">
+          <table style="margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th>課程名稱</th>
+                <th style="width: 100px; text-align: center;">類別</th>
+                <th style="width: 110px; text-align: center;">學分／時數</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="c in semesters[activeTab].courses" :key="c.name">
+                <td>{{ c.name }}</td>
+                <td style="text-align: center;">
+                  <span :class="['badge', c.type]">
+                    {{ c.type === 'required' ? '專業必修' : '通識教育' }}
+                  </span>
+                </td>
+                <td style="text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">
+                  {{ c.credits }} / {{ c.hours }}
+                </td>
+              </tr>
+              <tr v-if="semesters[activeTab].courses.length === 0">
+                <td colspan="3" style="text-align:center; color:var(--text-dim); font-style:italic;">（待填入）</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="semester-summary">
+            <div class="summary-item">
+              <span class="label">專業必修小計:</span>
+              <span class="val">{{ currentRequiredTotal }} 學分</span>
+            </div>
+            <div class="summary-item general">
+              <span class="label">通識教育小計:</span>
+              <span class="val">{{ currentGeneralTotal }} 學分</span>
+            </div>
+            <div class="summary-item total">
+              <span class="label">本學期合計:</span>
+              <span class="val">{{ currentTotal }} 學分</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>必修 59 學分 與 通識 30 學分</h2>
+        <p>必修課程涵蓋大一到大四各年級的專業核心科目，通識課程由學校統一規劃。重要特性：</p>
+        <ul>
+          <li><strong>選修課與體育課保證不和必修衝堂</strong>（通識選修可能衝，請自行確認）</li>
+          <li>必修課程不得以其他課程替代 or 抵免</li>
+          <li>轉系、轉學生請洽系辦確認抵免規定</li>
+        </ul>
+
+        <h2>畢業專題（含於必修內）</h2>
+        <p>專題屬於必修 59 學分的一部分，但因流程特殊，另見 <a href="../articles/2_3_專題.html">「專題」頁面</a> 說明。</p>
+
+        <div class="note">
+          詳細課程清單請查閱系上
+          <a href="https://mgda.hk.edu.tw/wp-content/uploads/2025/08/%E6%97%A5%E9%96%93%E9%83%A8U114%E7%A7%91%E7%9B%AE%E7%B8%BD%E8%A1%A8.pdf" target="_blank" rel="noopener">課程規劃與科目總表</a>
+          及
+          <a href="https://mgda.hk.edu.tw/wp-content/uploads/2025/08/114%E5%AD%B8%E5%B9%B4%E5%BA%A6%E5%9B%9B%E5%B9%B4%E5%88%B6%E6%97%A5%E9%96%93%E9%83%A8%E8%AA%B2%E7%A8%8B%E6%9E%B6%E6%A7%8B%E5%9C%B0%E5%9C%96.pdf" target="_blank" rel="noopener">課程架構圖</a>。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { createApp, ref, computed } from '../../framework/vue.esm-browser.js'
+    import { DocLayout } from '../doc-layout.js'
+
+    createApp({
+      components: { DocLayout },
+      setup() {
+        const activeTab = ref(0)
+        const semesters = ref([
+          {
+            id: '1a',
+            label: '一上',
+            courses: [
+              { name: 'ACGE 概論', credits: 2, hours: 2, type: 'required' },
+              { name: '遊戲企劃', credits: 2, hours: 2, type: 'required' },
+              { name: '基礎攝影與剪輯', credits: 3, hours: 3, type: 'required' },
+              { name: '設計概論', credits: 3, hours: 3, type: 'required' },
+              { name: '原畫設計', credits: 3, hours: 3, type: 'required' },
+              { name: '中文閱讀與書寫(一)', credits: 2, hours: 2, type: 'general' },
+              { name: '英文(一)', credits: 2, hours: 2, type: 'general' },
+              { name: '人文精神(一)', credits: 2, hours: 2, type: 'general' },
+              { name: '服務學習(一)', credits: 0, hours: 1, type: 'general' }
+            ]
+          },
+          {
+            id: '1b',
+            label: '一下',
+            courses: [
+              { name: '2D 動畫', credits: 3, hours: 3, type: 'required' },
+              { name: '產品行銷', credits: 2, hours: 2, type: 'required' },
+              { name: '基礎 AI 應用', credits: 2, hours: 2, type: 'required' },
+              { name: '中文閱讀與書寫(二)', credits: 2, hours: 2, type: 'general' },
+              { name: '英文(二)', credits: 2, hours: 2, type: 'general' },
+              { name: '體育', credits: 2, hours: 2, type: 'general' },
+              { name: '應用程式設計', credits: 2, hours: 2, type: 'general' }
+            ]
+          },
+          {
+            id: '2a',
+            label: '二上',
+            courses: [
+              { name: '提案與簡報技巧', credits: 2, hours: 3, type: 'required' },
+              { name: '劇本寫作與腳本設計', credits: 2, hours: 2, type: 'required' },
+              { name: '基礎遊戲引擎應用', credits: 3, hours: 3, type: 'required' },
+              { name: '歷史與文明', credits: 2, hours: 2, type: 'general' },
+              { name: '人文精神(二)', credits: 2, hours: 2, type: 'general' },
+              { name: '服務學習(二)', credits: 0, hours: 1, type: 'general' }
+            ]
+          },
+          {
+            id: '2b',
+            label: '二下',
+            courses: [
+              { name: '短影片製作', credits: 3, hours: 3, type: 'required' },
+              { name: '互動媒體製作', credits: 3, hours: 3, type: 'required' },
+              { name: '數位音訊控制', credits: 2, hours: 2, type: 'required' },
+              { name: '職場專業英文簡報', credits: 2, hours: 2, type: 'general' },
+              { name: '創意概論', credits: 2, hours: 2, type: 'general' }
+            ]
+          },
+          {
+            id: '3a',
+            label: '三上',
+            courses: [
+              { name: '消費者心理學', credits: 2, hours: 2, type: 'required' },
+              { name: '專題製作(一)', credits: 2, hours: 3, type: 'required' },
+              { name: '多媒體商業模式', credits: 2, hours: 2, type: 'required' },
+              { name: '創新思維與應用', credits: 2, hours: 2, type: 'general' },
+              { name: '社會科學類(選修)', credits: 2, hours: 2, type: 'general' }
+            ]
+          },
+          {
+            id: '3b',
+            label: '三下',
+            courses: [
+              { name: '專案管理', credits: 3, hours: 3, type: 'required' },
+              { name: '自媒體經營與管理', credits: 2, hours: 2, type: 'required' },
+              { name: '專題製作(二)', credits: 2, hours: 3, type: 'required' },
+              { name: '民主與法治', credits: 2, hours: 2, type: 'general' },
+              { name: '人文藝術類(選修)', credits: 2, hours: 2, type: 'general' }
+            ]
+          },
+          {
+            id: '4a',
+            label: '四上',
+            courses: [
+              { name: '畢業專題', credits: 2, hours: 3, type: 'required' },
+              { name: '專業實習', credits: 4, hours: 4, type: 'required' },
+              { name: '展演設計', credits: 2, hours: 2, type: 'required' }
+            ]
+          },
+          {
+            id: '4b',
+            label: '四下',
+            courses: [
+              { name: '畢業展演實務', credits: 3, hours: 3, type: 'required' }
+            ]
+          }
+        ])
+
+        const currentRequiredTotal = computed(() => {
+          return semesters.value[activeTab.value].courses
+            .filter(c => c.type === 'required')
+            .reduce((sum, c) => sum + c.credits, 0)
+        })
+
+        const currentGeneralTotal = computed(() => {
+          return semesters.value[activeTab.value].courses
+            .filter(c => c.type === 'general')
+            .reduce((sum, c) => sum + c.credits, 0)
+        })
+
+        const currentTotal = computed(() => {
+          return currentRequiredTotal.value + currentGeneralTotal.value
+        })
+
+        return {
+          activeTab,
+          semesters,
+          currentRequiredTotal,
+          currentGeneralTotal,
+          currentTotal
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

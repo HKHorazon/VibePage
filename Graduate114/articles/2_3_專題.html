@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專題 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_3_專題.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>專題</h1>
+        <span class="article-date">大二下開始組隊找老師，勿拖到最後</span>
+
+        <hr>
+
+        <h2>流程總覽</h2>
+        <table>
+          <thead>
+            <tr><th>階段</th><th>時間</th><th>內容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>籌備</td><td>大二下</td><td>3-5 人組隊，找指導老師</td></tr>
+            <tr><td>製作</td><td>大三</td><td>正式開始，定期審查會議</td></tr>
+            <tr><td>完成</td><td>大四</td><td>外部審查＋校內展＋校外展</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          詳細辦法大二下宣布，<strong>可能還會修改</strong>，以正式公告為準。
+        </div>
+
+        <h2>製作類型</h2>
+        <table>
+          <thead>
+            <tr><th>類型</th><th>項目</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>多媒體</td><td>2D 動畫、3D 動畫、AR、VR、光雕</td></tr>
+            <tr><td>遊戲</td><td>電子遊戲開發</td></tr>
+            <tr><td>影像</td><td>錄影、微電影</td></tr>
+            <tr><td>平面設計</td><td>平面設計作品</td></tr>
+          </tbody>
+        </table>
+
+        <p>各類型有個別的時長與規格要求，製作前務必確認最新版辦法。</p>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

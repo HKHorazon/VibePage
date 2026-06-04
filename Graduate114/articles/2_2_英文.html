@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英文 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_2_英文.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>英文</h1>
+        <span class="article-date">必須先考一次測驗，才能補修基礎職場英文</span>
+
+        <hr>
+
+        <h2>流程</h2>
+        <ol>
+          <li>參加英文能力測驗（依「<strong>附表二</strong>」標準）</li>
+          <li>通過 → 門檻達標</li>
+          <li>未通過 → 補修「<strong>基礎職場英文</strong>」，成績及格即視為達標</li>
+        </ol>
+
+        <div class="note warn">
+          必須先考過一次，才能報名補修課程，<strong>不能跳過測驗</strong>直接修課。
+        </div>
+
+        <h2>C 級學生</h2>
+        <ol>
+          <li>參加外語暨全英教學中心的「<strong>線上口說英語測驗</strong>」</li>
+          <li>通過後，才可選修「基礎職場英文」</li>
+          <li>成績及格 → 英文能力門檻達標</li>
+        </ol>
+        <p>也可以選擇改考學校內部英文測驗，通過後再修「基礎職場英文」。</p>
+
+        <h2>注意</h2>
+        <ul>
+          <li>「基礎職場英文」的學分<strong>不計入 128 學分</strong></li>
+          <li>修課只是取得畢業資格，對學分無幫助</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

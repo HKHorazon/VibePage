@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服務學習 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_1_服務學習.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>服務學習</h1>
+
+        <div class="stat-row" style="margin-top: 1rem; margin-bottom: 2rem;">
+          <div class="stat">
+            <span class="stat-label">一上服務學習</span>
+            <span class="stat-value" style="color: var(--cyan);">10 <span style="font-size: 0.9rem;">小時</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">二上服務學習</span>
+            <span class="stat-value" style="color: var(--magenta-bright);">10 <span style="font-size: 0.9rem;">小時</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">總計服務時數</span>
+            <span class="stat-value" style="color: var(--text);">20 <span style="font-size: 0.9rem;">小時</span></span>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>門檻說明</h2>
+        <p>須完成 <strong>20 小時</strong>的服務學習方可畢業。</p>
+
+        <p>通常會在必修通識「<strong>人文精神</strong>」課程中執行服務學習時數。</p>
+
+        <h2>相關資源</h2>
+        <p>詳細規定、認定方式與報名資訊請查詢服務學習組官網：</p>
+        <p><a href="https://sell.hk.edu.tw/" target="_blank" rel="noopener">https://sell.hk.edu.tw/</a></p>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

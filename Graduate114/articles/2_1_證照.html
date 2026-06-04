@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1A2B 證照 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_1_證照.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>1A2B 證照</h1>
+        <span class="article-date">1張A級 或 2張B級，擇一達成即可</span>
+
+        <hr>
+
+        <h2>門檻規定</h2>
+        <p>畢業前需達成以下其中一個組合：</p>
+        <table>
+          <thead>
+            <tr><th>組合</th><th>條件</th><th>範例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A 組</td><td>A 級證照 <strong>1 張</strong></td><td>Unity Certified User</td></tr>
+            <tr><td>B 組</td><td>B 級證照 <strong>2 張</strong></td><td>國內/初階認可證照</td></tr>
+          </tbody>
+        </table>
+        <p>系上認可證照清單：<a href="https://mgda.hk.edu.tw/證照/" target="_blank">https://mgda.hk.edu.tw/證照/</a></p>
+
+        <h2>取得機會</h2>
+        <ul>
+          <li>系上不定期開設<strong>證照研習＋考試</strong>，有機會就去，沒相關經驗也可以直接試考</li>
+          <li>例如 10/18、10/19 就考了兩張 A 級（Unity Certified User）</li>
+        </ul>
+
+        <h2>弘愛築夢補助</h2>
+        <div class="note">
+          符合「弘愛築夢」資格（低收入戶等）可申請考照費補助，主動向系辦詢問。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>
