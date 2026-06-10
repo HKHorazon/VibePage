@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 的使用說明 — Horazon資料文庫</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_9_Antigravity使用說明.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>Antigravity 的使用說明</h1>
+        <span class="article-date">2026-05-26</span>
+
+        <hr>
+
+        <p>以下是 Antigravity 為我們產出的 Face AR 配件功能完整操作說明，包含一鍵設定、模型替換與手機建置三個步驟。</p>
+
+        <h2>第一步：一鍵完成場景與 Prefab 設定</h2>
+        <ol>
+          <li>回到 Unity 編輯器，等待專案完成編譯。</li>
+          <li>在頂部選單列，點選 <strong>Tools &gt; Face AR &gt; Setup Scene &amp; Prefab</strong>。</li>
+          <li>系統將自動完成以下工作：
+            <ul>
+              <li>偵測場景中的 <code>ARFaceManager</code></li>
+              <li>在 <code>Assets/Prefabs/</code> 生成 <code>ARFaceAccessories.prefab</code></li>
+              <li>在 <code>Assets/Materials/</code> 生成 3D URP 材質，避免 Placeholder 出現粉紅色（材質遺失）</li>
+              <li>自動將 Prefab 指派給 <code>ARFaceManager</code></li>
+              <li>建立深色半透明 UI Canvas、ScrollRect 選單，以及 <code>FaceAccessoryUI</code> 控制器</li>
+              <li>建立適合專案輸入系統（新版或舊版 Input System）的 EventSystem</li>
+            </ul>
+          </li>
+          <li>出現「<strong>Face AR Setup Complete</strong>」對話視窗時，點擊 OK。</li>
+        </ol>
+
+        <h2>第二步：更換 3D 模型與調整位置</h2>
+        <p>本系統使用 Unity 標準的<strong>階層（Hierarchy）架構</strong>定位配件，不需寫程式，直接在編輯器拖曳即可：</p>
+        <ol>
+          <li>在 Project Window 找到並雙擊 <code>Assets/Prefabs/ARFaceAccessories.prefab</code> 進入 Prefab 編輯模式。</li>
+          <li>展開 <code>Accessories</code> 子節點，看到三個錨點：
+            <ul>
+              <li><code>Accessory_Hat</code>：帽子錨點（預設紅色扁圓柱 Placeholder）</li>
+              <li><code>Accessory_Glasses</code>：眼鏡錨點（預設藍綠色鏡框方塊）</li>
+              <li><code>Accessory_Mustache</code>：鬍子錨點（預設棕色膠囊體）</li>
+            </ul>
+          </li>
+          <li>將你的 3D 模型（<code>.fbx</code>、<code>.obj</code> 或 Prefab）拖曳到對應錨點下成為子物件，並刪除或隱藏原 Placeholder。</li>
+          <li>使用 <kbd>W</kbd>（移動）、<kbd>E</kbd>（旋轉）、<kbd>R</kbd>（縮放）工具調整位置。</li>
+        </ol>
+
+        <div class="note">
+          Prefab 根節點 (0, 0, 0) 是臉部中心（約兩眼之間），以此為基準調整：帽子往上、眼鏡往前、鬍子往下。
+        </div>
+
+        <ol start="5">
+          <li>點擊 Prefab 視窗左上角的 <strong>&lt;</strong> 儲存並退出 Prefab 編輯模式。</li>
+        </ol>
+
+        <h2>第三步：手機測試與建置</h2>
+        <ol>
+          <li>前往 <strong>Edit &gt; Project Settings &gt; XR Plug-in Management</strong>，確認已勾選對應平台：
+            <ul>
+              <li>Android → Google ARCore</li>
+              <li>iOS → Apple ARKit</li>
+            </ul>
+          </li>
+          <li>前往 <strong>Build Settings</strong>，將 AR 場景加入 Build 列表。</li>
+          <li>連接手機，點擊 <strong>Build And Run</strong>。</li>
+          <li>開啟 App 並授予相機權限，對準人臉，即可透過底部滾動按鈕切換配件。</li>
+        </ol>
+
+        <h2>程式碼檔案一覽</h2>
+        <table>
+          <thead>
+            <tr><th>檔案</th><th>用途</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>FaceAccessoryController.cs</code></td><td>控制單一臉部 Prefab 上的配件開關</td></tr>
+            <tr><td><code>ARFaceAccessorySceneManager.cs</code></td><td>監聽臉部追蹤事件，同步多臉追蹤狀態與選定配件</td></tr>
+            <tr><td><code>FaceAccessoryUI.cs</code></td><td>動態產生按鈕，提供毛玻璃質感與縮放過渡微動畫</td></tr>
+            <tr><td><code>FaceARSceneSetup.cs</code></td><td>編輯器腳本：一鍵產生 Prefab、URP 材質並建立 UI 綁定</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

@@ -93,6 +93,12 @@
           "file": "articles/2_8_成果報告講稿.html",
           "date": "2026-05-26",
           "summary": "以學生口吻介紹遊戲引擎、AR、Antigravity 與 Meshy AI 的多元專題成果報告影片講稿。"
+        },
+        {
+          "title": "Antigravity 的使用說明",
+          "file": "articles/2_9_Antigravity使用說明.html",
+          "date": "2026-05-26",
+          "summary": "Antigravity 產出的 Face AR 配件系統完整操作說明：一鍵場景設定、模型替換與手機建置流程。"
         }
       ]
     }
