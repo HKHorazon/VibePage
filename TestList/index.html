@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面試及實作通知單 — 弘光科技大學 多媒體遊戲發展與應用系</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="shell" :class="{ 'sidebar-open': sidebarOpen }">
+
+      <header class="topbar">
+        <button
+          type="button"
+          class="hamburger"
+          :class="{ active: sidebarOpen }"
+          @click="toggleSidebar"
+          aria-label="切換目錄"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div class="topbar-title">
+          <span class="topbar-dept">{{ data.department }}</span>
+          <span class="topbar-sub">115 學年度面試名單</span>
+        </div>
+      </header>
+
+      <div class="sidebar-backdrop" @click="closeSidebar"></div>
+
+      <aside class="sidebar">
+        <div class="sidebar-heading">類群選單</div>
+
+        <button
+          type="button"
+          class="sidebar-item"
+          :class="{ active: currentId === 'overview' }"
+          @click="selectGroup('overview')"
+        >
+          <span class="sidebar-item-label">活動總覽</span>
+          <span class="sidebar-item-hint">基本資訊與備註</span>
+        </button>
+
+        <div v-if="loading" class="sidebar-msg">載入中…</div>
+        <div v-else-if="error" class="sidebar-msg error">載入失敗</div>
+
+        <button
+          v-else
+          v-for="g in data.groups"
+          :key="g.id"
+          type="button"
+          class="sidebar-item"
+          :class="{ active: currentId === g.id }"
+          @click="selectGroup(g.id)"
+        >
+          <span class="sidebar-item-label">{{ g.name }}</span>
+          <span class="sidebar-item-hint">
+            {{ g.session }}　共 {{ countCandidates(g) }} 人
+          </span>
+        </button>
+      </aside>
+
+      <main class="content">
+        <div v-if="loading" class="state-msg">載入中…</div>
+        <div v-else-if="error" class="state-msg error">資料載入失敗，請重新整理。</div>
+
+        <template v-else-if="currentId === 'overview'">
+          <section class="hero">
+            <div class="hero-tag">面試通知</div>
+            <h1 class="hero-title">{{ data.title }}</h1>
+            <div class="hero-date">{{ data.date }}</div>
+          </section>
+
+          <section class="info-card">
+            <div class="info-row">
+              <span class="info-label">報到地點</span>
+              <span class="info-value">{{ data.reportLocation }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">面試地點</span>
+              <span class="info-value">{{ data.interviewLocation }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">說明會場地</span>
+              <span class="info-value">{{ data.briefingRoom }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">聯絡電話</span>
+              <span class="info-value">{{ data.contact }}</span>
+            </div>
+          </section>
+
+          <section class="info-card">
+            <h2 class="card-title">備註事項</h2>
+            <ol class="notes-list">
+              <li v-for="(n, i) in data.notes" :key="i">{{ n }}</li>
+            </ol>
+          </section>
+
+          <section class="info-card">
+            <h2 class="card-title">類群一覽</h2>
+            <div class="group-grid">
+              <button
+                v-for="g in data.groups"
+                :key="g.id"
+                type="button"
+                class="group-card"
+                @click="selectGroup(g.id)"
+              >
+                <div class="group-card-name">{{ g.name }}</div>
+                <div class="group-card-meta">
+                  <span>{{ g.session }}</span>
+                  <span>{{ countCandidates(g) }} 人</span>
+                </div>
+              </button>
+            </div>
+          </section>
+        </template>
+
+        <template v-else-if="currentGroup">
+          <section class="hero">
+            <div class="hero-tag">{{ currentGroup.session }}</div>
+            <h1 class="hero-title">{{ currentGroup.name }}</h1>
+            <div class="hero-date">共 {{ countCandidates(currentGroup) }} 位考生</div>
+          </section>
+
+          <section class="report-banner">
+            <div class="report-banner-label">
+              <span class="report-banner-icon">⏰</span>
+              統一報到時間
+            </div>
+            <div class="report-banner-date">{{ data.date }}</div>
+            <div class="report-banner-time">{{ currentGroup.reportTime }}</div>
+            <div class="report-banner-hint">請於上述時間前抵達報到地點</div>
+          </section>
+
+          <section class="info-card compact">
+            <div class="info-row">
+              <span class="info-label">說明會</span>
+              <span class="info-value">{{ currentGroup.briefingTime }}（{{ data.briefingRoom }}）</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">報到地點</span>
+              <span class="info-value">{{ data.reportLocation }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">面試地點</span>
+              <span class="info-value">{{ data.interviewLocation }}</span>
+            </div>
+          </section>
+
+          <section
+            v-for="(slot, si) in currentGroup.slots"
+            :key="si"
+            class="slot-card"
+          >
+            <div class="slot-header">
+              <div class="slot-time">{{ slot.time }}</div>
+              <div class="slot-type">{{ slot.type }}</div>
+            </div>
+            <ul class="candidate-list">
+              <li
+                v-for="c in slot.candidates"
+                :key="c.regId"
+                class="candidate"
+              >
+                <span class="candidate-seq">{{ c.seq }}</span>
+                <span class="candidate-name">{{ c.name }}</span>
+                <span class="candidate-reg">{{ c.regId }}</span>
+              </li>
+            </ul>
+          </section>
+        </template>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createApp, reactive, ref, computed, onMounted } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const data = reactive({
+          department: '',
+          title: '',
+          date: '',
+          reportLocation: '',
+          interviewLocation: '',
+          briefingRoom: '',
+          contact: '',
+          notes: [],
+          groups: [],
+        })
+        const loading = ref(true)
+        const error = ref(false)
+        const sidebarOpen = ref(false)
+        const currentId = ref('overview')
+
+        const currentGroup = computed(() =>
+          data.groups.find(g => g.id === currentId.value) || null
+        )
+
+        const countCandidates = (g) =>
+          g.slots.reduce((sum, s) => sum + s.candidates.length, 0)
+
+        const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value }
+        const closeSidebar = () => { sidebarOpen.value = false }
+
+        const selectGroup = (id) => {
+          currentId.value = id
+          sidebarOpen.value = false
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+
+        onMounted(async () => {
+          try {
+            const res = await fetch('./src/schedule.json')
+            if (!res.ok) throw new Error()
+            const json = await res.json()
+            Object.assign(data, json)
+          } catch (e) {
+            error.value = true
+          } finally {
+            loading.value = false
+          }
+        })
+
+        return {
+          data, loading, error, sidebarOpen,
+          currentId, currentGroup,
+          countCandidates, toggleSidebar, closeSidebar, selectGroup,
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
