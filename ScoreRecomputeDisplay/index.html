@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分數重算試算 — Horazon</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <header class="topbar">
+      <h1>分數重算試算</h1>
+      <p class="subtitle">Horazon 114 下學期 · 期末分數縮放公式</p>
+    </header>
+
+    <main class="container">
+
+      <section class="card slider-card">
+        <div class="slider-head">
+          <label for="passSlider" class="slider-label">通過分數 <span class="slider-sub">S<sub>pass</sub></span></label>
+          <div class="slider-value">{{ pass }} <span class="unit">分</span></div>
+        </div>
+        <input
+          id="passSlider"
+          type="range"
+          min="1"
+          max="59"
+          step="1"
+          v-model.number="pass"
+          class="slider"
+        >
+        <div class="slider-axis">
+          <span>1</span><span>15</span><span>30</span><span>45</span><span>59</span>
+        </div>
+
+        <div class="p-display">
+          <div class="p-item">
+            <div class="p-key">指數 p</div>
+            <div class="p-val">{{ p.toFixed(4) }}</div>
+          </div>
+          <div class="p-item">
+            <div class="p-key">原始 60 分 → 新</div>
+            <div class="p-val">{{ recompute(60).toFixed(1) }}</div>
+          </div>
+          <div class="p-item">
+            <div class="p-key">原始 {{ pass }} 分 → 新</div>
+            <div class="p-val">{{ recompute(pass).toFixed(1) }}</div>
+          </div>
+          <div class="p-warn" v-if="pClamped">
+            ⚠ p 已被夾在下限 0.5（S<sub>pass</sub> 太低時公式會超出範圍）
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>計分公式</h2>
+        <p class="muted">通過分數設為 {{ pass }} 分時，求 p 使 S<sub>pass</sub> 轉換後恰為 60：</p>
+        <div class="formula" ref="formula1"></div>
+        <p class="muted" style="margin-top:1rem;">代入：</p>
+        <div class="formula" ref="formula2"></div>
+        <p class="muted" style="margin-top:1rem;">每位同學的新分數：</p>
+        <div class="formula" ref="formula3"></div>
+        <p class="note">註：老師有不能打 100 分的壓力，故乘以 99。</p>
+      </section>
+
+      <section class="card">
+        <h2>分數轉換曲線</h2>
+        <p class="muted">藍線：本次試算（S<sub>pass</sub> = {{ pass }}）　灰虛線：原始分數（無調整）</p>
+        <div class="chart-wrap">
+          <canvas ref="canvas"></canvas>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>樣本對照表</h2>
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>原始分數</th>
+              <th>新分數</th>
+              <th>變化</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="s in sampleScores" :key="s">
+              <td>{{ s }}</td>
+              <td :class="{ pass: recompute(s) >= 60 }">{{ recompute(s).toFixed(1) }}</td>
+              <td :class="{ up: recompute(s) > s, down: recompute(s) < s }">
+                {{ (recompute(s) - s).toFixed(1) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card rules">
+        <h2>評分規則摘要</h2>
+        <ul>
+          <li>點名 20% · 作業 80%；只當約 10%~25% 的人。</li>
+          <li>原始分數 ≥ 60 一定通過。</li>
+          <li>原始分數 &lt; 60 但 ≥ S<sub>pass</sub>，經公式調整後通過。</li>
+          <li>新分數通常 ≥ 原始分數，但接近 99 分的同學可能略降。</li>
+          <li>S<sub>pass</sub> 為多少會到期末才決定。</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module">
+    import { createApp, ref, computed, watch, onMounted, nextTick } from '../framework/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const pass = ref(59)
+        const formula1 = ref(null)
+        const formula2 = ref(null)
+        const formula3 = ref(null)
+        const canvas = ref(null)
+        let chart = null
+
+        // p = log(0.6) / log(pass/100), clamp to [0.5, 1]
+        const rawP = computed(() => {
+          if (pass.value >= 100) return 1
+          if (pass.value <= 0) return 0.5
+          return Math.log(0.6) / Math.log(pass.value / 100)
+        })
+        const p = computed(() => Math.min(1, Math.max(0.5, rawP.value)))
+        const pClamped = computed(() => rawP.value < 0.5)
+
+        const recompute = (s) => {
+          if (s <= 0) return 0
+          return Math.pow(s / 100, p.value) * 99
+        }
+
+        const sampleScores = [10, 20, 30, 40, 50, 60, 70, 80, 90, 99]
+
+        const renderFormulas = () => {
+          if (!window.katex) return
+          const k = window.katex
+          const opts = { throwOnError: false, displayMode: true }
+          k.render(String.raw`\left(\dfrac{S_{pass}}{100}\right)^p = \dfrac{60}{100}, \quad 0.5 \leq p \leq 1`, formula1.value, opts)
+          k.render(String.raw`p = \dfrac{\ln 0.6}{\ln\left(\dfrac{${pass.value}}{100}\right)} = ${p.value.toFixed(4)}`, formula2.value, opts)
+          k.render(String.raw`S_{new} = \left(\dfrac{S_{old}}{100}\right)^{${p.value.toFixed(4)}} \times 99`, formula3.value, opts)
+        }
+
+        const drawChart = () => {
+          if (!window.Chart || !canvas.value) return
+          const xs = Array.from({ length: 101 }, (_, i) => i)
+          const newY = xs.map(x => recompute(x))
+          const idY = xs
+
+          if (chart) {
+            chart.data.datasets[0].data = newY
+            chart.update('none')
+            return
+          }
+          const crosshair = {
+            id: 'crosshair',
+            afterDraw(c) {
+              const ctx = c.ctx
+              const top = c.chartArea.top
+              const bottom = c.chartArea.bottom
+
+              // 固定 60 分基準線（垂直 + 水平）
+              const x60 = c.scales.x.getPixelForValue(60)
+              const y60 = c.scales.y.getPixelForValue(60)
+              const left = c.chartArea.left
+              const right = c.chartArea.right
+              ctx.save()
+              ctx.lineWidth = 1.5
+              ctx.strokeStyle = 'rgba(5,150,105,0.85)'
+              ctx.setLineDash([6, 4])
+              ctx.beginPath()
+              ctx.moveTo(x60, top); ctx.lineTo(x60, bottom)
+              ctx.moveTo(left, y60); ctx.lineTo(right, y60)
+              ctx.stroke()
+              ctx.fillStyle = '#059669'
+              ctx.font = '600 11px "JetBrains Mono", monospace'
+              ctx.fillText('60 分基準', x60 + 4, top + 12)
+              ctx.fillText('60', left + 4, y60 - 4)
+              ctx.restore()
+
+              // 滑鼠垂直十字線
+              const active = c.tooltip?.getActiveElements?.()
+              if (!active || !active.length) return
+              const x = active[0].element.x
+              ctx.save()
+              ctx.beginPath()
+              ctx.moveTo(x, top)
+              ctx.lineTo(x, bottom)
+              ctx.lineWidth = 1
+              ctx.strokeStyle = 'rgba(37,99,235,0.55)'
+              ctx.setLineDash([4, 4])
+              ctx.stroke()
+              ctx.restore()
+            }
+          }
+
+          chart = new window.Chart(canvas.value.getContext('2d'), {
+            type: 'line',
+            plugins: [crosshair],
+            data: {
+              labels: xs,
+              datasets: [
+                {
+                  label: '新分數',
+                  data: newY,
+                  borderColor: '#2563eb',
+                  backgroundColor: 'rgba(37,99,235,0.1)',
+                  borderWidth: 2.5,
+                  pointRadius: 0,
+                  tension: 0.15,
+                  fill: true,
+                },
+                {
+                  label: '原始（y=x）',
+                  data: idY,
+                  borderColor: '#94a3b8',
+                  borderWidth: 1.5,
+                  borderDash: [6, 4],
+                  pointRadius: 0,
+                  fill: false,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: 'index', intersect: false },
+              scales: {
+                x: { title: { display: true, text: '原始分數 S_old' }, ticks: { stepSize: 10, callback: v => v % 10 === 0 ? v : '' } },
+                y: { title: { display: true, text: '新分數 S_new' }, min: 0, max: 100, ticks: { stepSize: 10 } },
+              },
+              plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                  mode: 'index',
+                  intersect: false,
+                  callbacks: {
+                    title: items => `原始分數：${items[0].label} 分`,
+                    label: ctx => `${ctx.dataset.label}：${ctx.parsed.y.toFixed(1)} 分`,
+                  },
+                },
+              },
+              hover: { mode: 'index', intersect: false },
+            },
+          })
+        }
+
+        watch(pass, () => { renderFormulas(); drawChart() })
+
+        onMounted(async () => {
+          // wait for deferred CDN scripts
+          const waitFor = (cond) => new Promise(res => {
+            const t = setInterval(() => { if (cond()) { clearInterval(t); res() } }, 30)
+          })
+          await waitFor(() => window.katex && window.Chart)
+          await nextTick()
+          renderFormulas()
+          drawChart()
+        })
+
+        return { pass, p, pClamped, recompute, sampleScores, formula1, formula2, formula3, canvas }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

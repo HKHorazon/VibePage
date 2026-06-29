@@ -28,6 +28,18 @@ VibePage/
 
 ## 流程
 
+### Step 0 — 先建資料夾（必做）
+
+只要使用者提供了資料夾名稱，**立即**建立 `<ProjectName>/src/` 與 `<ProjectName>/data/`，**不要等訪談或規劃完成**。使用者通常需要先把資料丟進 `data/` 或 `src/`，所以資料夾要先存在。
+
+```bash
+mkdir -p "<ProjectName>/src" "<ProjectName>/data"
+```
+
+建好後再進 Step 1。
+
+---
+
 ### Step 1 — 訪談
 
 用**一次訊息**列出以下問題，請使用者回答（可部分跳過）：
