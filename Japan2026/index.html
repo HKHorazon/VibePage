@@ -18,38 +18,38 @@
       <section class="hero">
         <h1 class="hero-title">
           <span class="brand-dark">多遊系日本amps短期研習</span>
-          <span class="brand-rainbow"><span class="brand-rainbow-sep">//</span> 2026</span>
+          <span class="brand-rainbow"><span class="brand-rainbow-sep">❀</span> 2026</span>
         </h1>
-        <span class="hero-eyebrow">TRIP.NOTES / 2026</span>
+        <span class="hero-eyebrow">2026 秋 ・ 日本旅ノート</span>
         <div class="hero-divider"></div>
 
         <ul class="stat-row">
           <li class="stat">
-            <span class="stat-label">CATEGORIES</span>
+            <span class="stat-label">分類</span>
             <span class="stat-value">{{ stats.categoryCount }}</span>
           </li>
           <li class="stat">
-            <span class="stat-label">ARTICLES</span>
+            <span class="stat-label">篇章</span>
             <span class="stat-value">{{ stats.articleCount }}</span>
           </li>
           <li class="stat">
-            <span class="stat-label">LAST.UPDATE</span>
+            <span class="stat-label">最後更新</span>
             <span class="stat-value stat-value--mono">{{ stats.lastUpdate || '—' }}</span>
           </li>
         </ul>
       </section>
 
       <section class="section">
-        <h2 class="section-title"><span class="section-title-slash">//</span> 簡介</h2>
-        <p class="intro-text">整理日本行前準備與行程中的注意事項，從左側選擇分類開始閱讀。內容分為「準備」與「行程中」兩大類，會隨行前規劃陸續更新補充。</p>
+        <h2 class="section-title"><span class="section-title-slash">✿</span> 簡介</h2>
+        <p class="intro-text">整理日本行前準備與行程中的注意事項，從左側選擇分類開始閱讀。內容分為「準備」、「行程中」與「檢查事項」三大類，會隨行前規劃陸續更新補充。</p>
       </section>
 
       <section class="section" v-if="catList.length">
-        <h2 class="section-title"><span class="section-title-slash">//</span> 目前分類</h2>
+        <h2 class="section-title"><span class="section-title-slash">✿</span> 目前分類</h2>
         <ul class="cat-list">
           <li v-for="cat in catList" :key="cat.code" class="cat-item">
             <a :href="cat.firstFile" class="cat-item-link">
-              <span class="cat-item-code">CAT_{{ cat.code }}</span>
+              <span class="cat-item-code">{{ cat.code }}</span>
               <span class="cat-item-body">
                 <span class="cat-item-name">
                   <span class="cat-item-main">{{ cat.mainName }}</span>

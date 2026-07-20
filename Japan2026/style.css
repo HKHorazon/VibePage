@@ -1215,3 +1215,405 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ✿ Anime Refresh — 覆蓋層：更活潑、多彩、動畫感
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --font-cute: 'Zen Maru Gothic', 'Segoe UI', system-ui, sans-serif;
+  --sakura-p: #ff8fab;
+  --mint: #7edda3;
+  --mint-deep: #40c463;
+  --sky: #8ecbff;
+  --sky-deep: #4dabf7;
+  --cream: #ffe29a;
+  --cream-deep: #ffb84d;
+  --lavender: #c9a9ff;
+  --lavender-deep: #9775fa;
+  --peach: #ffbb99;
+  --peach-deep: #ff8c66;
+}
+
+@keyframes j-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+@keyframes j-bounce-in {
+  0% { transform: scale(0.9) translateY(-6px); opacity: 0; }
+  60% { transform: scale(1.05) translateY(2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); }
+}
+@keyframes j-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+@keyframes j-spin {
+  from { transform: rotate(0); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes j-sparkle {
+  0%, 100% { transform: scale(1) rotate(0); opacity: 0.85; }
+  50% { transform: scale(1.35) rotate(45deg); opacity: 1; }
+}
+@keyframes j-petal-fall {
+  0%   { transform: translate3d(0, -8vh, 0) rotate(0); opacity: 0; }
+  8%   { opacity: 0.9; }
+  92%  { opacity: 0.85; }
+  100% { transform: translate3d(18vw, 108vh, 0) rotate(720deg); opacity: 0; }
+}
+@keyframes j-slide-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* 裝飾類文字全部改用可愛圓體 */
+.header-meta, .header-meta-text,
+.hero-eyebrow,
+.stat-label, .stat-value--mono,
+.section-title-slash,
+.feature-code,
+.cat-item-code, .cat-item-tag, .cat-item-count, .cat-item-arrow,
+.sidebar-heading, .sidebar-heading-text, .sidebar-heading-prefix,
+.sidebar-category-code, .sidebar-category-count, .sidebar-category-tag,
+.sidebar-empty,
+.state-msg,
+.article-body .article-date,
+.callout-warning-title {
+  font-family: var(--font-cute) !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* ── Hero eyebrow：糖果 pill ── */
+.hero-eyebrow {
+  background: linear-gradient(135deg, var(--sakura-p), var(--peach)) !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 0.45rem 1.1rem !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  box-shadow: 0 6px 16px rgba(255, 143, 171, 0.35);
+  animation: j-float 3s ease-in-out infinite;
+}
+.hero-eyebrow::before {
+  content: "✿" !important;
+  background: none !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-size: 1rem;
+  animation: j-spin 4s linear infinite !important;
+  display: inline-block;
+}
+
+/* ── Stats：彩色頂條、bounce-in、hover 上浮 ── */
+.stat {
+  background: linear-gradient(160deg, #ffffff, #fff5f8) !important;
+  border: 2px solid transparent !important;
+  border-radius: 20px !important;
+  padding: 1rem 1.1rem !important;
+  box-shadow: 0 6px 20px rgba(214, 51, 108, 0.08);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease !important;
+  animation: j-bounce-in 0.5s ease-out both;
+  overflow: hidden;
+}
+.stat::before {
+  width: 100% !important;
+  height: 5px !important;
+  top: 0 !important;
+  left: 0 !important;
+  background: linear-gradient(90deg, var(--sakura-p), var(--peach), var(--cream)) !important;
+  opacity: 1 !important;
+  border-radius: 20px 20px 0 0;
+}
+.stat:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 14px 28px rgba(214, 51, 108, 0.2);
+}
+.stat:nth-child(2) { animation-delay: 0.08s; }
+.stat:nth-child(3) { animation-delay: 0.16s; }
+.stat:nth-child(2)::before { background: linear-gradient(90deg, var(--mint), var(--sky-deep)) !important; }
+.stat:nth-child(3)::before { background: linear-gradient(90deg, var(--lavender-deep), var(--sakura-p)) !important; }
+.stat-label {
+  color: var(--text-muted) !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+.stat-value {
+  font-size: 1.75rem !important;
+  color: var(--cyan-deep) !important;
+}
+.stat-value--mono {
+  font-size: 1.05rem !important;
+  color: var(--text) !important;
+  font-weight: 700 !important;
+}
+
+/* ── Section title slash：改成旋轉的櫻花 ── */
+.section-title-slash {
+  display: inline-block !important;
+  font-size: 1.2rem !important;
+  color: var(--magenta-bright) !important;
+  animation: j-spin 6s linear infinite;
+  transform-origin: center;
+}
+
+/* ── Intro text 圓潤化 ── */
+.intro-text {
+  border-radius: 18px !important;
+  border-left: 5px solid var(--sakura-p) !important;
+  background: linear-gradient(90deg, #fff8fb, transparent) !important;
+  padding: 1.05rem 1.25rem !important;
+}
+
+/* ── Cat item：糖果按鈕 ── */
+.cat-item-link {
+  border-radius: 20px !important;
+  padding: 1rem 1.2rem !important;
+  border: 2px solid var(--border-soft) !important;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s, background 0.3s, border-color 0.3s !important;
+  overflow: hidden;
+  animation: j-slide-in 0.4s ease-out both;
+}
+.cat-list li { animation: j-slide-in 0.5s ease-out both; }
+.cat-list li:nth-child(2) { animation-delay: 0.06s; }
+.cat-list li:nth-child(3) { animation-delay: 0.12s; }
+.cat-list li:nth-child(4) { animation-delay: 0.18s; }
+.cat-item-link::before {
+  width: 6px !important;
+  border-radius: 20px 0 0 20px;
+}
+.cat-item-link:hover {
+  transform: translateY(-5px) rotate(-0.5deg) !important;
+  border-color: var(--magenta) !important;
+  box-shadow: 0 14px 28px rgba(214, 51, 108, 0.22) !important;
+  background: linear-gradient(135deg, #ffffff, #ffeef2) !important;
+}
+.cat-item-code {
+  background: linear-gradient(135deg, var(--sakura-p), var(--magenta-bright)) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.4rem 0.9rem !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  box-shadow: 0 4px 10px rgba(214, 51, 108, 0.28);
+  min-width: 2.6rem;
+  text-align: center;
+}
+.cat-list li:nth-child(3n+2) .cat-item-code {
+  background: linear-gradient(135deg, var(--mint-deep), var(--sky-deep)) !important;
+  box-shadow: 0 4px 10px rgba(64, 196, 99, 0.3);
+}
+.cat-list li:nth-child(3n+3) .cat-item-code {
+  background: linear-gradient(135deg, var(--lavender-deep), var(--sky-deep)) !important;
+  box-shadow: 0 4px 10px rgba(151, 117, 250, 0.3);
+}
+.cat-item-count {
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+}
+.cat-item-arrow {
+  font-size: 1.35rem !important;
+  color: var(--magenta) !important;
+}
+.cat-item-link:hover .cat-item-arrow {
+  animation: j-wobble 0.6s ease-in-out infinite;
+}
+
+/* ── Header meta：糖果泡 ── */
+.header-meta {
+  background: linear-gradient(135deg, var(--sakura-p), var(--magenta-bright)) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.35rem 0.95rem !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  box-shadow: 0 4px 12px rgba(230, 73, 128, 0.3);
+  animation: j-float 3s ease-in-out infinite;
+}
+.header-meta-dot {
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ── Sidebar 圓潤化 ── */
+.sidebar-heading {
+  background: linear-gradient(135deg, #fff8fb, #ffe4ed);
+  padding: 0.75rem 1rem !important;
+  border-radius: 14px !important;
+  border: 2px solid transparent !important;
+  border-bottom-style: solid !important;
+  gap: 0.55rem;
+  transition: transform 0.25s, border-color 0.25s !important;
+}
+.sidebar-heading:hover {
+  transform: translateX(3px);
+  border-color: var(--sakura-p) !important;
+}
+.sidebar-heading-prefix {
+  font-size: 1rem !important;
+  color: var(--magenta-bright) !important;
+  animation: j-spin 5s linear infinite;
+  display: inline-block;
+}
+.sidebar-heading-text {
+  font-size: 0.95rem !important;
+  color: var(--cyan-deep) !important;
+  font-weight: 700 !important;
+}
+.sidebar-category-btn {
+  border-radius: 14px !important;
+  padding: 0.7rem 0.85rem !important;
+  transition: transform 0.25s, background 0.25s !important;
+}
+.sidebar-category-btn:hover {
+  background: linear-gradient(90deg, #fff5f8, #ffe4ed) !important;
+  transform: translateX(3px);
+}
+.sidebar-category-code {
+  background: linear-gradient(135deg, var(--sakura-p), var(--magenta-bright)) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0.22rem 0.6rem !important;
+  min-width: 2.2rem;
+  text-align: center;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  box-shadow: 0 2px 6px rgba(214, 51, 108, 0.25);
+}
+.sidebar-category:nth-child(3n+2) .sidebar-category-code {
+  background: linear-gradient(135deg, var(--mint-deep), var(--sky-deep)) !important;
+}
+.sidebar-category:nth-child(3n+3) .sidebar-category-code {
+  background: linear-gradient(135deg, var(--lavender-deep), var(--sky-deep)) !important;
+}
+.sidebar-category-count {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  padding: 0 0.25rem !important;
+  min-width: auto !important;
+}
+.sidebar-category-count::after {
+  content: " 篇";
+  font-weight: 400;
+  opacity: 0.7;
+}
+.sidebar-articles a {
+  border-radius: 10px !important;
+  margin: 2px 4px 2px 0 !important;
+  transition: transform 0.2s, background 0.2s, color 0.2s !important;
+}
+.sidebar-articles a:hover {
+  transform: translateX(4px);
+}
+.sidebar-articles a.active {
+  background: linear-gradient(90deg, rgba(255, 143, 171, 0.35), rgba(255, 143, 171, 0.06) 90%) !important;
+  border-left-color: var(--sakura-p) !important;
+}
+.article-link-index {
+  background: rgba(255, 143, 171, 0.16);
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.66rem !important;
+}
+.sidebar-articles a:hover .article-link-index {
+  background: rgba(255, 143, 171, 0.32);
+  color: var(--cyan-deep) !important;
+}
+
+/* ── 內容容器：彩虹頂邊 ── */
+.content-container {
+  border-radius: 24px !important;
+  border: 2px solid var(--border-soft) !important;
+  background: linear-gradient(180deg, #fff, #fff8fb) !important;
+}
+.content-container::before {
+  width: 100% !important;
+  height: 6px !important;
+  background: linear-gradient(90deg,
+    var(--sakura-p),
+    var(--peach) 30%,
+    var(--cream) 55%,
+    var(--mint) 75%,
+    var(--sky-deep)) !important;
+  border-radius: 24px 24px 0 0 !important;
+}
+
+/* ── Callout 更活潑 ── */
+.callout-warning {
+  border-radius: 18px !important;
+  border-left: 5px solid var(--peach-deep) !important;
+  background: linear-gradient(135deg, #fff5eb, #ffe8d9) !important;
+  padding: 1rem 1.2rem !important;
+  animation: j-bounce-in 0.5s ease-out both;
+}
+.callout-warning-title {
+  color: var(--peach-deep) !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+}
+.callout-warning-title::before {
+  content: "✦ ";
+  animation: j-sparkle 1.8s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── 文章 h1 加下劃彩虹 ── */
+.article-body h1 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+}
+.article-body h1::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--sakura-p), var(--peach) 50%, var(--cream));
+  border-radius: 4px;
+  animation: j-slide-in 0.5s ease-out both;
+}
+
+/* ── 飄落櫻花層 ── */
+.j-petals {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.j-petals .j-petal {
+  position: absolute;
+  top: -6vh;
+  font-size: 1.4rem;
+  animation: j-petal-fall linear infinite;
+  filter: drop-shadow(0 2px 3px rgba(214, 51, 108, 0.2));
+  will-change: transform, opacity;
+}
+.j-petals .j-petal:nth-child(1) { left: 5%;  animation-duration: 14s; animation-delay: 0s;   color: var(--sakura-p); font-size: 1.6rem; }
+.j-petals .j-petal:nth-child(2) { left: 18%; animation-duration: 18s; animation-delay: 3s;   color: var(--peach); }
+.j-petals .j-petal:nth-child(3) { left: 32%; animation-duration: 16s; animation-delay: 6s;   color: var(--sakura-p); font-size: 1.2rem; }
+.j-petals .j-petal:nth-child(4) { left: 48%; animation-duration: 20s; animation-delay: 1s;   color: var(--magenta-bright); font-size: 1.8rem; }
+.j-petals .j-petal:nth-child(5) { left: 62%; animation-duration: 15s; animation-delay: 5s;   color: var(--lavender); font-size: 1.3rem; }
+.j-petals .j-petal:nth-child(6) { left: 74%; animation-duration: 17s; animation-delay: 2s;   color: var(--sakura-p); }
+.j-petals .j-petal:nth-child(7) { left: 86%; animation-duration: 19s; animation-delay: 8s;   color: var(--peach); font-size: 1.5rem; }
+.j-petals .j-petal:nth-child(8) { left: 40%; animation-duration: 22s; animation-delay: 11s;  color: var(--sakura-p); font-size: 1.1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .j-petals { display: none; }
+}

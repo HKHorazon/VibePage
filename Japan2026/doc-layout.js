@@ -108,6 +108,16 @@ const DocLayout = {
         <div class="bg-grid"></div>
         <div class="bg-scanlines"></div>
       </div>
+      <div class="j-petals" aria-hidden="true">
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❀</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❁</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❀</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❁</span>
+      </div>
 
       <header class="site-header">
         <div class="header-inner">
@@ -122,7 +132,7 @@ const DocLayout = {
           </button>
           <a :href="indexPath" class="site-title">
             <span class="brand-dark">多遊系日本amps短期研習</span>
-            <span class="brand-rainbow"><span class="brand-rainbow-sep">//</span> 2026</span>
+            <span class="brand-rainbow"><span class="brand-rainbow-sep">❀</span> 2026</span>
           </a>
           <span class="header-meta" v-if="activeIndex">
             <span class="header-meta-dot"></span>
@@ -136,13 +146,13 @@ const DocLayout = {
       <div class="layout-body">
         <aside class="sidebar">
           <a :href="indexPath" class="sidebar-heading" @click="closeSidebar">
-            <span class="sidebar-heading-prefix">&gt;_</span>
-            <span class="sidebar-heading-text">TRIP.INDEX</span>
+            <span class="sidebar-heading-prefix">✿</span>
+            <span class="sidebar-heading-text">目錄</span>
             <span class="sidebar-heading-home" aria-hidden="true">⌂</span>
           </a>
 
-          <div v-if="state.loading" class="state-msg">// 載入中…</div>
-          <div v-else-if="state.error" class="state-msg state-msg--error">// 無法載入</div>
+          <div v-if="state.loading" class="state-msg">✿ 載入中…</div>
+          <div v-else-if="state.error" class="state-msg state-msg--error">✿ 無法載入</div>
 
           <nav v-else class="sidebar-nav">
             <div v-for="cat in categories" :key="cat.name" class="sidebar-category">
@@ -153,7 +163,7 @@ const DocLayout = {
                 @click="toggleCategory(cat.name)"
               >
                 <span class="sidebar-caret">▾</span>
-                <span class="sidebar-category-code">CAT_{{ cat.code }}</span>
+                <span class="sidebar-category-code">{{ cat.code }}</span>
                 <span class="sidebar-category-name">
                   <span class="sidebar-category-main">{{ cat.mainName }}</span>
                   <span v-if="cat.tag" class="sidebar-category-tag">{{ cat.tag }}</span>
