@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行李 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_1_行李.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>行李</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <p>搭乘<strong>台灣虎航</strong>。</p>
+
+        <ul>
+          <li><strong>手提行李</strong>：登機箱 1 件＋個人物品 1 件，合計不超過 10 公斤，尺寸 54×38×23 公分內。</li>
+          <li><strong>託運行李</strong>：去程、回程<strong>各已加購 20 公斤</strong>，超重需現場加價。</li>
+        </ul>
+
+        <div class="callout-warning">
+          <div class="callout-warning-title">鋰電池／行動電源</div>
+          <ul>
+            <li>一律<strong>隨身攜帶，不可託運</strong>。</li>
+            <li>超過 160 Wh 禁止攜帶登機。</li>
+            <li>虎航<strong>機上禁止使用行動電源充電</strong>。</li>
+          </ul>
+        </div>
+
+        <h3>其他違禁品</h3>
+        <ul>
+          <li>刀類物品只能託運，不可隨身。</li>
+          <li>液體／噴霧單瓶上限 100ml，總量 1 公升內。</li>
+          <li>打火機限帶 1 個，只能隨身、不可託運。</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

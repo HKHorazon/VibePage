@@ -56,7 +56,11 @@
       "Bash(findstr :8080)",
       "Bash(findstr :808)",
       "Bash(python -m http.server 8081 --directory \"d:/Projects_Other/VibeWeb\")",
-      "Bash(python -m http.server 8082 --directory \"d:/Projects_Other/VibeWeb\")"
+      "Bash(python -m http.server 8082 --directory \"d:/Projects_Other/VibeWeb\")",
+      "PowerShell(netstat -ano)",
+      "PowerShell(python --version)",
+      "PowerShell(Start-Process -FilePath \"python\" -ArgumentList \"-m\", \"http.server\", \"8080\" -WorkingDirectory \"d:\\\\Projects_Other\\\\VibeWeb\" -WindowStyle Hidden)",
+      "PowerShell(Start-Sleep -Seconds 2; try { $r = Invoke-WebRequest -Uri \"http://localhost:8080\" -TimeoutSec 3 -UseBasicParsing; \"OK: $\\($r.StatusCode\\)\" } catch { \"FAIL: $_\" })"
     ],
     "additionalDirectories": [
       "d:\\VibeWeb\\.claude\\skills"

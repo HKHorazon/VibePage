@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>免稅與退稅 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_7_免稅與退稅.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>免稅與退稅</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <ul>
+          <li>結帳時憑護照直接扣除消費稅。</li>
+          <li>單店消費需<strong>達到特定金額</strong>才能享免稅（通常為 5,000 日圓以上）。</li>
+          <li>結帳後店家通常會用<strong>專用袋子封裝</strong>商品。</li>
+          <li><strong>消耗品類</strong>（食品、藥妝等）在出境前<strong>不可拆封</strong>，否則會被追稅。</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

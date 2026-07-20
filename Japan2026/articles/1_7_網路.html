@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>網路 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_7_網路.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>網路</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <p>上網<strong>各自辦理</strong>，依需求自行選擇下列其中一種方式：</p>
+
+        <ul>
+          <li><strong>eSIM</strong>：免換實體卡、免歸還，但手機須支援 eSIM 機型。</li>
+          <li><strong>實體上網卡</strong>：價格較便宜，缺點是換卡後原號碼無法接聽電話／簡訊。</li>
+          <li><strong>WiFi 分享器</strong>：可多人共用、原號碼照常使用，但需額外攜帶、充電，並自行租借歸還。</li>
+          <li><strong>電信漫遊</strong>：最方便免設定，但費用通常較高。</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

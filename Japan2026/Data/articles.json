@@ -1,0 +1,100 @@
+{
+  "categories": [
+    {
+      "code": "01",
+      "name": "準備",
+      "articles": [
+        {
+          "title": "行李",
+          "file": "articles/1_1_行李.html",
+          "date": "2026-07-20",
+          "summary": "台灣虎航手提／託運行李規定（來回各 20 公斤）、鋰電池攜帶重點與其他違禁品。"
+        },
+        {
+          "title": "日幣",
+          "file": "articles/1_2_日幣.html",
+          "date": "2026-07-20",
+          "summary": "日幣兌換方式與金額規劃，內容整理中。"
+        },
+        {
+          "title": "天氣&衣物",
+          "file": "articles/1_3_天氣與衣物.html",
+          "date": "2026-07-20",
+          "summary": "超熱短袖、飯店洗衣要抓乾燥時間、備摺疊傘、防曬、薄外套、好走鞋子。"
+        },
+        {
+          "title": "醫藥",
+          "file": "articles/1_4_醫藥.html",
+          "date": "2026-07-20",
+          "summary": "常備藥品與醫療注意事項，內容整理中。"
+        },
+        {
+          "title": "西瓜卡",
+          "file": "articles/1_5_西瓜卡.html",
+          "date": "2026-07-20",
+          "summary": "iPhone 下載 Welcome Suica Mobile 開卡連結，Android 建議買實體卡。"
+        },
+        {
+          "title": "簽證",
+          "file": "articles/1_6_簽證.html",
+          "date": "2026-07-20",
+          "summary": "目前免簽、JESTA 2028 年上路不受影響、Visit Japan Web 連結。"
+        },
+        {
+          "title": "網路",
+          "file": "articles/1_7_網路.html",
+          "date": "2026-07-20",
+          "summary": "上網方式（Wi-Fi 分享器／網卡／eSIM）比較，內容整理中。"
+        }
+      ]
+    },
+    {
+      "code": "02",
+      "name": "行程中",
+      "articles": [
+        {
+          "title": "實際行程",
+          "file": "articles/2_1_實際行程.html",
+          "date": "2026-07-20",
+          "summary": "行程表待補上。"
+        },
+        {
+          "title": "到機場交通",
+          "file": "articles/2_2_到機場交通.html",
+          "date": "2026-07-20",
+          "summary": "搭乘統聯客運各自買票前往機場，或自行前往，集合時間待補。"
+        },
+        {
+          "title": "廉航飛機",
+          "file": "articles/2_3_廉航飛機.html",
+          "date": "2026-07-20",
+          "summary": "已選定台灣虎航，班機座位無法更改，禁用外食飲料（可買但貴）。"
+        },
+        {
+          "title": "機票繳交",
+          "file": "articles/2_4_機票繳交.html",
+          "date": "2026-07-20",
+          "summary": "去回程下飛機後立刻繳回機票＆登機證，搞丟拿不到補助。"
+        },
+        {
+          "title": "交通",
+          "file": "articles/2_5_交通.html",
+          "date": "2026-07-20",
+          "summary": "當地交通方式與注意事項，內容整理中。"
+        },
+        {
+          "title": "三餐",
+          "file": "articles/2_6_三餐.html",
+          "date": "2026-07-20",
+          "summary": "自行準備購買，早餐建議前晚買好冰起來或提前外出吃完。"
+        },
+        {
+          "title": "免稅與退稅",
+          "file": "articles/2_7_免稅與退稅.html",
+          "date": "2026-07-20",
+          "summary": "需達特定金額才免稅、專用袋封裝、消耗品出境前不可拆封。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西瓜卡 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_5_西瓜卡.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>西瓜卡</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <p>西瓜卡（Suica）是日本的電子票證，搭車、超商付款都能用。</p>
+
+        <ul>
+          <li><strong>iPhone</strong>：下載「<a href="https://apps.apple.com/us/app/welcome-suica-mobile/id6738336566" target="_blank" rel="noopener">Welcome Suica Mobile</a>」App 開卡，免押金、免排隊。</li>
+          <li><strong>Android</strong>：多數台灣機型不支援，建議到現場買<strong>實體卡</strong>（需押金，離境可退）。</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

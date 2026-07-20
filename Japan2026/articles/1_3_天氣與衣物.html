@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天氣&衣物 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_3_天氣與衣物.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>天氣&衣物</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <ul>
+          <li><strong>超熱</strong>：短袖為主，飯店會有洗衣設備，但要抓時間烘乾晾乾。</li>
+          <li><strong>偶而午後雷陣雨</strong>：準備摺疊傘放行李箱。</li>
+          <li>注意<strong>防曬</strong>。</li>
+          <li>可準備<strong>薄外套</strong>。</li>
+          <li>日本走路距離很長，請準備好走的<strong>鞋子</strong>。</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

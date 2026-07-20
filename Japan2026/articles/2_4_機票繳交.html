@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>機票繳交 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_4_機票繳交.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>機票繳交</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <p>去程、回程<strong>下飛機後都要立刻把機票＆登機證交回給老師</strong>。</p>
+
+        <div class="callout-warning">
+          <div class="callout-warning-title">搞丟會拿不到補助</div>
+          <ul>
+            <li>機票、登機證是申請補助的憑證，<strong>搞丟就無法申請補助</strong>，請務必妥善保管並準時繳交。</li>
+          </ul>
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

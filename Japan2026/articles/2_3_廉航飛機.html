@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>廉航飛機 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_3_廉航飛機.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>廉航飛機</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <h2>已選定：台灣虎航</h2>
+        <p>搭乘廉價航空<strong>台灣虎航（Tigerair Taiwan）</strong>，班機、座位皆已挑選完畢，<strong>無法更改</strong>。</p>
+
+        <ul>
+          <li><strong>座位較狹小</strong>：廉航座位間距較傳統航空窄，建議可自備頸枕、薄外套等提升舒適度。</li>
+          <li><strong>機上禁用外食、飲料</strong>：不可攜帶外食、飲料於機上食用，<strong>可向空服員購買，但價格較貴</strong>。</li>
+        </ul>
+
+        <p>行李規定（手提／託運尺寸重量、鋰電池攜帶規則）請參考 <a href="../articles/1_1_行李.html">行李</a> 頁面。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

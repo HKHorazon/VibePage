@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../framework/tailwind.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file=""
+      data-path="./Data/articles.json"
+      index-path="./index.html"
+      file-prefix="./"
+    >
+      <section class="hero">
+        <h1 class="hero-title">
+          <span class="brand-dark">多遊系日本amps短期研習</span>
+          <span class="brand-rainbow"><span class="brand-rainbow-sep">//</span> 2026</span>
+        </h1>
+        <span class="hero-eyebrow">TRIP.NOTES / 2026</span>
+        <div class="hero-divider"></div>
+
+        <ul class="stat-row">
+          <li class="stat">
+            <span class="stat-label">CATEGORIES</span>
+            <span class="stat-value">{{ stats.categoryCount }}</span>
+          </li>
+          <li class="stat">
+            <span class="stat-label">ARTICLES</span>
+            <span class="stat-value">{{ stats.articleCount }}</span>
+          </li>
+          <li class="stat">
+            <span class="stat-label">LAST.UPDATE</span>
+            <span class="stat-value stat-value--mono">{{ stats.lastUpdate || '—' }}</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title"><span class="section-title-slash">//</span> 簡介</h2>
+        <p class="intro-text">整理日本行前準備與行程中的注意事項，從左側選擇分類開始閱讀。內容分為「準備」與「行程中」兩大類，會隨行前規劃陸續更新補充。</p>
+      </section>
+
+      <section class="section" v-if="catList.length">
+        <h2 class="section-title"><span class="section-title-slash">//</span> 目前分類</h2>
+        <ul class="cat-list">
+          <li v-for="cat in catList" :key="cat.code" class="cat-item">
+            <a :href="cat.firstFile" class="cat-item-link">
+              <span class="cat-item-code">CAT_{{ cat.code }}</span>
+              <span class="cat-item-body">
+                <span class="cat-item-name">
+                  <span class="cat-item-main">{{ cat.mainName }}</span>
+                  <span v-if="cat.tag" class="cat-item-tag">{{ cat.tag }}</span>
+                </span>
+                <span class="cat-item-count">{{ cat.count }} 篇</span>
+              </span>
+              <span class="cat-item-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { createApp, reactive, computed, onMounted } from '../framework/vue.esm-browser.js'
+    import { DocLayout } from './doc-layout.js'
+
+    const splitName = (name) => {
+      const m = String(name).match(/^(.*?)\s*[（(]([^（）()]+)[）)]\s*$/)
+      if (m) return { mainName: m[1].trim(), tag: m[2].trim() }
+      return { mainName: name, tag: '' }
+    }
+
+    createApp({
+      components: { DocLayout },
+      setup() {
+        const state = reactive({ categories: [] })
+
+        onMounted(async () => {
+          try {
+            const res = await fetch('./Data/articles.json')
+            if (!res.ok) throw new Error()
+            const data = await res.json()
+            state.categories = Array.isArray(data) ? [] : (data.categories || [])
+          } catch {
+            state.categories = []
+          }
+        })
+
+        const stats = computed(() => {
+          let articleCount = 0
+          let lastUpdate = ''
+          for (const cat of state.categories) {
+            for (const a of cat.articles || []) {
+              articleCount++
+              if (a.date && a.date > lastUpdate) lastUpdate = a.date
+            }
+          }
+          return {
+            categoryCount: state.categories.length,
+            articleCount,
+            lastUpdate,
+          }
+        })
+
+        const catList = computed(() =>
+          state.categories.map((c, i) => {
+            const code = c.code || String(i + 1).padStart(2, '0')
+            const { mainName, tag } = splitName(c.name || '未分類')
+            const first = (c.articles && c.articles[0]) || null
+            return {
+              code,
+              mainName,
+              tag,
+              count: (c.articles || []).length,
+              firstFile: first ? './' + first.file : '#',
+            }
+          })
+        )
+
+        return { state, stats, catList }
+      },
+    }).mount('#app')
+  </script>
+</body>
+</html>
