@@ -6,6 +6,122 @@
   <title>檢查事項 — 多遊系日本amps短期研習 // 2026</title>
   <link rel="stylesheet" href="../../framework/tailwind.min.css">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ── 櫻花・動漫風 checklist ── */
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li { margin: 0.4rem 0; }
+
+    .checklist label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      cursor: pointer;
+      padding: 0.5rem 0.85rem;
+      border-radius: 14px;
+      border: 1px dashed transparent;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .checklist label:hover {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--magenta) 22%, transparent),
+        color-mix(in srgb, var(--cyan) 12%, transparent));
+      border-color: color-mix(in srgb, var(--magenta) 55%, transparent);
+      transform: translateX(3px);
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--magenta) 25%, transparent);
+    }
+    .checklist label:hover::before {
+      content: "✿";
+      position: absolute;
+      left: -0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--magenta-bright);
+      font-size: 0.9rem;
+      animation: sakura-spin 1.6s linear infinite;
+    }
+    @keyframes sakura-spin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    .checklist input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.35rem;
+      height: 1.35rem;
+      min-width: 1.35rem;
+      margin-top: 0.15rem;
+      border: 2px solid var(--magenta);
+      border-radius: 8px;
+      background: #fff8fb;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: inset 0 1px 3px rgba(255, 143, 171, 0.25);
+    }
+    .checklist input[type="checkbox"]:hover {
+      transform: scale(1.12) rotate(-4deg);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--magenta) 25%, transparent);
+    }
+    .checklist input[type="checkbox"]:checked {
+      background: linear-gradient(135deg, var(--magenta), var(--cyan-deep));
+      border-color: var(--cyan-deep);
+      transform: scale(1.08) rotate(6deg);
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--magenta) 30%, transparent),
+        0 4px 12px color-mix(in srgb, var(--cyan-deep) 40%, transparent);
+    }
+    .checklist input[type="checkbox"]:checked::after {
+      content: "✿";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.95rem;
+      line-height: 1;
+      font-weight: bold;
+      animation: sakura-pop 0.35s ease-out;
+    }
+    @keyframes sakura-pop {
+      0%   { transform: scale(0) rotate(-180deg); opacity: 0; }
+      70%  { transform: scale(1.4) rotate(20deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .checklist input[type="checkbox"]:checked + span {
+      text-decoration: line-through;
+      text-decoration-color: var(--magenta-bright);
+      text-decoration-thickness: 2px;
+      opacity: 0.5;
+      transition: all 0.2s;
+    }
+
+    .checklist-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0.5rem 0 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.45rem 1.1rem;
+      background: linear-gradient(135deg, #fff8fb, #ffe0ec);
+      border: 1.5px solid var(--magenta);
+      border-radius: 999px;
+      color: var(--cyan-deep);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px color-mix(in srgb, var(--magenta) 20%, transparent);
+    }
+    .checklist-reset::before { content: "✿"; font-size: 0.9rem; }
+    .checklist-reset:hover {
+      background: linear-gradient(135deg, var(--magenta), var(--cyan));
+      color: #fff;
+      transform: translateY(-2px) rotate(-2deg);
+      box-shadow: 0 6px 18px color-mix(in srgb, var(--magenta) 45%, transparent);
+    }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -21,53 +137,45 @@
 
         <hr>
 
-        <p>出發前一天照這張清單掃一遍，別到機場才發現東西沒帶。</p>
+        <p>出發前一天照這張清單掃一遍，別到機場才發現東西沒帶。勾選狀態會存在瀏覽器裡。</p>
+
+        <button type="button" class="checklist-reset" onclick="resetChecklist()">清除全部勾選</button>
 
         <h3>① 證件（少一樣就上不了飛機）</h3>
-        <ul>
-          <li>☐ 中華民國護照（<strong>效期 6 個月以上</strong>）</li>
-          <li>☐ 電子機票／登機證（手機截圖＋列印一份備用）</li>
-          <li>☐ <strong>役男短期出境核准通知單</strong>（限役男，紙本，見「男生兵役」頁）</li>
-          <li>☐ Visit Japan Web 二維碼（截圖存離線）</li>
-          <li>☐ 身分證、健保卡（不出國，留身邊備緊急聯絡用）</li>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span>中華民國護照（<strong>效期 6 個月以上</strong>）</span></label></li>
+          <li><label><input type="checkbox"><span><strong>役男短期出境核准通知單</strong>（限役男，紙本，見「男生兵役」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>Visit Japan Web 二維碼（截圖存離線）</span></label></li>
+          <li><label><input type="checkbox"><span>身分證、健保卡（不出國，留身邊備緊急聯絡用）</span></label></li>
         </ul>
 
         <h3>② 錢＆卡</h3>
-        <ul>
-          <li>☐ 日幣現金（分兩袋放，別全塞同一處）</li>
-          <li>☐ 信用卡（先開通海外刷卡，記海外交易服務費）</li>
-          <li>☐ 西瓜卡 Suica／Welcome Suica</li>
-          <li>☐ 少量新台幣（回國搭車用）</li>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span>日幣現金（分兩袋放，別全塞同一處）</span></label></li>
+          <li><label><input type="checkbox"><span>西瓜卡 Suica／Welcome Suica</span></label></li>
+          <li><label><input type="checkbox"><span>少量新台幣（回國搭車用）</span></label></li>
         </ul>
 
         <h3>③ 3C＆電力</h3>
-        <ul>
-          <li>☐ 手機＋充電線＋充電頭</li>
-          <li>☐ <strong>行動電源</strong>（隨身、不可託運，160 Wh 以下）</li>
-          <li>☐ eSIM 已安裝或 SIM 卡／WiFi 分享器</li>
-          <li>☐ 相機、記憶卡、備用電池</li>
-          <li>☐ 耳機</li>
-          <li>☐ 手持電扇（帶隨身，見「行李」頁）</li>
-          <li>☐ 日本插座是 A 型（雙平腳），台灣插頭大多可直接用，三孔則需轉接</li>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span>手機＋充電線＋充電頭</span></label></li>
+          <li><label><input type="checkbox"><span><strong>行動電源</strong>（隨身、不可託運，160 Wh 以下）</span></label></li>
+          <li><label><input type="checkbox"><span>eSIM 已安裝或 SIM 卡／WiFi 分享器</span></label></li>
+          <li><label><input type="checkbox"><span>手持電扇（帶隨身，見「行李」頁）</span></label></li>
         </ul>
 
         <h3>④ 衣物＆盥洗</h3>
-        <ul>
-          <li>☐ 依天數＋1 套換洗衣物</li>
-          <li>☐ 內衣褲、襪子（多備一組）</li>
-          <li>☐ 薄外套／防曬外套</li>
-          <li>☐ 摺疊傘</li>
-          <li>☐ 好走的鞋（一天走 15,000 步以上）</li>
-          <li>☐ 盥洗包（牙刷、牙膏、隱形眼鏡藥水）</li>
-          <li>☐ 防曬乳（100ml 內才能隨身）</li>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span>足量衣服、內衣褲、襪子</span></label></li>
+          <li><label><input type="checkbox"><span>摺疊傘</span></label></li>
+          <li><label><input type="checkbox"><span>好走的鞋子</span></label></li>
+          <li><label><input type="checkbox"><span>個人需求盥洗配備</span></label></li>
         </ul>
 
         <h3>⑤ 醫藥＆隨身小物</h3>
-        <ul>
-          <li>☐ 個人慣用藥（感冒、腸胃、頭痛、暈車、OK 繃）</li>
-          <li>☐ 口罩</li>
-          <li>☐ 面紙／濕紙巾（日本廁所常常沒有擦手紙）</li>
-          <li>☐ 環保購物袋（日本便利商店會問要不要袋子）</li>
+        <ul class="checklist">
+          <li><label><input type="checkbox"><span>個人慣用藥（感冒、腸胃、頭痛、暈車、OK 繃）</span></label></li>
+          <li><label><input type="checkbox"><span>痠痛貼布</span></label></li>
         </ul>
 
         <div class="callout-warning">
@@ -75,7 +183,6 @@
           <ul>
             <li>護照＋登機證＋<strong>役男核准通知單</strong>是否在手邊？</li>
             <li>行動電源／手持電扇＋鋰電池類是否已從託運行李移到隨身？</li>
-            <li>手機是否已充飽電？eSIM／VJW 頁面是否可離線開啟？</li>
           </ul>
         </div>
       </article>
@@ -85,6 +192,47 @@
   <script type="module">
     import { mountDocLayout } from '../doc-layout.js'
     mountDocLayout('#app')
+  </script>
+
+  <script>
+    const CHECKLIST_KEY = 'japan2026-checklist-v1'
+    const loadState = () => {
+      try { return JSON.parse(localStorage.getItem(CHECKLIST_KEY) || '{}') } catch { return {} }
+    }
+    const saveState = (state) => localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state))
+
+    const initChecklist = () => {
+      const state = loadState()
+      document.querySelectorAll('.checklist input[type="checkbox"]').forEach((cb) => {
+        const key = cb.nextElementSibling.textContent.trim()
+        if (state[key]) cb.checked = true
+        cb.addEventListener('change', () => {
+          const s = loadState()
+          if (cb.checked) s[key] = 1; else delete s[key]
+          saveState(s)
+        })
+      })
+    }
+
+    window.resetChecklist = () => {
+      if (!confirm('確定要清除所有勾選嗎？')) return
+      localStorage.removeItem(CHECKLIST_KEY)
+      document.querySelectorAll('.checklist input[type="checkbox"]').forEach((cb) => { cb.checked = false })
+    }
+
+    // Vue 掛載完 slot 內容才確定就位，用短延遲＋重試更保險
+    const tryInit = (retries = 5) => {
+      if (document.querySelector('.checklist input[type="checkbox"]')) {
+        initChecklist()
+      } else if (retries > 0) {
+        setTimeout(() => tryInit(retries - 1), 50)
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => tryInit())
+    } else {
+      tryInit()
+    }
   </script>
 </body>
 </html>
