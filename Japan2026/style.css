@@ -1107,6 +1107,52 @@ body {
   text-decoration-color: var(--magenta);
 }
 
+/* ── 行程表 ── */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-mid);
+  overflow: hidden;
+}
+
+.schedule-table thead {
+  background: var(--cyan-deep);
+  color: var(--bg);
+}
+
+.schedule-table th {
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.schedule-table td {
+  padding: 0.65rem 0.85rem;
+  border-top: 1px solid var(--border-mid);
+  color: var(--text);
+  vertical-align: top;
+}
+
+.schedule-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--cyan) 8%, transparent);
+}
+
+.schedule-table td:first-child {
+  color: var(--magenta-bright);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .schedule-table { font-size: 0.82rem; display: block; overflow-x: auto; }
+}
+
 /* ── 手機 RWD ── */
 @media (max-width: 899px) {
   .hamburger { display: flex; }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>男生兵役 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_8_男生兵役.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>男生兵役（役男出境）</h1>
+        <span class="article-date">2026-07-20</span>
+
+        <hr>
+
+        <p><strong>19～36 歲、尚未服兵役</strong>的男生（役男）出國前，必須<strong>線上申請「役男短期出境核准」</strong>，出境當天連同護照一起交查驗，否則會被擋在海關。</p>
+
+        <div class="callout-warning">
+          <div class="callout-warning-title">時間視窗</div>
+          <ul>
+            <li>只能在<strong>出境前 3～30 天</strong>之間申請。</li>
+            <li>提早超過 30 天不受理；晚於 3 天就來不及了。</li>
+            <li>核准後 1 個月內多次有效，每次停留最長 4 個月。</li>
+          </ul>
+        </div>
+
+        <h3>申請步驟</h3>
+        <ol>
+          <li>進入
+            <a href="https://service.dca.moi.gov.tw/departure/" target="_blank" rel="noopener">內政部役政署 役男短期出境線上申請作業系統</a>。
+          </li>
+          <li>閱讀申請須知後，填寫：
+            <ul>
+              <li>國民身分證統一編號</li>
+              <li>護照號碼、護照效期截止日</li>
+              <li>出生日期</li>
+              <li>預計出境／入境日期</li>
+            </ul>
+          </li>
+          <li>送出後，用「申請結果查詢」再輸入身分證＋出生日期確認核准。</li>
+          <li><strong>列印「役男短期出境核准通知單」</strong>：可自己家用印表機印，或到 7-11 ibon 便利生活站列印。</li>
+          <li>出國當天，將<strong>核准通知單＋護照</strong>一起帶去海關查驗。</li>
+        </ol>
+
+        <h3>核准查詢／補印</h3>
+        <ul>
+          <li>忘了印或搞丟：
+            <a href="https://www.ris.gov.tw/military-abroadStudy/" target="_blank" rel="noopener">役男出境核准通知單查詢及列印系統</a>
+            可重印。
+          </li>
+        </ul>
+
+        <p class="text-sm opacity-70">資料來源：內政部役政署、我的 E 政府。實際規定以官方公告為準。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>
