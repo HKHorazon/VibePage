@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>規範 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/0_1_規範.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>規範</h1>
+
+        <hr>
+
+        <ol>
+          <li>上課時間為 <strong>10:00～13:00</strong>，可喝水但無法吃東西。</li>
+          <li>會在飯店<strong>提前集合帶隊</strong>，務必準時，並且<strong>吃完早餐</strong>。</li>
+          <li>晚上回到旅館後<strong>要報備</strong>；隔天如果要上課請早點睡。</li>
+          <li>請遵守<strong>日本法律與規範</strong>，注意某些店家不能拍照，看到「<strong>写真禁止</strong>」或「<strong>写真をご遠慮ください</strong>」就是禁止攝影，務必注意。</li>
+        </ol>
+
+        <div class="callout-warning">
+          <div class="callout-warning-title">臨時狀況</div>
+          <ul>
+            <li>有任何狀況<strong>馬上用 LINE 聯絡</strong>，包含各種身體病痛、或無法準時回到旅館等等。</li>
+          </ul>
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

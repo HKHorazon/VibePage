@@ -49,6 +49,25 @@ const DocLayout = {
       return ''
     })
 
+    // 跨類別攤平成單一序列，供上一頁／下一頁使用（不循環）
+    const flatArticles = computed(() =>
+      categories.value.flatMap((cat) => cat.articles)
+    )
+
+    const currentPos = computed(() =>
+      flatArticles.value.findIndex((a) => a.file === props.currentFile)
+    )
+
+    const prevArticle = computed(() => {
+      const i = currentPos.value
+      return i > 0 ? flatArticles.value[i - 1] : null
+    })
+
+    const nextArticle = computed(() => {
+      const i = currentPos.value
+      return i >= 0 && i < flatArticles.value.length - 1 ? flatArticles.value[i + 1] : null
+    })
+
     const toggleCategory = (name) => {
       state.collapsed[name] = !state.collapsed[name]
     }
@@ -100,6 +119,8 @@ const DocLayout = {
       closeSidebar,
       resolveFile,
       isActive,
+      prevArticle,
+      nextArticle,
     }
   },
   template: `
@@ -192,6 +213,28 @@ const DocLayout = {
         <main class="layout-main">
           <div class="content-container">
             <slot></slot>
+
+            <nav class="page-nav" v-if="prevArticle || nextArticle">
+              <a
+                v-if="prevArticle"
+                :href="resolveFile(prevArticle.file)"
+                class="page-nav-link page-nav-prev"
+              >
+                <span class="page-nav-dir">← 上一頁</span>
+                <span class="page-nav-title">{{ prevArticle.index }} {{ prevArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+
+              <a
+                v-if="nextArticle"
+                :href="resolveFile(nextArticle.file)"
+                class="page-nav-link page-nav-next"
+              >
+                <span class="page-nav-dir">下一頁 →</span>
+                <span class="page-nav-title">{{ nextArticle.index }} {{ nextArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+            </nav>
           </div>
         </main>
       </div>

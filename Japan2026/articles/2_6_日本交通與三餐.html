@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本交通與三餐 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/2_6_日本交通與三餐.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>日本交通與三餐</h1>
+
+        <hr>
+
+        <h2>機場交通</h2>
+        <ul>
+          <li><strong>去程 成田機場 → 新宿</strong>：搭<strong>成田特快 N'EX</strong>，約 <strong>¥3,250</strong>。</li>
+          <li><strong>回程 上野 → 成田機場</strong>：搭<strong>京成 Skyliner</strong>，約 <strong>¥2,570</strong>。</li>
+        </ul>
+        <p class="text-sm"><em>※ 車票到日本再買。</em></p>
+
+        <h2>市區交通</h2>
+        <ul>
+          <li>主要靠<strong>電車／地鐵</strong>，善用西瓜卡與 Google Maps 規劃路線。</li>
+          <li>尖峰時段（上下班）人潮較多，可盡量避開。</li>
+          <li>西瓜卡可直接刷卡進出站，不用每次買票。</li>
+        </ul>
+
+        <h2>三餐</h2>
+        <ul>
+          <li>三餐<strong>請自行準備購買</strong>。</li>
+          <li><strong>早餐</strong>建議前一天晚上先買好放飯店冰箱，或提前外出吃完早餐再回飯店集合。</li>
+        </ul>
+
+        <div class="callout-warning">
+          <div class="callout-warning-title">花費估算</div>
+          <ul>
+            <li>每日餐費＋交通約<strong>台幣 1,000 以內</strong>。</li>
+            <li>機場交通約<strong>台幣 1,000 以內</strong>。</li>
+            <li>必須日幣可估<strong>日幣 35,000 以內</strong>。</li>
+          </ul>
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>
