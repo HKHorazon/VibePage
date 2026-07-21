@@ -1120,8 +1120,8 @@ body {
 }
 
 .schedule-table thead {
-  background: var(--cyan-deep);
-  color: var(--bg);
+  background: linear-gradient(135deg, var(--magenta), var(--cyan-bright));
+  color: #fff;
 }
 
 .schedule-table th {
