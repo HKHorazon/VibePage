@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上課外行程說明 — 多遊系日本amps短期研習 // 2026</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/0_3_上課外行程說明.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>上課外行程說明</h1>
+
+        <hr>
+
+        <p>本次上課外行程採<strong>半自助方式</strong>，會帶大家到景點後就<strong>自由行動</strong>，三餐也自己吃。</p>
+
+        <ul>
+          <li>可以先研究有沒有<strong>特別想去的店家或景點</strong>。</li>
+          <li>想跑別的地方就查<strong>東京地鐵</strong>，路線以<strong>山手線</strong>為基準最好認。</li>
+          <li><strong>週一～週三</strong>安排在<strong>東京西側</strong>、<strong>後兩天</strong>再往<strong>東京東側</strong>；移動時務必<strong>結伴同行</strong>。</li>
+        </ul>
+
+        <h2>東京鐵路圖（以山手線為主）</h2>
+
+        <figure class="metro-map">
+          <img src="../src/yama.png" alt="JR 山手線環狀路線圖，含各站名" loading="lazy">
+          <figcaption>JR 山手線環狀線與各站，本次行程主要都在這條線上。</figcaption>
+        </figure>
+
+        <figure class="metro-map">
+          <a href="../src/tokyo.png" target="_blank" rel="noopener">
+            <img src="../src/tokyo.png" alt="東京都交通局・Tokyo Metro 地鐵路線圖（繁體中文）" loading="lazy">
+          </a>
+          <figcaption>東京都交通局・Tokyo Metro 地鐵路線圖（點圖可放大）。要跑山手線以外的地方時對照轉乘。</figcaption>
+        </figure>
+
+        <p>新宿→原宿→澀谷在<strong>西側</strong>、上野→秋葉原在<strong>東側</strong>，都在山手線上，坐環狀線很好記；淺草、晴空塔在更東邊，從上野轉<strong>地鐵</strong>過去。實際轉乘用 Google 地圖查最快。</p>
+      </article>
+    </doc-layout>
+  </div>
+
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>
