@@ -9,9 +9,41 @@
   <style>
     /* ── 櫻花・動漫風 checklist ── */
     .checklist { list-style: none; padding-left: 0; }
-    .checklist li { margin: 0.4rem 0; }
+    .checklist li {
+      margin: 0.4rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+
+    /* 連到該項目說明頁的箭頭，放在 label 外面，點了不會誤觸勾選 */
+    .checklist a.check-ref {
+      flex: none;
+      margin-top: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--magenta);
+      background: linear-gradient(135deg, #fff8fb, #ffe0ec);
+      color: var(--cyan-deep);
+      font-size: 0.8rem;
+      line-height: 1;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .checklist a.check-ref:hover {
+      background: linear-gradient(135deg, var(--magenta), var(--cyan));
+      color: #fff;
+      transform: translateY(-2px) scale(1.1);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--magenta) 45%, transparent);
+    }
 
     .checklist label {
+      flex: 1 1 auto;
+      min-width: 0;
       display: flex;
       align-items: flex-start;
       gap: 0.7rem;
@@ -138,55 +170,55 @@
 
         <p>出發前一天照這張清單掃一遍，別到機場才發現東西沒帶。勾選狀態會存在瀏覽器裡。</p>
 
-        <p>每一項後面的<strong>「見○○頁」</strong>就是該項目的詳細說明所在，不確定內容時先去翻那一頁。</p>
+        <p>每一項後面的<strong>「見○○頁」</strong>就是該項目的詳細說明所在，點右側的 <strong>↗</strong> 可以直接跳過去。</p>
 
         <button type="button" class="checklist-reset" onclick="resetChecklist()">清除全部勾選</button>
 
         <h3>⓪ 旅途事項（已詳閱理解）</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>已詳閱並理解「規範」（見「規範」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>已詳閱並理解「實際行程」（見「實際行程」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>已詳閱並理解上課外行程為半自助（見「上課外行程說明」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>了解來回兩趟下飛機後會將登機證 &amp; 機票交給老師（見「機票繳交」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>已詳閱並理解「規範」（見「規範」頁）</span></label><a class="check-ref" href="0_1_規範.html" title="前往「規範」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>已詳閱並理解「實際行程」（見「實際行程」頁）</span></label><a class="check-ref" href="0_2_實際行程.html" title="前往「實際行程」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>已詳閱並理解上課外行程為半自助（見「上課外行程說明」頁）</span></label><a class="check-ref" href="0_3_上課外行程說明.html" title="前往「上課外行程說明」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>了解來回兩趟下飛機後會將登機證 &amp; 機票交給老師（見「機票繳交」頁）</span></label><a class="check-ref" href="2_4_機票繳交.html" title="前往「機票繳交」頁">↗</a></li>
         </ul>
 
         <h3>① 證件（少一樣就上不了飛機）</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>中華民國護照（<strong>效期 6 個月以上</strong>，見「簽證&amp;Visit Japan Web」頁）</span></label></li>
-          <li><label><input type="checkbox"><span><strong>役男短期出境核准通知單</strong>（限役男，紙本，見「男生兵役」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>Visit Japan Web 兩個 QR Code 已截圖存離線（見「簽證&amp;Visit Japan Web」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>中華民國護照（<strong>效期 6 個月以上</strong>，見「簽證&amp;Visit Japan Web」頁）</span></label><a class="check-ref" href="1_6_簽證.html" title="前往「簽證&amp;Visit Japan Web」頁">↗</a></li>
+          <li><label><input type="checkbox"><span><strong>役男短期出境核准通知單</strong>（限役男，紙本，見「男生兵役」頁）</span></label><a class="check-ref" href="1_9_男生兵役.html" title="前往「男生兵役」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>Visit Japan Web 兩個 QR Code 已截圖存離線（見「簽證&amp;Visit Japan Web」頁）</span></label><a class="check-ref" href="1_6_簽證.html" title="前往「簽證&amp;Visit Japan Web」頁">↗</a></li>
           <li><label><input type="checkbox"><span>身分證、健保卡（非出國用，留身邊備緊急聯絡用）</span></label></li>
         </ul>
 
         <h3>② 錢＆卡</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>日幣現金（分兩袋放，別全塞同一處，見「日幣」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>西瓜卡 Suica／Welcome Suica（見「西瓜卡」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>少量新台幣（回國搭車用，見「台灣機場交通」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>日幣現金（分兩袋放，別全塞同一處，見「日幣」頁）</span></label><a class="check-ref" href="1_2_日幣.html" title="前往「日幣」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>西瓜卡 Suica／Welcome Suica（見「西瓜卡」頁）</span></label><a class="check-ref" href="1_5_西瓜卡.html" title="前往「西瓜卡」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>少量新台幣（回國搭車用，見「台灣機場交通」頁）</span></label><a class="check-ref" href="2_2_到機場交通.html" title="前往「台灣機場交通」頁">↗</a></li>
         </ul>
 
         <h3>③ 3C＆電力</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>手機＋充電線＋充電頭（日本 100V 兩孔扁插，免轉接，見「網路」頁）</span></label></li>
-          <li><label><input type="checkbox"><span><strong>行動電源</strong>（視需求攜帶，隨身行李不可託運，160 Wh 以下，見「行李」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>eSIM 已安裝或 SIM 卡／WiFi 分享器（見「網路」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>手持電扇（視需求攜帶，隨身行李不可託運，見「行李」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>手機＋充電線＋充電頭（日本 100V 兩孔扁插，免轉接，見「網路」頁）</span></label><a class="check-ref" href="1_8_網路.html" title="前往「網路」頁">↗</a></li>
+          <li><label><input type="checkbox"><span><strong>行動電源</strong>（視需求攜帶，隨身行李不可託運，160 Wh 以下，見「行李」頁）</span></label><a class="check-ref" href="1_1_行李.html" title="前往「行李」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>eSIM 已安裝或 SIM 卡／WiFi 分享器（見「網路」頁）</span></label><a class="check-ref" href="1_8_網路.html" title="前往「網路」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>手持電扇（視需求攜帶，隨身行李不可託運，見「行李」頁）</span></label><a class="check-ref" href="1_1_行李.html" title="前往「行李」頁">↗</a></li>
         </ul>
 
         <h3>④ 衣物＆盥洗</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>足量衣服、內衣褲、襪子（見「天氣&amp;衣物」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>摺疊傘（見「天氣&amp;衣物」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>好走的鞋子（見「天氣&amp;衣物」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>足量衣服、內衣褲、襪子（見「天氣&amp;衣物」頁）</span></label><a class="check-ref" href="1_3_天氣與衣物.html" title="前往「天氣&amp;衣物」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>摺疊傘（見「天氣&amp;衣物」頁）</span></label><a class="check-ref" href="1_3_天氣與衣物.html" title="前往「天氣&amp;衣物」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>好走的鞋子（見「天氣&amp;衣物」頁）</span></label><a class="check-ref" href="1_3_天氣與衣物.html" title="前往「天氣&amp;衣物」頁">↗</a></li>
           <li><label><input type="checkbox"><span>個人需求盥洗配備</span></label></li>
-          <li><label><input type="checkbox"><span>抗熱配備：外出用毛巾、鴨舌帽、防曬乳（依個人需求準備，見「天氣&amp;衣物」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>抗熱配備：外出用毛巾、鴨舌帽、防曬乳（依個人需求準備，見「天氣&amp;衣物」頁）</span></label><a class="check-ref" href="1_3_天氣與衣物.html" title="前往「天氣&amp;衣物」頁">↗</a></li>
         </ul>
 
         <h3>⑤ 醫藥＆隨身小物</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"><span>個人慣用藥（感冒、腸胃、頭痛、暈車、OK 繃，見「醫藥」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>痠痛貼布（依個人需求準備，見「醫藥」頁）</span></label></li>
-          <li><label><input type="checkbox"><span>護照、藥品、現金放隨身不離身（見「隨身行李」頁）</span></label></li>
+          <li><label><input type="checkbox"><span>個人慣用藥（感冒、腸胃、頭痛、暈車、OK 繃，見「醫藥」頁）</span></label><a class="check-ref" href="1_4_醫藥.html" title="前往「醫藥」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>痠痛貼布（依個人需求準備，見「醫藥」頁）</span></label><a class="check-ref" href="1_4_醫藥.html" title="前往「醫藥」頁">↗</a></li>
+          <li><label><input type="checkbox"><span>護照、藥品、現金放隨身不離身（見「隨身行李」頁）</span></label><a class="check-ref" href="2_8_隨身行李.html" title="前往「隨身行李」頁">↗</a></li>
         </ul>
 
         <div class="callout-warning">
