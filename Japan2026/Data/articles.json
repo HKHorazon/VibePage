@@ -2,6 +2,18 @@
   "categories": [
     {
       "code": "01",
+      "name": "檢查事項",
+      "articles": [
+        {
+          "title": "檢查事項",
+          "file": "articles/3_1_檢查事項.html",
+          "date": "2026-07-22",
+          "summary": "出發前一天最後檢查清單：證件／錢卡／3C／衣物／醫藥，每項標註可查閱的頁面，含出發當天三檢。"
+        }
+      ]
+    },
+    {
+      "code": "02",
       "name": "旅途事項",
       "articles": [
         {
@@ -25,7 +37,7 @@
       ]
     },
     {
-      "code": "02",
+      "code": "03",
       "name": "準備",
       "articles": [
         {
@@ -61,25 +73,31 @@
         {
           "title": "簽證",
           "file": "articles/1_6_簽證.html",
-          "date": "2026-07-20",
-          "summary": "目前免簽、JESTA 2028 年上路不受影響、Visit Japan Web 連結。"
+          "date": "2026-07-22",
+          "summary": "目前免簽、JESTA 2028 年上路不受影響、護照效期需涵蓋行程。"
+        },
+        {
+          "title": "Visit Japan Web",
+          "file": "articles/1_7_VisitJapanWeb.html",
+          "date": "2026-07-22",
+          "summary": "入境線上申報流程：註冊帳號、登錄護照與行程、入境審查與海關申報兩個 QR Code 務必截圖。"
         },
         {
           "title": "網路",
-          "file": "articles/1_7_網路.html",
+          "file": "articles/1_8_網路.html",
           "date": "2026-07-21",
           "summary": "eSIM／SIM 卡／WiFi 分享器／漫遊四種方式比較，附短期常見方案價格。"
         },
         {
           "title": "男生兵役",
-          "file": "articles/1_8_男生兵役.html",
+          "file": "articles/1_9_男生兵役.html",
           "date": "2026-07-20",
           "summary": "役男出境前 3～30 天到役政署線上申請核准，出國當天連護照帶核准通知單。"
         }
       ]
     },
     {
-      "code": "03",
+      "code": "04",
       "name": "行程中",
       "articles": [
         {
@@ -117,18 +135,6 @@
           "file": "articles/2_8_隨身行李.html",
           "date": "2026-07-20",
           "summary": "個人藥品、護照、現金不離身，分放行李的現金勿讓他人知道。"
-        }
-      ]
-    },
-    {
-      "code": "04",
-      "name": "檢查事項",
-      "articles": [
-        {
-          "title": "檢查事項",
-          "file": "articles/3_1_檢查事項.html",
-          "date": "2026-07-21",
-          "summary": "出發前一天最後檢查清單：證件／錢卡／3C／衣物／醫藥，含出發當天三檢。"
         }
       ]
     }
