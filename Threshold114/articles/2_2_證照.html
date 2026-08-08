@@ -6,6 +6,19 @@
   <title>1A2B 證照 — 多遊系114畢業門檻</title>
   <link rel="stylesheet" href="../../framework/tailwind.min.css">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .tab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2px;
+      width: 100%;
+    }
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.45rem 0.2rem;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -32,7 +45,34 @@
             <tr><td>B 組</td><td>B 級證照 <strong>2 張</strong></td><td>國內/初階認可證照</td></tr>
           </tbody>
         </table>
-        <p>系上認可證照清單：<a href="https://mgda.hk.edu.tw/證照/" target="_blank">https://mgda.hk.edu.tw/證照/</a></p>
+
+        <h2>系上認可證照清單</h2>
+        <p>資料來源：<a href="https://mgda.hk.edu.tw/證照/" target="_blank" rel="noopener">系上證照頁面</a>（114/10/07 版）</p>
+
+        <div class="tab-bar" style="margin-top: 1.5rem;">
+          <button
+            v-for="(g, i) in groups" :key="g.id"
+            type="button"
+            :class="['tab-btn', { active: activeTab === i }]"
+            @click="activeTab = i"
+          >{{ g.label }}</button>
+        </div>
+        <div class="tab-panel">
+          <table style="margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th style="width: 60px; text-align: center;">項次</th>
+                <th>證照名稱</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(c, i) in groups[activeTab].list" :key="c">
+                <td style="text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">{{ i + 1 }}</td>
+                <td>{{ c }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <h2>取得機會</h2>
         <ul>
@@ -48,8 +88,72 @@
     </doc-layout>
   </div>
   <script type="module">
-    import { mountDocLayout } from '../doc-layout.js'
-    mountDocLayout('#app')
+    import { createApp, ref } from '../../framework/vue.esm-browser.js'
+    import { DocLayout } from '../doc-layout.js'
+
+    createApp({
+      components: { DocLayout },
+      setup() {
+        const activeTab = ref(0)
+        const groups = ref([
+          {
+            id: 'a',
+            label: 'A 級（17 張）',
+            list: [
+              '勞動部職訓局乙級以上專業認證－電腦軟體應用、軟體設計、硬體裝修、網頁設計、電腦輔助立體製圖、廣告設計、視覺傳達設計、印前製程等',
+              'Music maker 國際證照(MAGIX)',
+              'Acousaica Mixcraft MATCC 數位影音',
+              'Unity Certified User (UCU)',
+              'Reallusion Certified Designer (RCDR) iClone',
+              'Reallusion Certified Associate for Cartoon Animator',
+              'Adobe Certified Professional (ACP) Illustrator',
+              'Adobe Certified Professional (ACP) Photoshop',
+              'Adobe Certified Professional (ACP) Indesign',
+              'Adobe Certified Professional (ACP) Premiere',
+              'Autodesk Certified Professional Maya',
+              '中華民國高普考資訊相關專業類科及格',
+              '資訊安全管理內部稽核員 (BS 7799/ISO 27001 系列)',
+              '(TQC)行動裝置應用程式設計、基礎行動裝置應用程式設計',
+              'TQC+ 創意 App 程式設計(App Inventor)',
+              '(PMP) Project Management Professional－國際專案管理師證照',
+              '生成式 AI 美術設計能力認證－中級'
+            ]
+          },
+          {
+            id: 'b',
+            label: 'B 級（24 張）',
+            list: [
+              '勞動部職訓局丙級專業認證－電腦軟體應用、軟體設計、硬體裝修、網頁設計、電腦輔助立體製圖、廣告設計、視覺傳達設計、印前製程等',
+              '(ITE)資訊專業人員鑑定－數位內容類－遊戲美術專業人員',
+              '(ITE)資訊專業人員鑑定－數位內容類－遊戲企劃專業人員',
+              'TQC+ 基礎創意 App 程式設計(App Inventor)',
+              'TQC+ 電腦繪圖概論與數位色彩配色（PDC）',
+              'TQC+ 電腦繪圖設計 (Illustrator CS5)（PIL）',
+              'TQC 平面設計專業人員',
+              'TQC 多媒體網頁設計專業人員',
+              'CyberLink Certified Associate(CCA) 威力導演',
+              'MTA-Introduction to Programming using HTML and CSS',
+              'MTA-HTML 5',
+              'MTA-Gaming Development Fundamentals',
+              '電競丙級裁判證、電競丙級教練證',
+              'TBSA 商務企劃能力',
+              'Linux-LPIC 專業人員認證, Level 1',
+              '初級流通連鎖經營管理（原「流通連鎖經營管理技術士」）',
+              '(PMA+)專案技術師、(CPMS)專案規劃師、(PMA)專案助理、IPMA D 級專案管理師',
+              '國際電子商務顧問局 EC-COUNCIL 專業證照認證',
+              'PMA 市場產品行銷策略分析師(Product Marketing Analyst)',
+              'TQC 系統發展相關認證',
+              '水冷主機安裝初級認證',
+              '企業電子化人才能力鑑定',
+              'SSE 色彩學國際證照',
+              '生成式 AI 美術設計能力認證－初級'
+            ]
+          }
+        ])
+
+        return { activeTab, groups }
+      }
+    }).mount('#app')
   </script>
 </body>
 </html>
