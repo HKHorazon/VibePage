@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>必修課程頁 — 8 種風格（配色 / 字體）</title>
+<style>
+  /* ══ 外框 UI（不隨主題變動）══════════════════ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0e1116; color: #e8edf4;
+    font-family: 'Inter', -apple-system, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6;
+  }
+  .shell { max-width: 1240px; margin: 0 auto; padding: 40px 22px 80px; }
+  .shell h1 { font-size: 28px; letter-spacing: -0.02em; }
+  .shell .sub { color: #9aa5b4; font-size: 15px; margin-top: 6px; }
+  .shell h2.sec { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #9aa5b4; margin: 34px 0 14px; }
+
+  /* 主題選擇器 */
+  .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .swatch {
+    text-align: left; font: inherit; color: inherit; cursor: pointer;
+    background: #171b22; border: 1px solid #2a313b; border-radius: 12px; padding: 14px;
+    transition: border-color .15s, transform .15s;
+  }
+  .swatch:hover { transform: translateY(-2px); border-color: #4a5566; }
+  .swatch[aria-pressed="true"] { border-color: #7dd3fc; box-shadow: 0 0 0 1px #7dd3fc inset; }
+  .swatch .nm { font-weight: 700; font-size: 15px; }
+  .swatch .en { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8b95a5; margin-top: 1px; }
+  .swatch .bars { display: flex; height: 26px; border-radius: 6px; overflow: hidden; margin-top: 10px; border: 1px solid #2a313b; }
+  .swatch .bars i { flex: 1; }
+  .swatch .bars i:first-child { flex: 2.2; }
+  .swatch .hex { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; color: #7c8797; margin-top: 7px; letter-spacing: .02em; }
+
+  .hint { color: #7c8797; font-size: 13px; margin-top: 10px; }
+  .shell footer { margin-top: 36px; display: flex; justify-content: space-between; color: #7c8797; font-size: 13px; }
+  .shell footer a { color: #7dd3fc; }
+
+  /* ══ 預覽區：所有顏色 / 字體都吃 CSS 變數 ══════ */
+  .preview {
+    --bg: #eef1f6; --surface: #ffffff; --tint: #eef2ff;
+    --ink: #101418; --muted: #5b6675; --line: #dde3ea;
+    --accent: #2f6bff; --accent-ink: #ffffff; --accent-2: #d64d9a;
+    --font: 'Inter', system-ui, 'Noto Sans TC', sans-serif;
+    --font-head: 'Inter', system-ui, 'Noto Sans TC', sans-serif;
+    --font-mono: ui-monospace, Consolas, monospace;
+    --r: 10px; --bw: 1px; --shadow: 0 1px 2px rgba(16,24,40,.06), 0 10px 24px -16px rgba(16,24,40,.35);
+
+    background: var(--bg); color: var(--ink); font-family: var(--font);
+    border-radius: 14px; padding: 28px; border: 1px solid #2a313b; overflow: hidden;
+  }
+  .preview h3.t { font-family: var(--font-head); font-size: 30px; letter-spacing: -0.02em; line-height: 1.25; }
+  .preview .kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+  .preview .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 22px; }
+  .preview .stat { background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r); padding: 15px 16px; box-shadow: var(--shadow); }
+  .preview .stat span { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .preview .stat b { display: block; font-family: var(--font-head); font-size: 30px; line-height: 1.15; margin-top: 4px; }
+  .preview .stat:nth-child(1) b { color: var(--accent); }
+  .preview .stat:nth-child(2) b { color: var(--accent-2); }
+
+  .preview .tabs { display: flex; gap: 4px; flex-wrap: wrap; background: var(--tint); border: var(--bw) solid var(--line); border-radius: var(--r); padding: 4px; }
+  .preview .tabs button {
+    font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; flex: 1;
+    background: transparent; color: var(--muted); border: var(--bw) solid transparent;
+    border-radius: calc(var(--r) - 4px); padding: 7px 10px; transition: all .14s;
+  }
+  .preview .tabs button:hover { color: var(--accent); }
+  .preview .tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  .preview table { width: 100%; border-collapse: collapse; background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r); overflow: hidden; margin-top: 12px; }
+  .preview th { text-align: left; font-family: var(--font-head); font-size: 12px; letter-spacing: .06em; color: var(--ink); background: var(--tint); padding: 10px 14px; border-bottom: 2px solid var(--accent); }
+  .preview td { padding: 11px 14px; border-bottom: var(--bw) solid var(--line); font-size: 14.5px; }
+  .preview tr:last-child td { border-bottom: none; }
+  .preview .chip { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--tint); color: var(--accent); border: var(--bw) solid var(--line); }
+  .preview .chip.g { color: var(--accent-2); }
+  .preview .num { font-family: var(--font-mono); font-size: 13px; color: var(--muted); text-align: right; }
+
+  .preview .note { margin-top: 16px; background: var(--tint); border-left: 4px solid var(--accent); border-radius: 0 var(--r) var(--r) 0; padding: 12px 15px; font-size: 14px; color: var(--ink); }
+  .preview .note a { color: var(--accent); text-underline-offset: 3px; }
+  .preview .links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .preview .links a {
+    font-size: 13px; text-decoration: none; color: var(--accent); background: var(--surface);
+    border: var(--bw) solid var(--line); border-radius: 999px; padding: 7px 14px;
+  }
+  .preview .links a:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .preview .meta { margin-top: 18px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+
+  @media (max-width: 640px) { .preview .stats { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="shell">
+  <h1>必修課程頁 — 8 種風格</h1>
+  <p class="sub">版面固定不變，只換<strong>配色與字體</strong>。點下方色卡即時套用到上方預覽，選定後告訴我編號，我就套進整個網站。</p>
+
+  <h2 class="sec">即時預覽</h2>
+  <div class="preview" id="pv">
+    <div class="kicker" id="pv-kicker">MGDA · 114 學年度 · 日間部</div>
+    <h3 class="t">必修課程 59 學分</h3>
+
+    <div class="stats">
+      <div class="stat"><span>專業必修</span><b>59 學分</b></div>
+      <div class="stat"><span>必修通識</span><b>30 學分</b></div>
+      <div class="stat"><span>合計必修</span><b>89 學分</b></div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true">一上</button>
+      <button role="tab" aria-selected="false">一下</button>
+      <button role="tab" aria-selected="false">二上</button>
+      <button role="tab" aria-selected="false">二下</button>
+      <button role="tab" aria-selected="false">三上</button>
+    </div>
+
+    <table>
+      <thead><tr><th>課程名稱</th><th style="width:110px">類別</th><th style="width:110px;text-align:right">學分 / 時數</th></tr></thead>
+      <tbody>
+        <tr><td>ACGE 概論</td><td><span class="chip">專業必修</span></td><td class="num">2 / 2</td></tr>
+        <tr><td>原畫設計</td><td><span class="chip">專業必修</span></td><td class="num">3 / 3</td></tr>
+        <tr><td>中文閱讀與書寫(一)</td><td><span class="chip g">通識教育</span></td><td class="num">2 / 2</td></tr>
+        <tr><td>服務學習(一)</td><td><span class="chip g">通識教育</span></td><td class="num">0 / 1</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">詳細課程清單請查閱系上 <a href="#">課程規劃與科目總表</a> 及 <a href="#">課程架構圖</a>。</div>
+    <div class="links">
+      <a href="#">系上課程總表與地圖</a><a href="#">U114 科目總表</a><a href="#">課程架構地圖</a><a href="#">系所問題 QA</a>
+    </div>
+    <div class="meta" id="pv-meta"></div>
+  </div>
+
+  <h2 class="sec">選擇風格</h2>
+  <div class="picker" id="picker"></div>
+  <p class="hint">每張色卡的色票依序為：底色 / 強調色 / 第二強調色 / 文字色。8 種都是實際可用的完整變數組，含字體搭配。</p>
+
+  <footer>
+    <span>Themes — 配色與字體提案</span>
+    <a href="index.html">← 5 種排版範例</a>
+  </footer>
+</div>
+
+<script>
+const THEMES = [
+  {
+    nm: '賽博霓虹（現行）', en: 'Cyber Neon', desc: '深藍＋青綠＋洋紅，現在網站的方向',
+    v: { bg:'#e3e8f0', surface:'#ffffff', tint:'#e2e8f7', ink:'#0b1220', muted:'#42506a', line:'#cfd8e6',
+         accent:'#1e40af', 'accent-ink':'#ffffff', 'accent-2':'#a21caf',
+         font:"'Inter', system-ui, 'Noto Sans TC', sans-serif", 'font-head':"'Exo', 'Inter', system-ui, sans-serif",
+         'font-mono':"'JetBrains Mono', ui-monospace, Consolas, monospace", r:'6px', bw:'1px' }
+  },
+  {
+    nm: '靜謐藍灰', en: 'Nordic Calm', desc: '低彩度藍灰，冷靜、耐看、閱讀壓力最低',
+    v: { bg:'#f2f4f7', surface:'#ffffff', tint:'#e9eef4', ink:'#1b2430', muted:'#64748b', line:'#dde4ec',
+         accent:'#3b6ea5', 'accent-ink':'#ffffff', 'accent-2':'#7c8ba1',
+         font:"'Inter', system-ui, 'Noto Sans TC', sans-serif", 'font-head':"'Inter', system-ui, sans-serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'12px', bw:'1px' }
+  },
+  {
+    nm: '墨黑橘', en: 'Ink & Orange', desc: '黑白為底、橘紅點綴，對比強、像正式文件',
+    v: { bg:'#ffffff', surface:'#ffffff', tint:'#f4f4f2', ink:'#111111', muted:'#6c6c6c', line:'#dcdcd8',
+         accent:'#d64518', 'accent-ink':'#ffffff', 'accent-2':'#111111',
+         font:"'Helvetica Neue', Helvetica, 'Noto Sans TC', Arial, sans-serif", 'font-head':"'Helvetica Neue', Helvetica, Arial, sans-serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'0px', bw:'1px' }
+  },
+  {
+    nm: '森林米白', en: 'Forest Paper', desc: '米色紙感＋墨綠，襯線標題，溫和有質感',
+    v: { bg:'#f6f3ea', surface:'#fffdf7', tint:'#ece7d8', ink:'#22271f', muted:'#6f6a58', line:'#ded7c4',
+         accent:'#2f5d3f', 'accent-ink':'#ffffff', 'accent-2':'#9a6b2f',
+         font:"'Noto Sans TC', system-ui, sans-serif", 'font-head':"Georgia, 'Noto Serif TC', 'Songti TC', serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'8px', bw:'1px' }
+  },
+  {
+    nm: '紫羅蘭', en: 'Violet Modern', desc: '紫＋淺灰，SaaS 產品感，年輕但不吵',
+    v: { bg:'#f5f5fa', surface:'#ffffff', tint:'#eeecfb', ink:'#161422', muted:'#615d75', line:'#e3e0ef',
+         accent:'#5b3df5', 'accent-ink':'#ffffff', 'accent-2':'#0f9d78',
+         font:"'Inter', system-ui, 'Noto Sans TC', sans-serif", 'font-head':"'Inter', system-ui, sans-serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'14px', bw:'1px' }
+  },
+  {
+    nm: '暖陽陶土', en: 'Terracotta', desc: '磚紅＋奶油白，暖色系，親和力最高',
+    v: { bg:'#fbf4ee', surface:'#ffffff', tint:'#f7e7dc', ink:'#2b1d16', muted:'#7d6355', line:'#ecd9cb',
+         accent:'#b4451f', 'accent-ink':'#ffffff', 'accent-2':'#3f7d6a',
+         font:"'Noto Sans TC', system-ui, sans-serif", 'font-head':"'Noto Sans TC', system-ui, sans-serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'10px', bw:'1px' }
+  },
+  {
+    nm: '極簡黑黃', en: 'Mono Yellow', desc: '純黑白＋螢光黃，零圓角粗邊框，最有記憶點',
+    v: { bg:'#fafafa', surface:'#ffffff', tint:'#fff6b0', ink:'#000000', muted:'#555555', line:'#000000',
+         accent:'#000000', 'accent-ink':'#ffe600', 'accent-2':'#000000',
+         font:"'Archivo', 'Arial Black', 'Noto Sans TC', sans-serif", 'font-head':"'Archivo', 'Arial Black', sans-serif",
+         'font-mono':"ui-monospace, Consolas, monospace", r:'0px', bw:'2px' }
+  },
+  {
+    nm: '深海夜', en: 'Deep Ocean', desc: '深色主題，藍綠螢光，長時間看不刺眼',
+    v: { bg:'#0d1520', surface:'#131d2b', tint:'#16283a', ink:'#e6eef7', muted:'#8fa3b8', line:'#22344a',
+         accent:'#38bdf8', 'accent-ink':'#06202e', 'accent-2':'#5eead4',
+         font:"'Inter', system-ui, 'Noto Sans TC', sans-serif", 'font-head':"'Inter', system-ui, sans-serif",
+         'font-mono':"'JetBrains Mono', ui-monospace, Consolas, monospace", r:'10px', bw:'1px' }
+  }
+];
+
+const pv = document.getElementById('pv');
+const picker = document.getElementById('picker');
+
+picker.innerHTML = THEMES.map((t, i) => `
+  <button class="swatch" aria-pressed="${i === 0}" data-i="${i}">
+    <div class="nm">${String(i + 1).padStart(2, '0')} ${t.nm}</div>
+    <div class="en">${t.en}</div>
+    <div class="bars">
+      <i style="background:${t.v.bg}"></i>
+      <i style="background:${t.v.accent}"></i>
+      <i style="background:${t.v['accent-2']}"></i>
+      <i style="background:${t.v.ink}"></i>
+    </div>
+    <div class="hex">${t.v.accent} · ${t.v['accent-2']}</div>
+  </button>`).join('');
+
+function apply(i) {
+  const t = THEMES[i];
+  Object.entries(t.v).forEach(([k, val]) => pv.style.setProperty('--' + k, val));
+  document.getElementById('pv-kicker').textContent = `MGDA · 114 學年度 · ${t.en}`;
+  document.getElementById('pv-meta').textContent =
+    `${String(i + 1).padStart(2, '0')} ${t.nm} — ${t.desc}　|　accent ${t.v.accent}　accent-2 ${t.v['accent-2']}　radius ${t.v.r}`;
+  picker.querySelectorAll('.swatch').forEach((b, bi) => b.setAttribute('aria-pressed', bi === i));
+}
+picker.addEventListener('click', e => {
+  const b = e.target.closest('.swatch');
+  if (b) apply(+b.dataset.i);
+});
+pv.querySelector('.tabs').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  pv.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+});
+apply(0);
+</script>
+</body>
+</html>
