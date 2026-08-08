@@ -2,10 +2,10 @@
 
 /* ── 白天（預設）主題 ─────────────────────────── */
 :root {
-  --bg-base:          #eef1f6;
-  --bg-deep:          #e2e7ef;
-  --bg-surface:       #f6f8fb;
-  --bg-surface-2:     #eaeef5;
+  --bg-base:          #e3e8f0;
+  --bg-deep:          #d5dce7;
+  --bg-surface:       #f2f5f9;
+  --bg-surface-2:     #e8edf4;
   --bg-elev:          #ffffff;
   --border-soft:      #d3dae4;
   --border-mid:       #a8b4c4;
@@ -30,8 +30,8 @@
   --header-bg:        rgba(246, 248, 251, 0.92);
   --content-bg:       #ffffff;
   --grid-color:       rgba(11, 18, 32, 0.05);
-  --tab-active-bg:    #0c6e88;
-  --tab-active-fg:    #ffffff;
+  --tab-active-bg:    rgba(8, 145, 178, 0.14);
+  --tab-active-fg:    #0b5f76;
   --font-heading: 'Exo', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
@@ -71,8 +71,8 @@ body[data-theme="dark"] {
   --header-bg:        rgba(9, 9, 18, 0.92);
   --content-bg:       #0f1824;
   --grid-color:       rgba(255, 255, 255, 0.04);
-  --tab-active-bg:    #00e5ff;
-  --tab-active-fg:    #041018;
+  --tab-active-bg:    rgba(0, 229, 255, 0.16);
+  --tab-active-fg:    #7df0ff;
   color-scheme: dark;
 }
 
@@ -1052,48 +1052,39 @@ body[data-theme="dark"] .article-body code {
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-  margin: 2rem 0 0;
-  border-bottom: 2px solid var(--border-mid);
+  gap: 3px;
+  margin: 2rem 0 0.75rem;
+  padding: 3px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
 }
 
 .tab-btn {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 0.45rem 1rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-soft);
-  border-bottom: 2px solid transparent;
-  border-radius: 3px 3px 0 0;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
   color: var(--text-muted);
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
-  position: relative;
-  bottom: -2px;
 }
 
 .tab-btn:hover {
   background: var(--cyan-dim);
   color: var(--cyan-deep);
-  border-color: var(--border-cyan-soft);
-  border-bottom-color: transparent;
 }
 
-.tab-btn.active {
-  background: var(--tab-active-bg);
-  color: var(--tab-active-fg);
-  border-color: var(--tab-active-bg);
-  border-bottom-color: var(--tab-active-bg);
-  box-shadow: var(--glow-cyan-soft);
-  z-index: 1;
-}
-
+.tab-btn.active,
 .tab-btn.active:hover {
   background: var(--tab-active-bg);
   color: var(--tab-active-fg);
-  border-color: var(--tab-active-bg);
+  border-color: var(--cyan);
+  box-shadow: inset 0 -3px 0 var(--cyan);
 }
 
 .tab-btn:focus-visible {
@@ -1102,12 +1093,12 @@ body[data-theme="dark"] .article-body code {
 }
 
 .tab-panel {
-  border: 1px solid var(--border-mid);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
   padding: 0 0 0.25rem;
   background: var(--content-bg);
   margin-bottom: 1.75rem;
+  overflow: hidden;
 }
 
 .tab-panel table {

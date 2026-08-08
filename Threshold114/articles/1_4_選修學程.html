@@ -19,17 +19,10 @@
       padding: 0.45rem 0.2rem;
     }
     .tab-bar.sub {
-      margin-top: 0.6rem;
-      border-bottom: none;
+      margin-top: 0;
     }
     .tab-bar.sub .tab-btn {
-      border-radius: 3px;
-      border-bottom: 1px solid var(--border-soft);
-      bottom: 0;
       font-size: 0.7rem;
-    }
-    .tab-bar.sub .tab-btn.active {
-      border-color: var(--tab-active-bg);
     }
     .alias {
       font-size: 0.75rem;
@@ -138,7 +131,7 @@
             @click="activeKind = i"
           >{{ k.label }}</button>
         </div>
-        <div class="tab-panel" style="margin-top: 0.6rem; border-top: 1px solid var(--border-mid); border-radius: 4px;">
+        <div class="tab-panel">
           <table style="margin-bottom: 0;">
             <thead>
               <tr>
