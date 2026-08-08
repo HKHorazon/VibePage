@@ -24,18 +24,6 @@ const DocLayout = {
       collapsed: {},
     })
 
-    const theme = ref(localStorage.getItem('threshold114-theme') || 'light')
-
-    const applyTheme = (t) => {
-      document.body.dataset.theme = t
-      localStorage.setItem('threshold114-theme', t)
-    }
-
-    const toggleTheme = () => {
-      theme.value = theme.value === 'light' ? 'dark' : 'light'
-      applyTheme(theme.value)
-    }
-
     const categories = computed(() =>
       state.rawCategories.map((cat, i) => {
         const rawName = cat.name || '未分類'
@@ -79,7 +67,6 @@ const DocLayout = {
     const handleKey = (e) => { if (e.key === 'Escape') closeSidebar() }
 
     onMounted(async () => {
-      applyTheme(theme.value)
       window.addEventListener('keydown', handleKey)
       try {
         const res = await fetch(props.dataPath)
@@ -98,8 +85,8 @@ const DocLayout = {
     onUnmounted(() => { window.removeEventListener('keydown', handleKey) })
 
     return {
-      state, categories, activeIndex, theme,
-      toggleTheme, toggleCategory, toggleSidebar, closeSidebar,
+      state, categories, activeIndex,
+      toggleCategory, toggleSidebar, closeSidebar,
       resolveFile, isActive, prevArticle, nextArticle,
     }
   },
@@ -122,10 +109,6 @@ const DocLayout = {
               <span class="header-meta-dot"></span>
               <span class="header-meta-text">{{ activeIndex }}</span>
             </span>
-            <button type="button" class="theme-toggle" @click="toggleTheme"
-              :aria-label="theme === 'dark' ? '切換白天模式' : '切換黑夜模式'">
-              <span class="theme-icon">{{ theme === 'dark' ? '☀' : '☽' }}</span>
-            </button>
           </div>
         </div>
       </header>
