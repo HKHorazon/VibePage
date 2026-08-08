@@ -9,23 +9,23 @@
   --bg-elev:          #ffffff;
   --border-soft:      #d3dae4;
   --border-mid:       #a8b4c4;
-  --border-strong:    #0891b2;
-  --border-cyan-soft: rgba(8, 145, 178, 0.4);
+  --border-strong:    #1e40af;
+  --border-cyan-soft: rgba(30, 64, 175, 0.35);
   --text:             #0b1220;
   --text-muted:       #283242;
   --text-dim:         #3a4456;
-  --cyan:             #0a5a80;
-  --cyan-bright:      #0e7490;
-  --cyan-deep:        #06405f;
-  --cyan-dim:         rgba(10, 90, 128, 0.14);
+  --cyan:             #1e40af;
+  --cyan-bright:      #2563eb;
+  --cyan-deep:        #10204d;
+  --cyan-dim:         rgba(30, 64, 175, 0.10);
   --magenta:          #c026d3;
   --magenta-bright:   #a21caf;
   --blue:             #1d4ed8;
   --green:            #047857;
   --amber:            #b45309;
   --paper-shadow:     0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 2px rgba(11,18,32,0.08), 0 8px 24px rgba(11,18,32,0.1);
-  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(8,145,178,0.25);
-  --glow-cyan-soft:   0 2px 14px rgba(8,145,178,0.18);
+  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(30,64,175,0.22);
+  --glow-cyan-soft:   0 2px 14px rgba(30,64,175,0.16);
   --strong-color:     #a21caf;
   --header-bg:        rgba(246, 248, 251, 0.92);
   --content-bg:       #ffffff;
@@ -447,7 +447,7 @@ body[data-theme="dark"] .header-meta-dot {
 
 .sidebar-articles a.active {
   color: var(--cyan-deep);
-  background: linear-gradient(90deg, rgba(8,145,178,0.3), rgba(8,145,178,0.05) 80%, transparent);
+  background: linear-gradient(90deg, rgba(30,64,175,0.22), rgba(30,64,175,0.04) 80%, transparent);
   border-left-color: var(--cyan);
   font-weight: 600;
 }
