@@ -2,37 +2,37 @@
 
 /* ── 白天（預設）主題 ─────────────────────────── */
 :root {
-  --bg-base:          #e3e8f0;
-  --bg-deep:          #d5dce7;
-  --bg-surface:       #f2f5f9;
-  --bg-surface-2:     #e8edf4;
+  --bg-base:          #eaf1f7;
+  --bg-deep:          #dce8f1;
+  --bg-surface:       #f4f9fc;
+  --bg-surface-2:     #e6eff7;
   --bg-elev:          #ffffff;
-  --border-soft:      #d3dae4;
-  --border-mid:       #a8b4c4;
-  --border-strong:    #1e40af;
-  --border-cyan-soft: rgba(30, 64, 175, 0.35);
-  --text:             #0b1220;
-  --text-muted:       #283242;
-  --text-dim:         #3a4456;
-  --cyan:             #1e40af;
-  --cyan-bright:      #2563eb;
-  --cyan-deep:        #070e20;
-  --cyan-dim:         rgba(30, 64, 175, 0.36);
-  --magenta:          #c026d3;
-  --magenta-bright:   #a21caf;
+  --border-soft:      #cfdde8;
+  --border-mid:       #a1b7c8;
+  --border-strong:    #0369a1;
+  --border-cyan-soft: rgba(3, 105, 161, 0.35);
+  --text:             #0a1622;
+  --text-muted:       #2a3b4d;
+  --text-dim:         #43566a;
+  --cyan:             #0369a1;
+  --cyan-bright:      #0284c7;
+  --cyan-deep:        #06192a;
+  --cyan-dim:         rgba(2, 132, 199, 0.20);
+  --magenta:          #0f766e;
+  --magenta-bright:   #115e59;
   --blue:             #1d4ed8;
   --green:            #047857;
   --amber:            #b45309;
-  --paper-shadow:     0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 2px rgba(11,18,32,0.08), 0 8px 24px rgba(11,18,32,0.1);
-  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(30,64,175,0.22);
-  --glow-cyan-soft:   0 2px 14px rgba(30,64,175,0.16);
-  --strong-color:     #a21caf;
-  --header-bg:        rgba(246, 248, 251, 0.92);
+  --paper-shadow:     0 1px 0 rgba(255,255,255,0.5) inset, 0 1px 2px rgba(10,22,34,0.07), 0 8px 24px rgba(10,22,34,0.09);
+  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(2,132,199,0.22);
+  --glow-cyan-soft:   0 2px 14px rgba(2,132,199,0.16);
+  --strong-color:     #115e59;
+  --header-bg:        rgba(244, 249, 252, 0.92);
   --content-bg:       #ffffff;
-  --grid-color:       rgba(11, 18, 32, 0.05);
-  --tab-active-bg:    #8e1596;
+  --grid-color:       rgba(10, 22, 34, 0.05);
+  --tab-active-bg:    #0369a1;
   --tab-active-fg:    #ffffff;
-  --tab-active-glow:  0 2px 12px rgba(142, 21, 150, 0.35);
+  --tab-active-glow:  0 2px 12px rgba(3, 105, 161, 0.32);
   --font-heading: 'Exo', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
@@ -44,37 +44,37 @@
 
 /* ── 黑夜主題 ─────────────────────────────────── */
 body[data-theme="dark"] {
-  --bg-base:          #090912;
-  --bg-deep:          #060609;
-  --bg-surface:       #0f1824;
-  --bg-surface-2:     #111d2b;
-  --bg-elev:          #141f2e;
-  --border-soft:      #1e2d42;
-  --border-mid:       #2a3d57;
-  --border-strong:    #00e5ff;
-  --border-cyan-soft: rgba(0, 229, 255, 0.22);
-  --text:             #e2eaf5;
-  --text-muted:       #94a3b8;
-  --text-dim:         #64748b;
-  --cyan:             #00e5ff;
-  --cyan-bright:      #22d3ee;
-  --cyan-deep:        #67e8f9;
-  --cyan-dim:         rgba(0, 229, 255, 0.08);
-  --magenta:          #e879f9;
-  --magenta-bright:   #d946ef;
+  --bg-base:          #0d1520;
+  --bg-deep:          #091019;
+  --bg-surface:       #131d2b;
+  --bg-surface-2:     #16283a;
+  --bg-elev:          #172433;
+  --border-soft:      #22344a;
+  --border-mid:       #2d4560;
+  --border-strong:    #38bdf8;
+  --border-cyan-soft: rgba(56, 189, 248, 0.3);
+  --text:             #e6eef7;
+  --text-muted:       #a9bccd;
+  --text-dim:         #8fa3b8;
+  --cyan:             #38bdf8;
+  --cyan-bright:      #7dd3fc;
+  --cyan-deep:        #bae6fd;
+  --cyan-dim:         rgba(56, 189, 248, 0.12);
+  --magenta:          #5eead4;
+  --magenta-bright:   #2dd4bf;
   --blue:             #60a5fa;
   --green:            #34d399;
   --amber:            #fbbf24;
-  --paper-shadow:     0 1px 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.5);
-  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(0,229,255,0.2);
-  --glow-cyan-soft:   0 2px 14px rgba(0,229,255,0.12);
-  --strong-color:     var(--cyan-deep);
-  --header-bg:        rgba(9, 9, 18, 0.92);
-  --content-bg:       #0f1824;
-  --grid-color:       rgba(255, 255, 255, 0.04);
-  --tab-active-bg:    #e836ff;
-  --tab-active-fg:    #16001d;
-  --tab-active-glow:  0 0 14px rgba(232, 54, 255, 0.45);
+  --paper-shadow:     0 1px 0 rgba(255,255,255,0.04) inset, 0 1px 2px rgba(0,0,0,0.35), 0 8px 24px rgba(0,0,0,0.45);
+  --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(56,189,248,0.22);
+  --glow-cyan-soft:   0 2px 14px rgba(56,189,248,0.14);
+  --strong-color:     #5eead4;
+  --header-bg:        rgba(13, 21, 32, 0.92);
+  --content-bg:       #131d2b;
+  --grid-color:       rgba(255, 255, 255, 0.035);
+  --tab-active-bg:    #38bdf8;
+  --tab-active-fg:    #06202e;
+  --tab-active-glow:  0 0 14px rgba(56, 189, 248, 0.4);
   color-scheme: dark;
 }
 
@@ -217,12 +217,12 @@ body {
   height: 7px;
   border-radius: 50%;
   background: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.18);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.20);
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
 body[data-theme="dark"] .header-meta-dot {
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
 }
 
 @keyframes pulse-dot {
@@ -447,13 +447,13 @@ body[data-theme="dark"] .header-meta-dot {
 
 .sidebar-articles a.active {
   color: var(--cyan-deep);
-  background: linear-gradient(90deg, rgba(30,64,175,0.22), rgba(30,64,175,0.04) 80%, transparent);
+  background: linear-gradient(90deg, rgba(2,132,199,0.20), rgba(2,132,199,0.04) 80%, transparent);
   border-left-color: var(--cyan);
   font-weight: 600;
 }
 
 body[data-theme="dark"] .sidebar-articles a.active {
-  background: linear-gradient(90deg, rgba(0,229,255,0.15), rgba(0,229,255,0.03) 80%, transparent);
+  background: linear-gradient(90deg, rgba(56,189,248,0.16), rgba(56,189,248,0.03) 80%, transparent);
 }
 
 .article-link-index {
@@ -547,7 +547,7 @@ body[data-theme="dark"] .sidebar-articles a.active {
   height: 6px;
   background: var(--cyan);
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(8,145,178,0.18);
+  box-shadow: 0 0 0 3px rgba(2,132,199,0.18);
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
