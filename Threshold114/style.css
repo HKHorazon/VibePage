@@ -14,10 +14,10 @@
   --text:             #0b1220;
   --text-muted:       #283242;
   --text-dim:         #3a4456;
-  --cyan:             #0891b2;
-  --cyan-bright:      #06b6d4;
-  --cyan-deep:        #0c6e88;
-  --cyan-dim:         rgba(8, 145, 178, 0.22);
+  --cyan:             #0a5a80;
+  --cyan-bright:      #0e7490;
+  --cyan-deep:        #06405f;
+  --cyan-dim:         rgba(10, 90, 128, 0.14);
   --magenta:          #c026d3;
   --magenta-bright:   #a21caf;
   --blue:             #1d4ed8;
@@ -30,9 +30,9 @@
   --header-bg:        rgba(246, 248, 251, 0.92);
   --content-bg:       #ffffff;
   --grid-color:       rgba(11, 18, 32, 0.05);
-  --tab-active-bg:    #c026d3;
+  --tab-active-bg:    #8e1596;
   --tab-active-fg:    #ffffff;
-  --tab-active-glow:  0 2px 12px rgba(192, 38, 211, 0.35);
+  --tab-active-glow:  0 2px 12px rgba(142, 21, 150, 0.35);
   --font-heading: 'Exo', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
