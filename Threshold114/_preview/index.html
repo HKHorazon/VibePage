@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>必修課程頁 — 5 種排版範例</title>
+<style>
+  :root {
+    --bg: #101317;
+    --card: #181c22;
+    --line: #2a3038;
+    --ink: #eef2f7;
+    --muted: #97a2b0;
+    --accent: #6ee7ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 44px 22px 80px; }
+  h1 { font-size: 30px; letter-spacing: -0.02em; }
+  .sub { color: var(--muted); margin-top: 6px; font-size: 15px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-top: 30px; }
+
+  .item { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .shot { position: relative; height: 230px; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }
+  .shot iframe {
+    width: 1320px; height: 1000px; border: 0;
+    transform: scale(.28); transform-origin: 0 0; pointer-events: none;
+  }
+  .shot a.cover { position: absolute; inset: 0; }
+  .meta { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .meta h2 { font-size: 18px; letter-spacing: -0.01em; }
+  .meta h2 span { color: var(--muted); font-size: 12px; font-weight: 500; margin-left: 8px; letter-spacing: .1em; text-transform: uppercase; }
+  .meta p { color: var(--muted); font-size: 14px; flex: 1; }
+  .swatch { display: flex; gap: 5px; }
+  .swatch i { width: 22px; height: 10px; border-radius: 3px; }
+  .go {
+    align-self: flex-start; margin-top: 6px; text-decoration: none;
+    background: var(--accent); color: #06232b; font-weight: 700; font-size: 13px;
+    padding: 8px 15px; border-radius: 8px;
+  }
+  .go:hover { filter: brightness(1.08); }
+  footer { margin-top: 34px; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>必修課程頁 — 5 種排版範例</h1>
+  <p class="sub">同一份資料（59 學分 / 8 學期 / 45 門課），五種完全不同的視覺方向。點任一張進去看完整頁面。</p>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>資料共用 <code>data.js</code>，各範例為單一 HTML 檔、無外部相依。<a href="../index.html">← 回到 114 畢業門檻</a></footer>
+</div>
+
+<script>
+  const ITEMS = [
+    { f: '1_swiss.html', t: '瑞士極簡', en: 'Swiss / International', d: '黑白紅三色、無圓角、粗細分隔線與大量留白。八個學期全部展開，資訊密度高、像一份正式文件。', c: ['#ffffff', '#111111', '#e5322d'] },
+    { f: '2_bento.html', t: 'Bento 儀表板', en: 'SaaS Dashboard', d: '圓角卡片格狀排列，有 KPI 數字、進度條與圓環圖，學期用卡片切換。現代 SaaS 產品的樣子。', c: ['#f4f5f7', '#4338ca', '#0f9d78'] },
+    { f: '3_terminal.html', t: '終端機', en: 'Terminal / CRT', d: '黑底螢光綠、等寬字、ASCII 標題與掃描線。整頁像在跑指令，最貼近現在網站的賽博風但更徹底。', c: ['#05080a', '#35ff7a', '#ffd166'] },
+    { f: '4_magazine.html', t: '雜誌排版', en: 'Editorial / Print', d: '米色紙感、襯線字、首字放大與雙欄。四年課表做成左右交錯的時間軸，像一本印刷刊物。', c: ['#f7f3ea', '#8c2f39', '#4a5d3a'] },
+    { f: '5_neubrutal.html', t: '新粗獷', en: 'Neo-Brutalism', d: '螢光黃底、4px 黑框、硬陰影與大寫粗體。對比極強、按鈕會位移，年輕、吵鬧、記憶點高。', c: ['#ffe94a', '#2f6bff', '#ff5da2'] }
+  ];
+  document.getElementById('grid').innerHTML = ITEMS.map((it, i) => `
+    <article class="item">
+      <div class="shot">
+        <iframe src="${it.f}" title="${it.t} 預覽" loading="lazy" scrolling="no"></iframe>
+        <a class="cover" href="${it.f}" aria-label="開啟 ${it.t}"></a>
+      </div>
+      <div class="meta">
+        <h2>${String(i + 1).padStart(2, '0')} ${it.t}<span>${it.en}</span></h2>
+        <div class="swatch">${it.c.map(c => `<i style="background:${c};box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)"></i>`).join('')}</div>
+        <p>${it.d}</p>
+        <a class="go" href="${it.f}">開啟完整頁面 →</a>
+      </div>
+    </article>`).join('');
+</script>
+</body>
+</html>

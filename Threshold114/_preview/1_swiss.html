@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>範例 1 — 瑞士極簡 / Swiss</title>
+<style>
+  :root {
+    --ink: #111111;
+    --paper: #ffffff;
+    --rule: #111111;
+    --grey: #767676;
+    --accent: #e5322d;
+    --line: #d8d8d8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Helvetica Neue', Helvetica, 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px 96px; }
+
+  /* Masthead */
+  header { border-bottom: 3px solid var(--rule); padding: 40px 0 14px; margin-bottom: 0; }
+  .eyebrow {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey);
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: clamp(40px, 8vw, 88px);
+    line-height: 0.95; letter-spacing: -0.03em; font-weight: 700;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lede { margin-top: 18px; max-width: 46ch; font-size: 17px; color: #333; }
+
+  /* Figures */
+  .figures { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  .fig { padding: 26px 0 30px; border-right: 1px solid var(--line); }
+  .fig:last-child { border-right: none; padding-left: 0; }
+  .fig:not(:first-child) { padding-left: 24px; }
+  .fig-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); }
+  .fig-num { font-size: 54px; line-height: 1; font-weight: 700; letter-spacing: -0.04em; margin-top: 10px; }
+  .fig-num small { font-size: 15px; font-weight: 400; letter-spacing: 0; margin-left: 6px; color: var(--grey); }
+  .fig:first-child .fig-num { color: var(--accent); }
+
+  /* Year block */
+  .year { display: grid; grid-template-columns: 130px 1fr; gap: 0 32px; padding: 46px 0 8px; border-bottom: 1px solid var(--line); }
+  .year-tag { position: sticky; top: 24px; align-self: start; }
+  .year-tag b { display: block; font-size: 30px; letter-spacing: -0.02em; }
+  .year-tag span { font-size: 11px; letter-spacing: 0.18em; color: var(--grey); text-transform: uppercase; }
+
+  .term { margin-bottom: 34px; }
+  .term-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 2px solid var(--rule); padding-bottom: 7px; }
+  .term-head h2 { font-size: 19px; letter-spacing: 0.02em; }
+  .term-head .cnt { font-size: 12px; color: var(--grey); letter-spacing: 0.1em; margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 11px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; font-size: 15px; }
+  td.idx { width: 34px; color: var(--grey); font-variant-numeric: tabular-nums; font-size: 12px; }
+  td.kind { width: 90px; font-size: 12px; letter-spacing: 0.06em; color: var(--grey); }
+  td.kind.req { color: var(--accent); }
+  td.num { width: 78px; text-align: right; font-variant-numeric: tabular-nums; color: #444; }
+  tr:last-child td { border-bottom: none; }
+
+  .term-foot { display: flex; gap: 26px; justify-content: flex-end; padding-top: 10px; border-top: 2px solid var(--rule); font-size: 12px; letter-spacing: 0.08em; }
+  .term-foot b { font-variant-numeric: tabular-nums; }
+
+  /* Notes */
+  .cols { display: grid; grid-template-columns: 130px 1fr; gap: 0 32px; padding: 46px 0; }
+  .cols h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); }
+  .rules li { list-style: none; padding: 12px 0; border-bottom: 1px solid var(--line); max-width: 60ch; }
+  .rules li::before { content: counter(r, decimal-leading-zero); counter-increment: r; color: var(--accent); font-size: 12px; margin-right: 12px; }
+  .rules { counter-reset: r; }
+  .docs a { display: block; padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; max-width: 60ch; }
+  .docs a::after { content: '↗'; float: right; color: var(--accent); }
+  .docs a:hover { color: var(--accent); }
+
+  footer { padding-top: 30px; border-top: 3px solid var(--rule); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); display: flex; justify-content: space-between; }
+  a.back { color: var(--ink); text-decoration: none; }
+  a.back:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .figures { grid-template-columns: 1fr; }
+    .fig { border-right: none; border-bottom: 1px solid var(--line); padding-left: 0 !important; }
+    .year, .cols { grid-template-columns: 1fr; gap: 18px; }
+    .year-tag { position: static; display: flex; align-items: baseline; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><span>多媒體遊戲發展與應用系</span><span>114 學年度 / 日間部</span></div>
+    <h1>必修課程<br><em>59</em> 學分</h1>
+    <p class="lede">大一到大四的專業核心科目與學校統一規劃的通識課程。以下依學年、學期完整列出。</p>
+  </header>
+
+  <section class="figures" id="figures"></section>
+  <main id="years"></main>
+
+  <section class="cols">
+    <h3>重要規定</h3>
+    <ol class="rules" id="rules"></ol>
+  </section>
+
+  <section class="cols">
+    <h3>官方文件</h3>
+    <div class="docs" id="docs"></div>
+  </section>
+
+  <footer>
+    <span>Style 01 — Swiss / International</span>
+    <a class="back" href="index.html">← 回到範例列表</a>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+  const REQ = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'required'), 0);
+  const GEN = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'general'), 0);
+  document.getElementById('figures').innerHTML = [
+    ['專業必修', REQ], ['必修通識', GEN], ['合計必修', REQ + GEN]
+  ].map(([l, n]) => `<div class="fig"><div class="fig-label">${l}</div><div class="fig-num">${n}<small>學分</small></div></div>`).join('');
+
+  const years = [...new Set(SEMESTERS.map(s => s.year))];
+  document.getElementById('years').innerHTML = years.map((y, yi) => {
+    const terms = SEMESTERS.filter(s => s.year === y).map(s => {
+      const rows = s.courses.map((c, i) => `
+        <tr>
+          <td class="idx">${String(i + 1).padStart(2, '0')}</td>
+          <td>${c.name}</td>
+          <td class="kind ${c.type === 'required' ? 'req' : ''}">${c.type === 'required' ? '專業必修' : '通識教育'}</td>
+          <td class="num">${c.credits} / ${c.hours}</td>
+        </tr>`).join('');
+      return `<div class="term">
+        <div class="term-head"><h2>${s.label}</h2><span class="cnt">${s.courses.length} 門課</span></div>
+        <table><tbody>${rows}</tbody></table>
+        <div class="term-foot">
+          <span>專業必修 <b>${sumBy(s.courses, 'required')}</b></span>
+          <span>通識 <b>${sumBy(s.courses, 'general')}</b></span>
+          <span>合計 <b>${sumBy(s.courses)}</b> 學分</span>
+        </div>
+      </div>`;
+    }).join('');
+    return `<section class="year">
+      <div class="year-tag"><b>${y}</b><span>Year ${yi + 1}</span></div>
+      <div>${terms}</div>
+    </section>`;
+  }).join('');
+
+  document.getElementById('rules').innerHTML = NOTES.map(n => `<li>${n}</li>`).join('');
+  document.getElementById('docs').innerHTML = DOCS.map(d => `<a href="${d.url}" target="_blank" rel="noopener">${d.label}</a>`).join('');
+</script>
+</body>
+</html>

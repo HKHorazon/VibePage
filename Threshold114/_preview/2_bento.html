@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>範例 2 — Bento 儀表板 / SaaS</title>
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --card: #ffffff;
+    --ink: #171a20;
+    --muted: #6b7280;
+    --line: #e6e8ec;
+    --brand: #4338ca;
+    --brand-soft: #eef0ff;
+    --mint: #0f9d78;
+    --mint-soft: #e6f6f1;
+    --amber: #b45309;
+    --r: 18px;
+    --shadow: 0 1px 2px rgba(16,24,40,.05), 0 12px 28px -14px rgba(16,24,40,.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .top { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 26px; flex-wrap: wrap; }
+  .crumb { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+  h1 { font-size: 30px; letter-spacing: -0.02em; margin-top: 4px; }
+  .pill { background: var(--brand-soft); color: var(--brand); font-size: 12px; font-weight: 600; padding: 7px 13px; border-radius: 999px; }
+
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; box-shadow: var(--shadow); }
+  .card h3 { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+
+  .kpi .v { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; margin-top: 8px; }
+  .kpi .v span { font-size: 14px; font-weight: 500; color: var(--muted); margin-left: 5px; }
+  .bar { height: 6px; border-radius: 99px; background: var(--line); margin-top: 14px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 99px; background: var(--brand); }
+  .kpi.b .bar i { background: var(--mint); }
+  .kpi.b .v { color: var(--mint); }
+  .kpi.a .v { color: var(--brand); }
+
+  .donut { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
+  .donut-body { flex: 1; display: flex; align-items: center; gap: 22px; margin-top: 12px; }
+  .ring { width: 132px; height: 132px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+  .ring::before { content: ''; width: 92px; height: 92px; background: var(--card); border-radius: 50%; grid-area: 1/1; }
+  .ring b { grid-area: 1/1; font-size: 22px; font-weight: 700; z-index: 1; }
+  .legend li { list-style: none; display: flex; align-items: center; gap: 9px; font-size: 13px; padding: 5px 0; color: var(--muted); }
+  .legend i { width: 10px; height: 10px; border-radius: 3px; }
+  .legend b { color: var(--ink); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  .terms { grid-column: span 4; }
+  .terms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+  .tcard {
+    text-align: left; cursor: pointer; font: inherit; color: inherit;
+    background: #fbfbfd; border: 1px solid var(--line); border-radius: 12px; padding: 13px 14px;
+    transition: border-color .15s, background .15s, transform .15s;
+  }
+  .tcard:hover { border-color: #c8ccd6; transform: translateY(-2px); }
+  .tcard[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .tcard .l { font-size: 15px; font-weight: 700; }
+  .tcard .s { font-size: 12px; opacity: .72; margin-top: 2px; }
+
+  .detail { grid-column: span 4; }
+  .rows { margin-top: 6px; }
+  .row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 14px; padding: 12px 4px; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: none; }
+  .row .nm { font-size: 15px; font-weight: 500; }
+  .tag { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 7px; }
+  .tag.required { background: var(--brand-soft); color: var(--brand); }
+  .tag.general { background: var(--mint-soft); color: var(--mint); }
+  .cr { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 62px; text-align: right; }
+  .sum { display: flex; gap: 18px; justify-content: flex-end; margin-top: 14px; padding-top: 13px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--muted); }
+  .sum b { color: var(--ink); }
+
+  .note { grid-column: span 2; }
+  .note ul { margin-top: 10px; }
+  .note li { list-style: none; font-size: 14px; color: #3b4252; padding: 9px 0 9px 22px; position: relative; border-bottom: 1px solid var(--line); }
+  .note li:last-child { border-bottom: none; }
+  .note li::before { content: ''; position: absolute; left: 4px; top: 17px; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+  .links { grid-column: span 2; }
+  .links a { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--ink); text-decoration: none; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .links a:last-child { border-bottom: none; }
+  .links a span:last-child { color: var(--brand); }
+  .links a:hover span:first-child { color: var(--brand); }
+
+  footer { margin-top: 28px; display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+  footer a { color: var(--brand); text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .donut, .terms, .detail, .note, .links { grid-column: span 2; }
+    .terms-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .bento, .terms-grid { grid-template-columns: 1fr; }
+    .donut, .terms, .detail, .note, .links { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="crumb">畢業門檻 / 128 學分區塊</div>
+      <h1>必修課程 59 學分</h1>
+    </div>
+    <span class="pill">114 學年度 · 日間部</span>
+  </div>
+
+  <div class="bento">
+    <div class="card kpi a"><h3>專業必修</h3><div class="v" id="k1">—<span>學分</span></div><div class="bar"><i id="b1"></i></div></div>
+    <div class="card kpi b"><h3>必修通識</h3><div class="v" id="k2">—<span>學分</span></div><div class="bar"><i id="b2"></i></div></div>
+    <div class="card donut">
+      <h3>學分組成</h3>
+      <div class="donut-body">
+        <div class="ring" id="ring"><b id="ktotal">—</b></div>
+        <ul class="legend" id="legend"></ul>
+      </div>
+    </div>
+    <div class="card kpi"><h3>總課程數</h3><div class="v" id="k3">—<span>門</span></div><div class="bar"><i style="width:100%;background:#94a3b8"></i></div></div>
+    <div class="card kpi"><h3>學期數</h3><div class="v" id="k4">—<span>學期</span></div><div class="bar"><i style="width:100%;background:#cbd5e1"></i></div></div>
+
+    <div class="card terms">
+      <h3>選擇學期</h3>
+      <div class="terms-grid" id="terms" role="tablist"></div>
+    </div>
+
+    <div class="card detail">
+      <h3 id="dtitle">課程明細</h3>
+      <div class="rows" id="rows"></div>
+      <div class="sum" id="sum"></div>
+    </div>
+
+    <div class="card note"><h3>重要規定</h3><ul id="notes"></ul></div>
+    <div class="card links"><h3>官方文件</h3><div id="docs"></div></div>
+  </div>
+
+  <footer><span>Style 02 — Bento Dashboard</span><a href="index.html">← 回到範例列表</a></footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+  const REQ = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'required'), 0);
+  const GEN = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'general'), 0);
+  const TOTAL = REQ + GEN;
+  const COUNT = SEMESTERS.reduce((s, x) => s + x.courses.length, 0);
+
+  k1.textContent = REQ; k1.insertAdjacentHTML('beforeend', '<span>學分</span>');
+  k2.textContent = GEN; k2.insertAdjacentHTML('beforeend', '<span>學分</span>');
+  k3.textContent = COUNT; k3.insertAdjacentHTML('beforeend', '<span>門</span>');
+  k4.textContent = SEMESTERS.length; k4.insertAdjacentHTML('beforeend', '<span>學期</span>');
+  b1.style.width = (REQ / TOTAL * 100) + '%';
+  b2.style.width = (GEN / TOTAL * 100) + '%';
+  ktotal.textContent = TOTAL;
+  const deg = REQ / TOTAL * 360;
+  ring.style.background = `conic-gradient(#4338ca 0 ${deg}deg, #0f9d78 ${deg}deg 360deg)`;
+  legend.innerHTML = `
+    <li><i style="background:#4338ca"></i>專業必修<b>${REQ} 學分</b></li>
+    <li><i style="background:#0f9d78"></i>必修通識<b>${GEN} 學分</b></li>
+    <li><i style="background:#e6e8ec"></i>合計<b>${TOTAL} 學分</b></li>`;
+
+  terms.innerHTML = SEMESTERS.map((s, i) => `
+    <button class="tcard" role="tab" aria-selected="${i === 0}" data-i="${i}">
+      <div class="l">${s.label}</div>
+      <div class="s">${s.courses.length} 門 · ${sumBy(s.courses)} 學分</div>
+    </button>`).join('');
+
+  function render(i) {
+    const s = SEMESTERS[i];
+    dtitle.textContent = `${s.year} ${s.label} — 課程明細`;
+    rows.innerHTML = s.courses.map(c => `
+      <div class="row">
+        <span class="nm">${c.name}</span>
+        <span class="tag ${c.type}">${c.type === 'required' ? '專業必修' : '通識教育'}</span>
+        <span class="cr">${c.credits} 學分 / ${c.hours} 時</span>
+      </div>`).join('');
+    sum.innerHTML = `專業必修 <b>${sumBy(s.courses, 'required')}</b>　通識 <b>${sumBy(s.courses, 'general')}</b>　本學期合計 <b>${sumBy(s.courses)} 學分</b>`;
+    terms.querySelectorAll('.tcard').forEach((b, bi) => b.setAttribute('aria-selected', bi === i));
+  }
+  terms.addEventListener('click', e => {
+    const btn = e.target.closest('.tcard');
+    if (btn) render(+btn.dataset.i);
+  });
+  render(0);
+
+  notes.innerHTML = NOTES.map(n => `<li>${n}</li>`).join('');
+  docs.innerHTML = DOCS.map(d => `<a href="${d.url}" target="_blank" rel="noopener"><span>${d.label}</span><span>↗</span></a>`).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>範例 4 — 雜誌排版 / Editorial</title>
+<style>
+  :root {
+    --paper: #f7f3ea;
+    --paper-2: #fffdf8;
+    --ink: #221c14;
+    --muted: #7a6a55;
+    --rule: #ddd2be;
+    --wine: #8c2f39;
+    --olive: #4a5d3a;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: 17px; line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .5;
+    background-image: radial-gradient(rgba(120,100,70,.10) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .sheet { position: relative; max-width: 940px; margin: 0 auto; padding: 0 30px 90px; }
+
+  .kicker { text-align: center; padding: 44px 0 10px; font-size: 12px; letter-spacing: .38em; text-transform: uppercase; color: var(--muted); }
+  h1 { text-align: center; font-size: clamp(38px, 7vw, 68px); line-height: 1.08; letter-spacing: -0.01em; font-weight: 600; }
+  h1 span { display: block; font-size: .34em; letter-spacing: .3em; color: var(--wine); text-transform: uppercase; margin-top: 16px; font-weight: 500; }
+  .rule { height: 1px; background: var(--rule); margin: 26px 0; position: relative; }
+  .rule::after { content: '❧'; position: absolute; left: 50%; top: -13px; transform: translateX(-50%); background: var(--paper); padding: 0 12px; color: var(--wine); font-size: 15px; }
+
+  .standfirst { columns: 2; column-gap: 40px; }
+  .standfirst p::first-letter { float: left; font-size: 62px; line-height: .82; padding: 6px 10px 0 0; color: var(--wine); font-weight: 600; }
+  .standfirst p + p { margin-top: 14px; }
+
+  .stats { display: flex; justify-content: center; gap: 0; margin: 34px 0 10px; border-top: 3px double var(--rule); border-bottom: 3px double var(--rule); }
+  .stat { flex: 1; text-align: center; padding: 20px 10px; border-right: 1px solid var(--rule); }
+  .stat:last-child { border-right: none; }
+  .stat b { display: block; font-size: 46px; line-height: 1; }
+  .stat:first-child b { color: var(--wine); }
+  .stat:nth-child(2) b { color: var(--olive); }
+  .stat span { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+  h2.head { font-size: 13px; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); text-align: center; margin: 52px 0 22px; }
+
+  .years { position: relative; }
+  .years::before { content: ''; position: absolute; left: 50%; top: 6px; bottom: 6px; width: 1px; background: var(--rule); }
+  .term { position: relative; width: 50%; padding: 0 34px 34px 0; }
+  .term:nth-child(even) { margin-left: 50%; padding: 0 0 34px 34px; }
+  .term::before {
+    content: ''; position: absolute; top: 12px; right: -5px; width: 9px; height: 9px;
+    background: var(--wine); border-radius: 50%;
+  }
+  .term:nth-child(even)::before { right: auto; left: -5px; }
+  .term h3 { font-size: 26px; }
+  .term h3 small { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: block; }
+  .term ol { margin-top: 10px; }
+  .term li { list-style: none; display: flex; gap: 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px dotted var(--rule); font-size: 16px; }
+  .term li:last-child { border-bottom: none; }
+  .term li .g { color: var(--olive); font-style: italic; }
+  .term li em { font-style: normal; margin-left: auto; color: var(--muted); font-size: 14px; white-space: nowrap; }
+  .term .tot { margin-top: 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .term .tot b { color: var(--ink); }
+
+  blockquote { margin: 46px auto; max-width: 640px; text-align: center; font-size: 22px; line-height: 1.55; color: var(--wine); font-style: italic; }
+  blockquote::before, blockquote::after { content: '—'; display: block; color: var(--rule); font-style: normal; }
+
+  .twocol { columns: 2; column-gap: 40px; margin-top: 8px; }
+  .twocol li { list-style: none; break-inside: avoid; padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
+  .twocol li::before { content: '❖'; color: var(--wine); margin-right: 9px; font-size: 12px; }
+  a { color: var(--wine); text-underline-offset: 3px; }
+  footer { margin-top: 60px; padding-top: 18px; border-top: 3px double var(--rule); display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  footer a { text-decoration: none; }
+
+  @media (max-width: 760px) {
+    .standfirst, .twocol { columns: 1; }
+    .years::before { left: 8px; }
+    .term, .term:nth-child(even) { width: 100%; margin-left: 0; padding: 0 0 30px 30px; }
+    .term::before, .term:nth-child(even)::before { left: 4px; right: auto; }
+    .stats { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="kicker">多媒體遊戲發展與應用系 · 114 學年度</div>
+  <h1>必修課程<span>Required Curriculum</span></h1>
+  <div class="rule"></div>
+
+  <div class="standfirst">
+    <p>專業必修 59 學分涵蓋大一到大四的核心科目，從 ACGE 概論、原畫設計一路走到畢業展演實務；通識 30 學分則由學校統一規劃，與專業課並行。</p>
+    <p>四年八個學期的課表按時序排列於後，左右交錯閱讀即為一條完整的修課路徑。</p>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <h2 class="head">四年課表</h2>
+  <div class="years" id="years"></div>
+
+  <blockquote>選修課與體育課保證不和必修衝堂，<br>但必修不得以其他課程替代或抵免。</blockquote>
+
+  <h2 class="head">重要規定</h2>
+  <ul class="twocol" id="notes"></ul>
+
+  <h2 class="head">官方文件</h2>
+  <ul class="twocol" id="docs"></ul>
+
+  <footer><span>Style 04 — Editorial / Magazine</span><a href="index.html">← 回到範例列表</a></footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+  const REQ = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'required'), 0);
+  const GEN = SEMESTERS.reduce((s, x) => s + sumBy(x.courses, 'general'), 0);
+  stats.innerHTML = [['專業必修', REQ], ['必修通識', GEN], ['合計', REQ + GEN]]
+    .map(([l, v]) => `<div class="stat"><b>${v}</b><span>${l} 學分</span></div>`).join('');
+
+  years.innerHTML = SEMESTERS.map(s => `
+    <article class="term">
+      <h3><small>${s.year}</small>${s.label}</h3>
+      <ol>${s.courses.map(c => `
+        <li><span class="${c.type === 'general' ? 'g' : ''}">${c.name}</span><em>${c.credits} 學分 / ${c.hours} 時</em></li>`).join('')}
+      </ol>
+      <div class="tot">專業 <b>${sumBy(s.courses, 'required')}</b> · 通識 <b>${sumBy(s.courses, 'general')}</b> · 合計 <b>${sumBy(s.courses)}</b> 學分</div>
+    </article>`).join('');
+
+  notes.innerHTML = NOTES.map(n => `<li>${n}</li>`).join('');
+  docs.innerHTML = DOCS.map(d => `<li><a href="${d.url}" target="_blank" rel="noopener">${d.label}</a></li>`).join('');
+</script>
+</body>
+</html>
