@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>選課時程 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/3_1_選課時程.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>選課時程</h1>
+        <span class="article-date">三次選課 + 一次放棄修課，錯過就只能等下一輪</span>
+
+        <hr>
+
+        <h2>三次選課</h2>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 90px;">梯次</th>
+              <th>時間點</th>
+              <th>方式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>第一次</strong></td>
+              <td>前一學期 <strong>第 15 週</strong></td>
+              <td>志願分發 — 只需排序，不用搶</td>
+            </tr>
+            <tr>
+              <td><strong>第二次</strong></td>
+              <td>前一學期 <strong>第 17 週</strong></td>
+              <td>即選即知 — 加退選，先搶先贏</td>
+            </tr>
+            <tr>
+              <td><strong>第三次</strong></td>
+              <td>該學期 <strong>開學第 1 週</strong></td>
+              <td>即選即知 — 加退選，先搶先贏</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>高修低、跨外系選課、體育</strong>的處理時間會落在學期開始後的第 1～2 週，比一般選課晚一點。
+        </div>
+
+        <h2>放棄修課</h2>
+        <p>學期<strong>第 13 週</strong>前可辦理放棄修課。過了就只能硬著頭皮修完，成績不及格也會留在成績單上。</p>
+
+        <h2>實例：114 下選課時間</h2>
+        <table>
+          <thead>
+            <tr><th style="width: 140px;">梯次</th><th>日期</th><th>備註</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>第一次（第 15 週）</td><td>12/15 – 12/21</td><td>志願型，只需要排序</td></tr>
+            <tr><td>第二次（第 17 週）</td><td>12/29 – 1/4</td><td>加退選，先搶先贏</td></tr>
+            <tr><td>第三次（開學第 1 週）</td><td>2/24 – 3/2</td><td>加退選，先搶先贏</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          日期每學期都會變動，實際時程<strong>以學校教務處公告為準</strong>，上表只是往年的樣子。
+        </div>
+
+        <h2>選課前先確認</h2>
+        <ul>
+          <li><strong>選修與體育一定不會和必修衝堂</strong>，可以放心排</li>
+          <li>通識選修有可能和<strong>選修／其他通識衝堂</strong>，要自己注意時間</li>
+          <li>下學期課表在選課開放前通常還查不到，先看科目總表抓大方向</li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

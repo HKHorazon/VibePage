@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>請假規範 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/4_1_請假規範.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>請假規範</h1>
+        <span class="article-date">假別、證明文件與核准流程</span>
+
+        <hr>
+
+        <h2>常見假別</h2>
+        <table>
+          <thead>
+            <tr><th style="width: 100px;">假別</th><th>規定</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>事假</strong></td>
+              <td>應<strong>事前</strong>辦理。若因特殊事故必須本人親自處理而無法事先請假，須於事後檢附相關證明文件補辦。</td>
+            </tr>
+            <tr>
+              <td><strong>病假</strong></td>
+              <td><strong>三日以上</strong>應檢附醫院證明，最遲於返校<strong>三日內</strong>補假。重大傷病以個案辦理請假核准。</td>
+            </tr>
+            <tr>
+              <td><strong>生理假</strong></td>
+              <td>女性學生因生理日致使就學困難時，<strong>每月得請一天</strong>，<strong>無需出示證明</strong>。</td>
+            </tr>
+            <tr>
+              <td><strong>心理假</strong></td>
+              <td>因心理或精神不適致上課困難者得提出申請，並副知學生事務處諮商輔導中心，<strong>每學期以三天為限</strong>。累計二天以上者，由導師評估是否轉介諮輔中心。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>其他假別（需查法規）</h2>
+        <ul>
+          <li>婚假</li>
+          <li>分娩假</li>
+          <li>流產假</li>
+          <li>陪產假</li>
+          <li>喪假</li>
+          <li>原住民歲時祭儀假</li>
+        </ul>
+        <p>這幾類的天數與證明文件要求較細，要用到時直接查學校學生請假規則。</p>
+
+        <h2>公假的七種情形</h2>
+        <p>只有下列情形才算公假，而且每一項都要有<strong>證明文件</strong>：</p>
+        <ol>
+          <li>代表國家參加國際性活動或比賽 — 需政府機關相關團體出具之證明文件</li>
+          <li>奉准代表本校或院系參加校外或校際正式活動或比賽 — 需相關單位出具之證明文件</li>
+          <li>參加由學校舉辦之全校性正式活動或比賽 — 需承辦單位（系、組以上）出具之證明文件</li>
+          <li>參加行政單位召集之各項會議 — 需承辦單位（系、組以上）出具之證明文件</li>
+          <li>選派執行公務 — 需選派單位主管（系、組以上）出具之證明文件</li>
+          <li>參加國家考試 — 需出具准考證明</li>
+          <li>辦理兵役事宜 — 可持兵役機關通知或其他有關證明文件</li>
+        </ol>
+
+        <h2>核准流程</h2>
+        <div class="note warn">
+          <ul style="margin: 0;">
+            <li><strong>公假</strong>須由<strong>導師 + 系主任</strong>核准</li>
+            <li>任何假別<strong>三日以上</strong>須由<strong>導師 + 系主任</strong>核准</li>
+          </ul>
+        </div>
+
+        <div class="note">
+          假單一律走學校線上請假系統，檢附文件要在期限內補齊，逾期就會被認定為曠課。
+        </div>
+
+        <h2>官方文件</h2>
+        <ul>
+          <li><a href="https://lf.hk.edu.tw/%E8%AB%8B%E5%81%87%E6%B5%81%E7%A8%8B%E5%8F%8A%E7%9B%B8%E9%97%9C%E8%AA%AA%E6%98%8E/" target="_blank" rel="noopener">請假流程及相關說明（生活輔導組）</a></li>
+          <li><a href="https://lf.hk.edu.tw/wp-content/plugins/download-attachments/includes/download.php?id=6891" target="_blank" rel="noopener">學生請假規則（PDF 下載）</a></li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

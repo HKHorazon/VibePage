@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>缺課與曠課 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/4_2_缺曠課.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>缺課與曠課</h1>
+        <span class="article-date">請假不是免死金牌，超過比例照樣零分或休學</span>
+
+        <hr>
+
+        <h2>兩條紅線</h2>
+        <table>
+          <thead>
+            <tr><th style="width: 110px;">狀況</th><th>定義</th><th>後果</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>缺課</strong></td>
+              <td>非公假的請假，一律視為缺課</td>
+              <td>任一科目「缺課 + 曠課」超過 <strong>二分之一</strong>，會列為<strong>休學</strong></td>
+            </tr>
+            <tr>
+              <td><strong>曠課</strong></td>
+              <td>沒請假就沒到</td>
+              <td>曠課達 <strong>三分之一</strong>，該科成績以<strong>零分</strong>計</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <strong>只有公假不算缺課。</strong>事假、病假這些都還是算在缺課裡面，
+          假請得再合法，比例超過一樣會踩線。
+        </div>
+
+        <h2>最重要的一件事</h2>
+        <div class="note">
+          課程的分數<strong>還是由授課老師決定</strong>。上面是學校的下限規定，
+          不是「有請假就一定沒問題」。缺席多了，平時成績照樣會扣。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

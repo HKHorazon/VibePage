@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>選課內容 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/3_2_選課內容.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>選課內容</h1>
+        <span class="article-date">體育、專業選修、通識該怎麼選</span>
+
+        <hr>
+
+        <h2>體育（通識）</h2>
+        <ul>
+          <li>必修總共 <strong>1 學期 × 2 學分</strong>（一下）</li>
+          <li>可以選自己喜歡的種類</li>
+          <li><strong>不需要管開課班級</strong>，例如文創一年級的體育課也能選</li>
+          <li>不選或沒選到，學校會直接分配給你</li>
+          <li>電競班有另外的規則，想選要先確認</li>
+        </ul>
+
+        <h2>專業選修</h2>
+        <p>只能先選<strong>日一年級的課</strong>，不用管甲乙班。</p>
+
+        <h3>一下的兩門模組必修</h3>
+        <table>
+          <thead>
+            <tr><th>課程</th><th style="width: 140px;">對應模組</th><th style="width: 90px;">學分</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>遊戲雛形設計</td><td>遊戲模組</td><td>3</td></tr>
+            <tr><td>虛擬網紅與直播整合應用</td><td>多媒體模組</td><td>3</td></tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>如果對模組還沒概念，建議兩門課都選。</strong>先修過再決定要走哪個模組，比事後補修輕鬆得多。
+        </div>
+
+        <h2>通識選修</h2>
+        <ul>
+          <li>通識至多認列 <strong>6 學分</strong>，其中體育至多認列 <strong>4 學分</strong></li>
+          <li>視個人興趣去修，<strong>不一定要現在修完</strong></li>
+          <li>時間不會與必修衝堂，但可能和選修／其他通識衝堂，請自行注意</li>
+        </ul>
+
+        <div class="note warn">
+          這裡的通識上限（6 學分）是<strong>選修 39 學分區塊內</strong>的認列上限，
+          和必修的通識 30 學分是兩回事，不要混在一起算。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>

@@ -48,21 +48,63 @@
         },
         {
           "title": "1A2B 證照",
-          "file": "articles/2_1_證照.html",
+          "file": "articles/2_2_證照.html",
           "date": "2025-10-21",
           "summary": "畢業證照門檻（1A2B）說明、系上考照資源與弘愛築夢補助申請。"
         },
         {
           "title": "英文",
-          "file": "articles/2_2_英文.html",
+          "file": "articles/2_3_英文.html",
           "date": "2025-10-21",
           "summary": "英文能力測驗流程、補修辦法與C級學生的線上口說替代方案。"
         },
         {
           "title": "專題",
-          "file": "articles/2_3_專題.html",
+          "file": "articles/2_4_專題.html",
           "date": "2025-10-21",
           "summary": "畢業專題的組隊、製作流程、審查會議與最終展出要求。"
+        }
+      ]
+    },
+    {
+      "code": "03",
+      "name": "選課",
+      "articles": [
+        {
+          "title": "選課時程",
+          "file": "articles/3_1_選課時程.html",
+          "date": "2025-12-26",
+          "summary": "三次選課的時間點與分發方式、放棄修課期限，以及 114 下的實際日期。"
+        },
+        {
+          "title": "選課內容",
+          "file": "articles/3_2_選課內容.html",
+          "date": "2025-12-26",
+          "summary": "體育、專業選修與通識選修的選課規則，以及一下兩門模組必修的取捨建議。"
+        },
+        {
+          "title": "軍訓",
+          "file": "articles/3_3_軍訓.html",
+          "date": "2025-12-26",
+          "summary": "軍訓不列入畢業學分，但可折抵兵役，以及儲備軍官的修課要求。"
+        }
+      ]
+    },
+    {
+      "code": "04",
+      "name": "請假",
+      "articles": [
+        {
+          "title": "請假規範",
+          "file": "articles/4_1_請假規範.html",
+          "date": "2025-10-21",
+          "summary": "事假、病假、生理假、心理假的規定與證明文件，以及公假與三日以上的核准流程。"
+        },
+        {
+          "title": "缺課與曠課",
+          "file": "articles/4_2_缺曠課.html",
+          "date": "2025-10-21",
+          "summary": "缺課二分之一列為休學、曠課三分之一成績以零分計的兩條紅線。"
         }
       ]
     }

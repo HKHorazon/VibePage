@@ -24,11 +24,11 @@ const DocLayout = {
       collapsed: {},
     })
 
-    const theme = ref(localStorage.getItem('grad114-theme') || 'light')
+    const theme = ref(localStorage.getItem('threshold114-theme') || 'light')
 
     const applyTheme = (t) => {
       document.body.dataset.theme = t
-      localStorage.setItem('grad114-theme', t)
+      localStorage.setItem('threshold114-theme', t)
     }
 
     const toggleTheme = () => {
@@ -61,6 +61,15 @@ const DocLayout = {
       return ''
     })
 
+    // 跨類別攤平成單一序列，供上一頁／下一頁使用（不循環）
+    const flatArticles = computed(() => categories.value.flatMap((cat) => cat.articles))
+    const currentPos   = computed(() => flatArticles.value.findIndex((a) => a.file === props.currentFile))
+    const prevArticle  = computed(() => currentPos.value > 0 ? flatArticles.value[currentPos.value - 1] : null)
+    const nextArticle  = computed(() => {
+      const i = currentPos.value
+      return i >= 0 && i < flatArticles.value.length - 1 ? flatArticles.value[i + 1] : null
+    })
+
     const toggleCategory = (name) => { state.collapsed[name] = !state.collapsed[name] }
     const toggleSidebar  = () => { state.sidebarOpen = !state.sidebarOpen }
     const closeSidebar   = () => { state.sidebarOpen = false }
@@ -91,7 +100,7 @@ const DocLayout = {
     return {
       state, categories, activeIndex, theme,
       toggleTheme, toggleCategory, toggleSidebar, closeSidebar,
-      resolveFile, isActive,
+      resolveFile, isActive, prevArticle, nextArticle,
     }
   },
   template: `
@@ -127,7 +136,7 @@ const DocLayout = {
         <aside class="sidebar">
           <a :href="indexPath" class="sidebar-heading" @click="closeSidebar">
             <span class="sidebar-heading-prefix">&gt;_</span>
-            <span class="sidebar-heading-text">GRADUATE.INDEX</span>
+            <span class="sidebar-heading-text">THRESHOLD.INDEX</span>
             <span class="sidebar-heading-home" aria-hidden="true">⌂</span>
           </a>
 
@@ -166,6 +175,20 @@ const DocLayout = {
         <main class="layout-main">
           <div class="content-container">
             <slot></slot>
+
+            <nav class="page-nav" v-if="prevArticle || nextArticle">
+              <a v-if="prevArticle" :href="resolveFile(prevArticle.file)" class="page-nav-link page-nav-prev">
+                <span class="page-nav-dir">← PREV</span>
+                <span class="page-nav-title">{{ prevArticle.index }} {{ prevArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+
+              <a v-if="nextArticle" :href="resolveFile(nextArticle.file)" class="page-nav-link page-nav-next">
+                <span class="page-nav-dir">NEXT →</span>
+                <span class="page-nav-title">{{ nextArticle.index }} {{ nextArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+            </nav>
           </div>
         </main>
       </div>

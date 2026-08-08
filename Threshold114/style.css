@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('../framework/fonts.css');
 
 /* ── 白天（預設）主題 ─────────────────────────── */
 :root {
@@ -1104,4 +1104,60 @@ body[data-theme="dark"] .article-body code {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* ── 上一頁／下一頁 ─────────────────────────────── */
+.page-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.page-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 1.1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.2s;
+}
+
+.page-nav-link:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  box-shadow: var(--glow-cyan-soft);
+  transform: translateY(-2px);
+}
+
+.page-nav-next { text-align: right; align-items: flex-end; }
+
+.page-nav-dir {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+.page-nav-title {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.page-nav-spacer { display: block; }
+
+@media (max-width: 560px) {
+  .page-nav { grid-template-columns: 1fr; }
+  .page-nav-next { text-align: left; align-items: flex-start; }
 }

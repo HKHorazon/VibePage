@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>選修 — 學程 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .tab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2px;
+      width: 100%;
+    }
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.45rem 0.2rem;
+    }
+    .tab-bar.sub {
+      margin-top: 0.6rem;
+      border-bottom: none;
+    }
+    .tab-bar.sub .tab-btn {
+      border-radius: 3px;
+      border-bottom: 1px solid var(--border-soft);
+      bottom: 0;
+      font-size: 0.7rem;
+    }
+    .tab-bar.sub .tab-btn.active {
+      border-color: var(--cyan);
+    }
+    .alias {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.35;
+    }
+    .arrow-up, .arrow-down {
+      font-size: 1.3rem;
+      margin-left: 4px;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    .arrow-small {
+      font-size: 0.75rem;
+      margin-left: 1px;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+    @media (min-width: 900px) {
+      .stat-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    @media (max-width: 899px) {
+      .stat-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat:last-child {
+        grid-column: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/1_4_選修學程.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>選修(39學分) - 學程</h1>
+
+        <div class="stat-row" style="margin-top: 1rem; margin-bottom: 2rem;">
+          <div class="stat">
+            <span class="stat-label">系上專業選修</span>
+            <span class="stat-value" style="color: var(--cyan);">19<span class="arrow-up" style="color: var(--cyan);">▲</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">外系選修</span>
+            <span class="stat-value" style="color: var(--magenta-bright);">20<span class="arrow-down" style="color: var(--magenta-bright);">▼</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">通識選修</span>
+            <span class="stat-value" style="color: var(--text);">6<span class="arrow-down" style="color: var(--text);">▼</span> <span style="font-size: 0.9rem;">學分</span></span>
+            <span style="font-size: 0.65rem; color: var(--text-dim); font-weight: 600; margin-top: 0.15rem; line-height: 1.2;">（體育至多 4<span class="arrow-small">▼</span>）</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">合計選修學分</span>
+            <span class="stat-value" style="color: var(--text);">39<span class="arrow-up" style="color: var(--text);">▲</span> <span style="font-size: 0.9rem;">學分</span></span>
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>必須修一個跨系學程</h2>
+        <p>二選一：</p>
+        <ul>
+          <li>數位媒體動漫製作學程</li>
+          <li>遊戲設計學程</li>
+        </ul>
+        <p>建議選與模組對應的學程（遊戲模組 → 遊戲設計學程；多媒體模組 → 數位媒體動漫製作學程）。</p>
+
+        <h2>學分要求</h2>
+        <table>
+          <thead>
+            <tr><th>項目</th><th>要求</th><th>備註</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>學程總學分</td><td>至少 16 學分</td><td></td></tr>
+            <tr><td>核心課程</td><td>至少 8 學分</td><td>高機率出現在系上必修中</td></tr>
+            <tr><td>選修課程</td><td>至少 8 學分</td><td>高機率出現在模組課程中</td></tr>
+            <tr><td>他系課程</td><td>至少 3 門</td><td>必須是真正的別系課</td></tr>
+          </tbody>
+        </table>
+
+        <h2>學程課程開設統計表</h2>
+        <p>核心課程至少 <strong>8 學分</strong>、選修科目至少 <strong>8 學分</strong>，合計至少 16 學分。</p>
+
+        <div class="tab-bar" style="margin-top: 1.5rem;">
+          <button
+            v-for="(p, i) in programs" :key="p.id"
+            type="button"
+            :class="['tab-btn', { active: activeProgram === i }]"
+            @click="activeProgram = i"
+          >{{ p.label }}</button>
+        </div>
+        <div class="tab-bar sub">
+          <button
+            v-for="(k, i) in kinds" :key="k.id"
+            type="button"
+            :class="['tab-btn', { active: activeKind === i }]"
+            @click="activeKind = i"
+          >{{ k.label }}</button>
+        </div>
+        <div class="tab-panel" style="margin-top: 0.6rem; border-top: 1px solid var(--border-mid); border-radius: 4px;">
+          <table style="margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th>課程名稱</th>
+                <th>原名</th>
+                <th style="width: 90px; text-align: center;">學分/時數</th>
+                <th style="width: 150px;">開設系所</th>
+                <th>備註</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="c in currentCourses" :key="c.name">
+                <td>{{ c.name }}</td>
+                <td class="alias">
+                  <div v-for="a in c.alias" :key="a">{{ a }}</div>
+                  <span v-if="!c.alias.length">—</span>
+                </td>
+                <td style="text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">{{ c.credits }}</td>
+                <td style="font-size: 0.85rem;">{{ c.dept }}</td>
+                <td style="font-size: 0.75rem; color: var(--text-dim);">{{ c.note || '' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>與必修／模組的重疊</h2>
+        <p>學程核心課高機率就是你的必修課，選修課高機率就是模組課，這些課<strong>可以同時計入學程的 8/8 學分</strong>。</p>
+
+        <div class="note warn">
+          同一門課只能認列一種身分：認列為「他系課程」就不能同時認列為「本系課程」，反之亦然。本系學分通常足夠，不用擔心。
+        </div>
+
+        <h2>他系課程很難搶</h2>
+        <ul>
+          <li>選課優先順序：<strong>該系學生 → 高年級 → 低年級</strong></li>
+          <li>大一大二幾乎搶不到，請提早規劃</li>
+          <li>暫時搶不到時，先用系上其他選修補足學分</li>
+        </ul>
+
+        <h2>官方文件</h2>
+        <ul>
+          <li><a href="https://mgda.hk.edu.tw/%e5%ad%b8%e7%a8%8b/1384-2/" target="_blank" rel="noopener">系上學程頁面</a></li>
+          <li><a href="https://mgda.hk.edu.tw/wp-content/uploads/2025/02/%E9%81%8A%E6%88%B2%E8%A8%AD%E8%A8%88%E5%AD%B8%E7%A8%8B1131119-v2.pdf" target="_blank" rel="noopener">遊戲設計學程（PDF）</a></li>
+          <li><a href="https://mgda.hk.edu.tw/wp-content/uploads/2025/09/%E6%95%B8%E4%BD%8D%E5%AA%92%E9%AB%94%E5%8B%95%E6%BC%AB%E8%A3%BD%E4%BD%9C%E5%AD%B8%E7%A8%8B11409.pdf" target="_blank" rel="noopener">數位媒體動漫製作學程（PDF）</a></li>
+        </ul>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { createApp, ref, computed } from '../../framework/vue.esm-browser.js'
+    import { DocLayout } from '../doc-layout.js'
+
+    const MGDA = '多媒體遊戲發展與應用系'
+    const CDM = '文化設計與行銷系'
+    const IT = '智慧科技應用系'
+
+    createApp({
+      components: { DocLayout },
+      setup() {
+        const activeProgram = ref(0)
+        const activeKind = ref(0)
+        const kinds = [{ id: 'core', label: '核心課程' }, { id: 'elective', label: '選修科目' }]
+
+        const programs = ref([
+          {
+            id: 'media',
+            label: '數位媒體動漫製作學程',
+            core: [
+              { name: 'ACGE 概論', alias: ['ACG 概論'], credits: '2/2', dept: MGDA },
+              { name: 'VR 遊戲雛形設計 或 VR 遊戲實作', alias: [], credits: '3/3', dept: MGDA },
+              { name: '互動媒體製作', alias: ['互動媒體製作(一)'], credits: '3/3', dept: MGDA },
+              { name: '基礎動畫製作', alias: ['動畫概論'], credits: '3/3', dept: MGDA },
+              { name: '應用色彩學', alias: [], credits: '2/2', dept: CDM, note: '2 門課程擇 1' },
+              { name: '設計概論', alias: ['色彩學'], credits: '2/2', dept: MGDA, note: '2 門課程擇 1' },
+              { name: '基本素描', alias: ['基礎素描'], credits: '2/2', dept: CDM, note: '2 門課程擇 1' },
+              { name: '原畫設計', alias: ['基礎素描'], credits: '3/3', dept: MGDA, note: '2 門課程擇 1' },
+              { name: '繪本創作', alias: ['故事創作與腳本寫作'], credits: '2/2', dept: CDM, note: '2 門課程擇 1' },
+              { name: '劇本寫作與腳本設計', alias: [], credits: '2/2', dept: MGDA, note: '2 門課程擇 1' },
+              { name: '數位科技概論', alias: [], credits: '3/3', dept: IT },
+              { name: '3D 建模實務設計／電腦輔助 3D 建模實務', alias: [], credits: '3/3', dept: IT },
+              { name: '混合實境程式設計', alias: [], credits: '3/3', dept: IT },
+              { name: '虛擬實境實務應用', alias: [], credits: '3/3', dept: IT }
+            ],
+            elective: [
+              { name: '漫畫創作(一)', alias: [], credits: '3/3', dept: MGDA },
+              { name: '2D 動畫', alias: ['2D 電腦動畫(一)'], credits: '3/3', dept: MGDA },
+              { name: '動畫特效應用', alias: [], credits: '3/3', dept: MGDA },
+              { name: '數位音訊控制', alias: ['數位音訊管理', '數位音效'], credits: '3/3', dept: MGDA },
+              { name: '設計表現技法', alias: ['設計素描'], credits: '2/2', dept: CDM },
+              { name: '視窗軟體應用實務', alias: [], credits: '3/3', dept: IT },
+              { name: '社群媒體製作實務', alias: [], credits: '3/4', dept: IT },
+              { name: '機器視覺實務與應用', alias: [], credits: '3/4', dept: IT },
+              { name: '虛擬網紅與直播整合應用', alias: [], credits: '3/3', dept: MGDA },
+              { name: '3D 電腦動畫(一)', alias: [], credits: '3/3', dept: MGDA }
+            ]
+          },
+          {
+            id: 'game',
+            label: '遊戲設計學程',
+            core: [
+              { name: '設計思考', alias: [], credits: '2/2', dept: CDM },
+              { name: '基本素描', alias: ['人體素描'], credits: '2/2', dept: CDM },
+              { name: '影片製作實務', alias: ['影片故事腳本'], credits: '2/2', dept: CDM },
+              { name: 'ACGE 概論', alias: ['動畫概論', '進階數位繪圖設計'], credits: '2/2', dept: MGDA },
+              { name: '遊戲企劃', alias: ['遊戲概論', '行動裝置遊戲概論'], credits: '2/2', dept: MGDA },
+              { name: '遊戲雛形設計 或 VR 遊戲雛形設計', alias: [], credits: '3/3', dept: MGDA },
+              { name: '遊戲 UI 與 UX 設計', alias: ['使用者介面與體驗設計'], credits: '2/2', dept: MGDA },
+              { name: '消費者心理學', alias: [], credits: '2/2', dept: CDM, note: '多遊系學生不得以消費者心理學認列核心課程，亦不得列入跨系科目' },
+              { name: '基礎遊戲引擎應用', alias: ['遊戲引擎基礎實務'], credits: '3/3', dept: MGDA }
+            ],
+            elective: [
+              { name: '影片剪輯', alias: ['數位剪輯'], credits: '2/2', dept: CDM },
+              { name: '數位音訊控制', alias: ['數位音訊管理', '數位音效處理', '數位音樂及音效'], credits: '2/2', dept: MGDA },
+              { name: '遊戲程式設計 或 基礎遊戲製作', alias: ['遊戲程式設計(一)'], credits: '3/3', dept: MGDA },
+              { name: '基礎攝影與剪輯 或 影像處理', alias: ['數位繪圖設計', '數位影像繪圖'], credits: '3/3', dept: MGDA },
+              { name: '應用色彩學', alias: [], credits: '2/2', dept: CDM },
+              { name: '電腦輔助 3D 建模實務', alias: [], credits: '3/3', dept: IT },
+              { name: '3D 電腦繪圖', alias: ['數位插畫'], credits: '2/2', dept: CDM },
+              { name: '混合實境程式設計', alias: [], credits: '3/3', dept: IT },
+              { name: '視窗軟體應用實務', alias: [], credits: '3/3', dept: IT },
+              { name: '社群媒體製作實務', alias: [], credits: '3/4', dept: IT },
+              { name: '全端網頁開發', alias: [], credits: '3/3', dept: IT },
+              { name: '虛擬實境實務應用', alias: [], credits: '3/3', dept: IT }
+            ]
+          }
+        ])
+
+        const currentCourses = computed(() => programs.value[activeProgram.value][kinds[activeKind.value].id])
+
+        return { activeProgram, activeKind, kinds, programs, currentCourses }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

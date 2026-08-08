@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>軍訓 — 多遊系114畢業門檻</title>
+  <link rel="stylesheet" href="../../framework/tailwind.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="app">
+    <doc-layout
+      current-file="articles/3_3_軍訓.html"
+      data-path="../Data/articles.json"
+      index-path="../index.html"
+      file-prefix="../"
+    >
+      <article class="article-body">
+        <h1>軍訓</h1>
+        <span class="article-date">不算畢業學分，但可以折抵兵役</span>
+
+        <hr>
+
+        <div class="note warn">
+          全民國防教育軍事訓練課程（軍訓）<strong>不列入 128 畢業學分</strong>。
+          修再多也不會離畢業更近，純粹是為了折抵兵役。
+        </div>
+
+        <h2>要不要修</h2>
+        <ul>
+          <li>主要是<strong>男生</strong>會去修，女生通常不用</li>
+          <li>視自己的兵役需求決定，沒有強制</li>
+        </ul>
+
+        <h2>兵役折抵</h2>
+        <table>
+          <thead>
+            <tr><th>項目</th><th>內容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>每門折抵</td><td>約 <strong>2 天</strong>役期</td></tr>
+            <tr><td>可選門數</td><td><strong>5 門</strong>，不可重複選同一門</td></tr>
+            <tr><td>折抵上限</td><td>最多 <strong>10 天</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h2>五門課</h2>
+        <table>
+          <thead>
+            <tr><th>課程名稱</th><th style="width: 80px;">類別</th><th style="width: 110px;">學分／時數</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>全民國防教育 - 國際情勢</td><td>選修</td><td>2 / 2</td></tr>
+            <tr><td>全民國防教育 - 國防政策</td><td>選修</td><td>2 / 2</td></tr>
+            <tr><td>全民國防教育 - 全民國防</td><td>選修</td><td>2 / 2</td></tr>
+            <tr><td>全民國防教育 - 防衛動員</td><td>選修</td><td>2 / 2</td></tr>
+            <tr><td>全民國防教育 - 國防科技</td><td>選修</td><td>2 / 2</td></tr>
+          </tbody>
+        </table>
+        <p>這 2 學分<strong>不計入 128 學分</strong>，只用來折抵役期。</p>
+
+        <h2>大學儲備軍官（ROTC）</h2>
+        <p>要報考大學儲備軍官訓練團，<strong>畢業前至少要選修 1 門</strong>軍訓課程。有這個打算就早點排進課表。</p>
+
+        <div class="note">
+          折抵天數與認定方式以<strong>學校軍訓室／內政部役政署最新規定</strong>為準。
+        </div>
+      </article>
+    </doc-layout>
+  </div>
+  <script type="module">
+    import { mountDocLayout } from '../doc-layout.js'
+    mountDocLayout('#app')
+  </script>
+</body>
+</html>
