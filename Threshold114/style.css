@@ -2,13 +2,13 @@
 
 /* ── 白天（預設）主題 ─────────────────────────── */
 :root {
-  --bg-base:          #b8c2d1;
-  --bg-deep:          #a5b0c1;
-  --bg-surface:       #cdd5e1;
-  --bg-surface-2:     #c4cddb;
-  --bg-elev:          #d7dee9;
-  --border-soft:      #9ba6b6;
-  --border-mid:       #6b7889;
+  --bg-base:          #eef1f6;
+  --bg-deep:          #e2e7ef;
+  --bg-surface:       #f6f8fb;
+  --bg-surface-2:     #eaeef5;
+  --bg-elev:          #ffffff;
+  --border-soft:      #d3dae4;
+  --border-mid:       #a8b4c4;
   --border-strong:    #0891b2;
   --border-cyan-soft: rgba(8, 145, 178, 0.4);
   --text:             #0b1220;
@@ -27,9 +27,11 @@
   --glow-cyan:        0 0 0 1px var(--cyan), 0 4px 20px rgba(8,145,178,0.25);
   --glow-cyan-soft:   0 2px 14px rgba(8,145,178,0.18);
   --strong-color:     #a21caf;
-  --header-bg:        rgba(205, 213, 225, 0.92);
-  --content-bg:       #eef1f6;
-  --grid-color:       rgba(11, 18, 32, 0.08);
+  --header-bg:        rgba(246, 248, 251, 0.92);
+  --content-bg:       #ffffff;
+  --grid-color:       rgba(11, 18, 32, 0.05);
+  --tab-active-bg:    #0c6e88;
+  --tab-active-fg:    #ffffff;
   --font-heading: 'Exo', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
@@ -69,6 +71,8 @@ body[data-theme="dark"] {
   --header-bg:        rgba(9, 9, 18, 0.92);
   --content-bg:       #0f1824;
   --grid-color:       rgba(255, 255, 255, 0.04);
+  --tab-active-bg:    #00e5ff;
+  --tab-active-fg:    #041018;
   color-scheme: dark;
 }
 
@@ -1063,7 +1067,7 @@ body[data-theme="dark"] .article-body code {
   border: 1px solid var(--border-soft);
   border-bottom: 2px solid transparent;
   border-radius: 3px 3px 0 0;
-  color: var(--text-dim);
+  color: var(--text-muted);
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
   position: relative;
@@ -1078,11 +1082,23 @@ body[data-theme="dark"] .article-body code {
 }
 
 .tab-btn.active {
-  background: var(--content-bg);
-  color: var(--cyan);
-  border-color: var(--cyan);
-  border-bottom-color: var(--content-bg);
+  background: var(--tab-active-bg);
+  color: var(--tab-active-fg);
+  border-color: var(--tab-active-bg);
+  border-bottom-color: var(--tab-active-bg);
+  box-shadow: var(--glow-cyan-soft);
   z-index: 1;
+}
+
+.tab-btn.active:hover {
+  background: var(--tab-active-bg);
+  color: var(--tab-active-fg);
+  border-color: var(--tab-active-bg);
+}
+
+.tab-btn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
 }
 
 .tab-panel {
