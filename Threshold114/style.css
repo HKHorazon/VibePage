@@ -30,8 +30,9 @@
   --header-bg:        rgba(246, 248, 251, 0.92);
   --content-bg:       #ffffff;
   --grid-color:       rgba(11, 18, 32, 0.05);
-  --tab-active-bg:    rgba(8, 145, 178, 0.14);
-  --tab-active-fg:    #0b5f76;
+  --tab-active-bg:    #c026d3;
+  --tab-active-fg:    #ffffff;
+  --tab-active-glow:  0 2px 12px rgba(192, 38, 211, 0.35);
   --font-heading: 'Exo', 'Segoe UI', system-ui, sans-serif;
   --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
@@ -71,8 +72,9 @@ body[data-theme="dark"] {
   --header-bg:        rgba(9, 9, 18, 0.92);
   --content-bg:       #0f1824;
   --grid-color:       rgba(255, 255, 255, 0.04);
-  --tab-active-bg:    rgba(0, 229, 255, 0.16);
-  --tab-active-fg:    #7df0ff;
+  --tab-active-bg:    #e836ff;
+  --tab-active-fg:    #16001d;
+  --tab-active-glow:  0 0 14px rgba(232, 54, 255, 0.45);
   color-scheme: dark;
 }
 
@@ -1083,8 +1085,8 @@ body[data-theme="dark"] .article-body code {
 .tab-btn.active:hover {
   background: var(--tab-active-bg);
   color: var(--tab-active-fg);
-  border-color: var(--cyan);
-  box-shadow: inset 0 -3px 0 var(--cyan);
+  border-color: var(--tab-active-bg);
+  box-shadow: var(--tab-active-glow);
 }
 
 .tab-btn:focus-visible {
