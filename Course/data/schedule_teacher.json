@@ -1,1218 +1,1138 @@
 [
   {
-    "teacher": "楊國隆",
-    "day": "一",
-    "period": "2",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "一",
-    "period": "3",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "四",
-    "period": "3",
-    "course": "產品行銷",
-    "room": "M203",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "一",
-    "period": "4",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "四",
-    "period": "4",
-    "course": "產品行銷",
-    "room": "M203",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "五",
-    "period": "7",
-    "course": "產品行銷",
-    "room": "M202",
-    "class": "日四技多遊系1年甲班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "五",
-    "period": "8",
-    "course": "產品行銷",
-    "room": "M202",
-    "class": "日四技多遊系1年甲班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "五",
-    "period": "A",
-    "course": "產品行銷",
-    "room": "M202",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "楊國隆",
-    "day": "五",
-    "period": "B",
-    "course": "產品行銷",
-    "room": "M202",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "四",
-    "period": "1",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "五",
-    "period": "1",
-    "course": "專題製作(二)",
-    "room": "MB208",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "四",
-    "period": "2",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "五",
-    "period": "2",
-    "course": "專題製作(二)",
-    "room": "MB208",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "二",
-    "period": "2",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "四",
-    "period": "3",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "五",
-    "period": "3",
-    "course": "專題製作(二)",
-    "room": "MB208",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "二",
-    "period": "3",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "二",
-    "period": "4",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
-  },
-  {
-    "teacher": "王瑋名",
+    "teacher": "何昀蒨",
     "day": "二",
     "period": "5",
-    "course": "基礎AI應用",
+    "course": "(*)3D場景建模",
     "room": "MB209",
-    "class": "日四技多遊系1年乙班"
+    "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "王瑋名",
+    "teacher": "何昀蒨",
     "day": "二",
     "period": "6",
-    "course": "基礎AI應用",
+    "course": "(*)3D場景建模",
     "room": "MB209",
-    "class": "日四技多遊系1年乙班"
+    "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "王瑋名",
-    "day": "三",
+    "teacher": "何昀蒨",
+    "day": "二",
     "period": "7",
-    "course": "基礎AI應用",
+    "course": "(*)3D場景建模",
     "room": "MB209",
-    "class": "日四技多遊系1年甲班"
+    "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "王瑋名",
-    "day": "三",
-    "period": "8",
-    "course": "基礎AI應用",
-    "room": "MB209",
-    "class": "日四技多遊系1年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "一",
-    "period": "A",
-    "course": "基礎AI應用",
-    "room": "MB209",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "二",
-    "period": "A",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "夜四技多遊系3年乙班"
-  },
-  {
-    "teacher": "王瑋名",
-    "day": "一",
-    "period": "B",
-    "course": "基礎AI應用",
-    "room": "MB209",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "王瑋名",
+    "teacher": "何昀蒨",
     "day": "二",
     "period": "B",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "夜四技多遊系3年乙班"
+    "course": "(*)3D場景建模",
+    "room": "G501",
+    "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "王瑋名",
+    "teacher": "何昀蒨",
     "day": "二",
     "period": "C",
-    "course": "(*)光雕投影藝術創作",
-    "room": "MB209",
-    "class": "夜四技多遊系3年乙班"
+    "course": "(*)3D場景建模",
+    "room": "G501",
+    "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "一",
+    "teacher": "何昀蒨",
+    "day": "二",
+    "period": "D",
+    "course": "(*)3D場景建模",
+    "room": "G501",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "何昀蒨",
+    "day": "三",
+    "period": "1",
+    "course": "設計概論",
+    "room": "MB209",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "何昀蒨",
+    "day": "三",
     "period": "2",
-    "course": "2D動畫",
+    "course": "設計概論",
     "room": "MB209",
-    "class": "日四技多遊系1年甲班"
+    "class": "日四技多遊系1年乙班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "二",
+    "teacher": "何昀蒨",
+    "day": "三",
+    "period": "3",
+    "course": "設計概論",
+    "room": "MB209",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "何昀蒨",
+    "day": "四",
     "period": "2",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
-  },
-  {
-    "teacher": "范⽴揚",
-    "day": "一",
-    "period": "3",
-    "course": "2D動畫",
+    "course": "設計概論",
     "room": "MB209",
     "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "二",
+    "teacher": "何昀蒨",
+    "day": "四",
     "period": "3",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
-  },
-  {
-    "teacher": "范⽴揚",
-    "day": "一",
-    "period": "4",
-    "course": "2D動畫",
+    "course": "設計概論",
     "room": "MB209",
     "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "三",
+    "teacher": "何昀蒨",
+    "day": "四",
     "period": "4",
-    "course": "2D動畫",
-    "room": "L112",
-    "class": "日四技多遊系1年乙班"
+    "course": "設計概論",
+    "room": "MB209",
+    "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "二",
+    "teacher": "何昀蒨",
+    "day": "五",
+    "period": "2",
+    "course": "基礎攝影與剪輯",
+    "room": "EB101",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "何昀蒨",
+    "day": "五",
+    "period": "3",
+    "course": "基礎攝影與剪輯",
+    "room": "EB101",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "何昀蒨",
+    "day": "五",
     "period": "4",
-    "course": "畢業展演實務",
-    "room": "M508",
-    "class": "日四技多遊系4年乙班"
+    "course": "基礎攝影與剪輯",
+    "room": "EB101",
+    "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "一",
+    "teacher": "何昀蒨",
+    "day": "五",
     "period": "5",
-    "course": "(*)基礎動畫製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年乙班"
+    "course": "(*)進階遊戲製作",
+    "room": "EB101",
+    "class": "日四技多遊系3年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "三",
-    "period": "5",
-    "course": "2D動畫",
-    "room": "L112",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "范⽴揚",
-    "day": "一",
+    "teacher": "何昀蒨",
+    "day": "五",
     "period": "6",
-    "course": "(*)基礎動畫製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年乙班"
+    "course": "(*)進階遊戲製作",
+    "room": "EB101",
+    "class": "日四技多遊系3年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "三",
-    "period": "6",
-    "course": "2D動畫",
-    "room": "L112",
-    "class": "日四技多遊系1年乙班"
+    "teacher": "何昀蒨",
+    "day": "五",
+    "period": "7",
+    "course": "(*)進階遊戲製作",
+    "room": "EB101",
+    "class": "日四技多遊系3年甲班"
   },
   {
-    "teacher": "范⽴揚",
+    "teacher": "劉明昆",
     "day": "一",
     "period": "7",
-    "course": "(*)基礎動畫製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年乙班"
+    "course": "ACGE概論",
+    "room": "EB101",
+    "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "三",
-    "period": "A",
-    "course": "2D動畫",
-    "room": "MB209",
-    "class": "夜四技多遊系1年甲班"
+    "teacher": "劉明昆",
+    "day": "一",
+    "period": "8",
+    "course": "ACGE概論",
+    "room": "EB101",
+    "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "四",
-    "period": "A",
-    "course": "2D動畫",
-    "room": "MB209",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "范⽴揚",
+    "teacher": "劉明昆",
     "day": "一",
     "period": "B",
-    "course": "(*)遊戲特效",
-    "room": "G501",
+    "course": "(*)動畫特效應用",
+    "room": "EB101",
     "class": "夜四技多遊系3年甲班"
   },
   {
-    "teacher": "范⽴揚",
-    "day": "三",
-    "period": "B",
-    "course": "2D動畫",
-    "room": "MB209",
-    "class": "夜四技多遊系1年甲班"
+    "teacher": "劉明昆",
+    "day": "二",
+    "period": "4",
+    "course": "(*)動畫特效應用",
+    "room": "G501",
+    "class": "日四技多遊系3年乙班"
   },
   {
-    "teacher": "范⽴揚",
+    "teacher": "劉明昆",
+    "day": "二",
+    "period": "5",
+    "course": "(*)動畫特效應用",
+    "room": "G501",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "二",
+    "period": "6",
+    "course": "(*)動畫特效應用",
+    "room": "G501",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "三",
+    "period": "1",
+    "course": "(*)動作捕捉",
+    "room": "L112",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "三",
+    "period": "2",
+    "course": "(*)動作捕捉",
+    "room": "L112",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "三",
+    "period": "3",
+    "course": "(*)動作捕捉",
+    "room": "L112",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "五",
+    "period": "A",
+    "course": "(*)展演設計",
+    "room": "",
+    "class": "夜四技多遊系4年甲班"
+  },
+  {
+    "teacher": "劉明昆",
+    "day": "五",
+    "period": "B",
+    "course": "(*)展演設計",
+    "room": "",
+    "class": "夜四技多遊系4年甲班"
+  },
+  {
+    "teacher": "劉明昆",
     "day": "五",
     "period": "C",
-    "course": "(*)遊戲特效",
-    "room": "G501",
+    "course": "(*)動畫特效應用",
+    "room": "EB101",
     "class": "夜四技多遊系3年甲班"
   },
   {
-    "teacher": "范⽴揚",
+    "teacher": "劉明昆",
     "day": "五",
     "period": "D",
-    "course": "(*)遊戲特效",
-    "room": "G501",
+    "course": "(*)動畫特效應用",
+    "room": "EB101",
     "class": "夜四技多遊系3年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "張仕明",
     "day": "一",
     "period": "2",
-    "course": "(*)擴增實境應用",
-    "room": "G501",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "五",
-    "period": "2",
-    "course": "互動媒體製作",
+    "course": "基礎遊戲引擎應用",
     "room": "G501",
     "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "3",
+    "course": "基礎遊戲引擎應用",
+    "room": "G501",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "4",
+    "course": "基礎遊戲引擎應用",
+    "room": "G501",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "5",
+    "course": "基礎遊戲引擎應用",
+    "room": "MB209",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "6",
+    "course": "基礎遊戲引擎應用",
+    "room": "MB209",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "7",
+    "course": "基礎遊戲引擎應用",
+    "room": "MB209",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "C",
+    "course": "基礎遊戲引擎應用",
+    "room": "MB209",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "一",
+    "period": "D",
+    "course": "基礎遊戲引擎應用",
+    "room": "MB209",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "張仕明",
     "day": "二",
     "period": "2",
-    "course": "(*)VR遊戲實作",
+    "course": "(*)遊戲程式設計",
     "room": "EB101",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "一",
-    "period": "3",
-    "course": "(*)擴增實境應用",
-    "room": "G501",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "五",
-    "period": "3",
-    "course": "互動媒體製作",
-    "room": "G501",
     "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "張仕明",
     "day": "二",
     "period": "3",
-    "course": "(*)VR遊戲實作",
+    "course": "(*)遊戲程式設計",
     "room": "EB101",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "一",
-    "period": "4",
-    "course": "(*)擴增實境應用",
-    "room": "G501",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "五",
-    "period": "4",
-    "course": "互動媒體製作",
-    "room": "G501",
     "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "張仕明",
     "day": "二",
     "period": "4",
-    "course": "(*)VR遊戲實作",
+    "course": "(*)遊戲程式設計",
     "room": "EB101",
-    "class": "日四技多遊系3年乙班"
+    "class": "日四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
-    "day": "一",
+    "teacher": "張仕明",
+    "day": "二",
     "period": "A",
-    "course": "(*)VR遊戲實作",
+    "course": "基礎遊戲引擎應用",
     "room": "G501",
-    "class": "夜四技多遊系3年甲班"
+    "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
-    "day": "三",
-    "period": "A",
-    "course": "互動媒體製作(二)",
-    "room": "G501",
-    "class": "夜四技多遊系4年甲班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "五",
-    "period": "A",
-    "course": "互動媒體製作(二)",
-    "room": "G501",
-    "class": "夜四技多遊系4年甲班"
-  },
-  {
-    "teacher": "洪明顯",
-    "day": "五",
+    "teacher": "張仕明",
+    "day": "二",
     "period": "B",
-    "course": "互動媒體製作(二)",
-    "room": "G501",
-    "class": "夜四技多遊系4年甲班"
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "夜四技多遊系1年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "張仕明",
+    "day": "二",
+    "period": "C",
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "三",
+    "period": "4",
+    "course": "(*)2D遊戲開發",
+    "room": "MB209",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "三",
+    "period": "5",
+    "course": "(*)2D遊戲開發",
+    "room": "MB209",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "張仕明",
+    "day": "三",
+    "period": "6",
+    "course": "(*)2D遊戲開發",
+    "room": "MB209",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "一",
+    "period": "7",
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "一",
+    "period": "8",
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "二",
+    "period": "5",
+    "course": "ACGE概論",
+    "room": "MB208",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "二",
+    "period": "6",
+    "course": "ACGE概論",
+    "room": "MB208",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "二",
+    "period": "7",
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "二",
+    "period": "8",
+    "course": "遊戲企劃",
+    "room": "MB208",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "三",
+    "period": "B",
+    "course": "ACGE概論",
+    "room": "MB208",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林子堯",
     "day": "三",
     "period": "C",
-    "course": "(*)VR遊戲實作",
+    "course": "ACGE概論",
+    "room": "MB208",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "四",
+    "period": "1",
+    "course": "(*)電競場域實作",
+    "room": "EB102",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "四",
+    "period": "2",
+    "course": "(*)電競場域實作",
+    "room": "EB102",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "四",
+    "period": "3",
+    "course": "多媒體商業模式",
+    "room": "M202",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "林子堯",
+    "day": "四",
+    "period": "4",
+    "course": "多媒體商業模式",
+    "room": "M202",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "一",
+    "period": "1",
+    "course": "專題製作(一)",
+    "room": "MB208",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "二",
+    "period": "2",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "二",
+    "period": "3",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "二",
+    "period": "4",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "日四技多遊系1年乙班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "三",
+    "period": "A",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "三",
+    "period": "C",
+    "course": "(*)電競場域實作",
+    "room": "EB102",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "三",
+    "period": "D",
+    "course": "(*)電競場域實作",
+    "room": "EB102",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "3",
+    "course": "(*)科際整合-AI融入STEM的整合專題實務",
+    "room": "N209",
+    "class": "日四技妝品系"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "5",
+    "course": "(*)ACGLE創作全能面面觀",
+    "room": "MB106",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "6",
+    "course": "(*)ACGLE創作全能面面觀",
+    "room": "MB106",
+    "class": "日四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "A",
+    "course": "(*)串流轉播實務",
     "room": "G502",
-    "class": "夜四技多遊系3年甲班"
+    "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "洪明顯",
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "B",
+    "course": "(*)串流轉播實務",
+    "room": "G502",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "四",
+    "period": "C",
+    "course": "(*)串流轉播實務",
+    "room": "G502",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "五",
+    "period": "5",
+    "course": "(*)串流轉播實務",
+    "room": "MB209",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "五",
+    "period": "6",
+    "course": "(*)串流轉播實務",
+    "room": "MB209",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "五",
+    "period": "7",
+    "course": "(*)串流轉播實務",
+    "room": "MB209",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "五",
+    "period": "A",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "林煒凱",
+    "day": "五",
+    "period": "B",
+    "course": "基礎攝影與剪輯",
+    "room": "MB209",
+    "class": "夜四技多遊系1年甲班"
+  },
+  {
+    "teacher": "楊國隆",
     "day": "一",
-    "period": "D",
-    "course": "專題製作(二)",
+    "period": "1",
+    "course": "消費者心理學",
+    "room": "MB106",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "一",
+    "period": "2",
+    "course": "消費者心理學",
+    "room": "MB106",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "一",
+    "period": "3",
+    "course": "消費者心理學",
+    "room": "MB106",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "一",
+    "period": "4",
+    "course": "消費者心理學",
+    "room": "MB106",
+    "class": "日四技多遊系3年乙班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "一",
+    "period": "5",
+    "course": "畢業專題",
+    "room": "MB208",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "一",
+    "period": "6",
+    "course": "畢業專題",
+    "room": "MB208",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "1",
+    "course": "提案與簡報技巧",
     "room": "MB211",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "2",
+    "course": "提案與簡報技巧",
+    "room": "MB211",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "3",
+    "course": "提案與簡報技巧",
+    "room": "MB211",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "4",
+    "course": "提案與簡報技巧",
+    "room": "MB211",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "A",
+    "course": "消費者心理學",
+    "room": "",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "楊國隆",
+    "day": "五",
+    "period": "B",
+    "course": "消費者心理學",
+    "room": "",
     "class": "夜四技多遊系3年甲班"
   },
   {
     "teacher": "洪明顯",
-    "day": "三",
-    "period": "D",
-    "course": "(*)VR遊戲實作",
-    "room": "G502",
-    "class": "夜四技多遊系3年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "三",
-    "period": "1",
-    "course": "(*)虛擬網紅與直播整合應用",
-    "room": "MB209",
-    "class": "日四技多遊系1年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "三",
-    "period": "2",
-    "course": "(*)虛擬網紅與直播整合應用",
-    "room": "MB209",
-    "class": "日四技多遊系1年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "四",
-    "period": "2",
-    "course": "(*)電競賽事轉播實務",
-    "room": "EB101",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "2",
-    "course": "(*)虛擬網紅與直播整合應用",
-    "room": "MB209",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "三",
+    "day": "一",
     "period": "3",
-    "course": "(*)虛擬網紅與直播整合應用",
+    "course": "衍生式產品設計",
     "room": "MB209",
-    "class": "日四技多遊系1年甲班"
+    "class": "日四技多遊系4年甲班"
   },
   {
-    "teacher": "林煒凱",
-    "day": "四",
-    "period": "3",
-    "course": "(*)電競賽事轉播實務",
-    "room": "EB101",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "3",
-    "course": "(*)虛擬網紅與直播整合應用",
-    "room": "MB209",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "四",
+    "teacher": "洪明顯",
+    "day": "一",
     "period": "4",
-    "course": "(*)電競賽事轉播實務",
-    "room": "EB101",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "4",
-    "course": "(*)虛擬網紅與直播整合應用",
+    "course": "衍生式產品設計",
     "room": "MB209",
-    "class": "日四技多遊系1年乙班"
+    "class": "日四技多遊系4年甲班"
   },
   {
-    "teacher": "林煒凱",
+    "teacher": "洪明顯",
+    "day": "一",
+    "period": "5",
+    "course": "衍生式產品設計",
+    "room": "L112",
+    "class": "日四技多遊系4年乙班"
+  },
+  {
+    "teacher": "洪明顯",
+    "day": "一",
+    "period": "6",
+    "course": "衍生式產品設計",
+    "room": "L112",
+    "class": "日四技多遊系4年乙班"
+  },
+  {
+    "teacher": "洪明顯",
+    "day": "一",
+    "period": "A",
+    "course": "互動媒體製作",
+    "room": "EB101",
+    "class": "夜四技多遊系4年甲班"
+  },
+  {
+    "teacher": "洪明顯",
+    "day": "三",
+    "period": "6",
+    "course": "(*)XR遊戲實作",
+    "room": "EB101",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "洪明顯",
+    "day": "三",
+    "period": "7",
+    "course": "(*)XR遊戲實作",
+    "room": "EB101",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "洪明顯",
     "day": "三",
     "period": "8",
-    "course": "(*)智創未來",
-    "room": "N208",
-    "class": "日四技妝品系2年甲班"
+    "course": "(*)XR遊戲實作",
+    "room": "EB101",
+    "class": "日四技多遊系4年甲班"
   },
   {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "B",
-    "course": "(*)虛擬網紅與直播整合應用",
+    "teacher": "洪明顯",
+    "day": "三",
+    "period": "A",
+    "course": "(*)XR遊戲實作",
     "room": "G501",
-    "class": "夜四技多遊系1年甲班"
+    "class": "夜四技多遊系4年乙班"
   },
   {
-    "teacher": "林煒凱",
+    "teacher": "洪明顯",
+    "day": "三",
+    "period": "B",
+    "course": "(*)XR遊戲實作",
+    "room": "G501",
+    "class": "夜四技多遊系4年乙班"
+  },
+  {
+    "teacher": "洪明顯",
     "day": "四",
-    "period": "C",
-    "course": "(*)直播技巧",
-    "room": "MB209",
-    "class": "夜四技多遊系3年乙班"
-  },
-  {
-    "teacher": "林煒凱",
-    "day": "五",
-    "period": "C",
-    "course": "履歷製作技巧",
+    "period": "A",
+    "course": "(*)XR遊戲實作",
     "room": "MB209",
     "class": "夜四技多遊系4年乙班"
   },
   {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "C",
-    "course": "(*)虛擬網紅與直播整合應用",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "林煒凱",
+    "teacher": "洪明顯",
     "day": "四",
-    "period": "D",
-    "course": "(*)直播技巧",
+    "period": "B",
+    "course": "衍生式產品設計",
     "room": "MB209",
-    "class": "夜四技多遊系3年乙班"
+    "class": "夜四技多遊系4年甲班"
   },
   {
-    "teacher": "林煒凱",
+    "teacher": "洪明顯",
+    "day": "四",
+    "period": "C",
+    "course": "衍生式產品設計",
+    "room": "MB209",
+    "class": "夜四技多遊系4年甲班"
+  },
+  {
+    "teacher": "洪明顯",
+    "day": "五",
+    "period": "C",
+    "course": "互動媒體製作",
+    "room": "G502",
+    "class": "夜四技多遊系4年甲班"
+  },
+  {
+    "teacher": "洪明顯",
     "day": "五",
     "period": "D",
-    "course": "履歷製作技巧",
-    "room": "MB209",
-    "class": "夜四技多遊系4年乙班"
+    "course": "互動媒體製作",
+    "room": "G502",
+    "class": "夜四技多遊系4年甲班"
   },
   {
-    "teacher": "林煒凱",
-    "day": "二",
-    "period": "D",
-    "course": "(*)虛擬網紅與直播整合應用",
+    "teacher": "王瑋名",
+    "day": "一",
+    "period": "3",
+    "course": "畢業專題",
+    "room": "MB208",
+    "class": "日四技多遊系4年乙班"
+  },
+  {
+    "teacher": "王瑋名",
+    "day": "一",
+    "period": "4",
+    "course": "畢業專題",
+    "room": "MB208",
+    "class": "日四技多遊系4年乙班"
+  },
+  {
+    "teacher": "王瑋名",
+    "day": "一",
+    "period": "A",
+    "course": "設計概論",
     "room": "G501",
     "class": "夜四技多遊系1年甲班"
   },
   {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "2",
-    "course": "互動媒體製作",
-    "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
+    "teacher": "王瑋名",
     "day": "一",
-    "period": "3",
-    "course": "應用程式設計",
-    "room": "G603",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "3",
-    "course": "互動媒體製作",
+    "period": "B",
+    "course": "設計概論",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
+    "class": "夜四技多遊系1年甲班"
   },
   {
-    "teacher": "張仕明",
+    "teacher": "王瑋名",
     "day": "一",
-    "period": "4",
-    "course": "應用程式設計",
-    "room": "G603",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "4",
-    "course": "互動媒體製作",
+    "period": "C",
+    "course": "原畫設計",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
+    "class": "夜四技多遊系1年甲班"
   },
   {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "5",
-    "course": "(*)手遊程式設計",
+    "teacher": "王瑋名",
+    "day": "一",
+    "period": "D",
+    "course": "原畫設計",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
+    "class": "夜四技多遊系1年甲班"
   },
   {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "6",
-    "course": "(*)手遊程式設計",
-    "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "五",
-    "period": "7",
-    "course": "(*)手遊程式設計",
-    "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
+    "teacher": "王瑋名",
     "day": "三",
-    "period": "A",
-    "course": "互動媒體製作",
-    "room": "G502",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "二",
-    "period": "A",
-    "course": "互動媒體製作",
-    "room": "G502",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "四",
-    "period": "B",
-    "course": "(*)C#程式設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "二",
-    "period": "B",
-    "course": "互動媒體製作",
-    "room": "G502",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "四",
-    "period": "C",
-    "course": "(*)C#程式設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "張仕明",
-    "day": "四",
-    "period": "D",
-    "course": "(*)C#程式設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "四",
     "period": "2",
-    "course": "(*)基礎遊戲製作",
+    "course": "原畫設計",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "五",
-    "period": "2",
-    "course": "(*)遊戲雛形設計",
-    "room": "EB101",
     "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "何昀蒨",
-    "day": "四",
+    "teacher": "王瑋名",
+    "day": "三",
     "period": "3",
-    "course": "(*)基礎遊戲製作",
+    "course": "原畫設計",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "五",
-    "period": "3",
-    "course": "(*)遊戲雛形設計",
-    "room": "EB101",
     "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "何昀蒨",
+    "teacher": "王瑋名",
     "day": "三",
     "period": "4",
-    "course": "短影片製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "四",
-    "period": "4",
-    "course": "(*)基礎遊戲製作",
+    "course": "原畫設計",
     "room": "G501",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "五",
-    "period": "4",
-    "course": "(*)遊戲雛形設計",
-    "room": "EB101",
     "class": "日四技多遊系1年甲班"
   },
   {
-    "teacher": "何昀蒨",
-    "day": "三",
-    "period": "5",
-    "course": "短影片製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "二",
-    "period": "5",
-    "course": "短影片製作",
-    "room": "EB101",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "三",
-    "period": "6",
-    "course": "短影片製作",
-    "room": "MB209",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "二",
-    "period": "6",
-    "course": "短影片製作",
-    "room": "EB101",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "二",
-    "period": "7",
-    "course": "短影片製作",
-    "room": "EB101",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "何昀蒨",
+    "teacher": "王瑋名",
     "day": "四",
-    "period": "A",
-    "course": "(*)基礎遊戲製作",
-    "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "二",
-    "period": "A",
-    "course": "(*)遊戲雛形設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "四",
-    "period": "B",
-    "course": "(*)基礎遊戲製作",
-    "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "三",
-    "period": "C",
-    "course": "(*)遊戲雛形設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "四",
-    "period": "C",
-    "course": "(*)基礎遊戲製作",
-    "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "何昀蒨",
-    "day": "三",
-    "period": "D",
-    "course": "(*)遊戲雛形設計",
-    "room": "G501",
-    "class": "夜四技多遊系1年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "5",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "6",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "7",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "8",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "A",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "夜四技多遊系3年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "五",
-    "period": "B",
-    "course": "自媒體經營與管理",
-    "room": "MB208",
-    "class": "夜四技多遊系3年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "二",
-    "period": "C",
-    "course": "短影片製作",
-    "room": "G502",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "四",
-    "period": "D",
-    "course": "短影片製作",
-    "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "林⼦堯",
-    "day": "二",
-    "period": "D",
-    "course": "短影片製作",
-    "room": "G502",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "一",
-    "period": "2",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "2",
-    "course": "專題製作(二)",
-    "room": "MB211",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "一",
-    "period": "3",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "3",
-    "course": "專題製作(二)",
-    "room": "MB211",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "一",
-    "period": "4",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "4",
-    "course": "專題製作(二)",
-    "room": "MB211",
-    "class": "日四技多遊系3年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "5",
-    "course": "(*)水冷主機系統實作",
-    "room": "MB107",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "二",
-    "period": "5",
-    "course": "專案管理",
-    "room": "",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "6",
-    "course": "(*)水冷主機系統實作",
-    "room": "MB107",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "二",
-    "period": "6",
-    "course": "專案管理",
-    "room": "",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "7",
-    "course": "(*)水冷主機系統實作",
-    "room": "MB107",
-    "class": "日四技多遊系2年乙班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "二",
-    "period": "7",
-    "course": "專案管理",
-    "room": "MB208",
-    "class": "日四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "A",
-    "course": "專案管理",
-    "room": "MB211",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "五",
-    "period": "B",
-    "course": "專案管理",
-    "room": "MB211",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "洪國禎",
-    "day": "一",
-    "period": "C",
-    "course": "專案管理",
-    "room": "MB211",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "二",
-    "period": "2",
-    "course": "畢業展演實務",
-    "room": "M203",
-    "class": "日四技多遊系4年甲班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "二",
-    "period": "3",
-    "course": "畢業展演實務",
-    "room": "M203",
-    "class": "日四技多遊系4年甲班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "二",
-    "period": "4",
-    "course": "畢業展演實務",
-    "room": "M203",
-    "class": "日四技多遊系4年甲班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "一",
-    "period": "5",
-    "course": "(*)漫畫創作(一)",
-    "room": "EB101",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "三",
-    "period": "5",
-    "course": "(*)遊戲特效",
-    "room": "G501",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "一",
-    "period": "6",
-    "course": "(*)漫畫創作(一)",
-    "room": "EB101",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "三",
-    "period": "6",
-    "course": "(*)遊戲特效",
-    "room": "G501",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "一",
-    "period": "7",
-    "course": "(*)漫畫創作(一)",
-    "room": "EB101",
-    "class": "日四技多遊系1年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "三",
-    "period": "7",
-    "course": "(*)遊戲特效",
-    "room": "G501",
-    "class": "日四技多遊系3年乙班"
-  },
-  {
-    "teacher": "劉明昆",
-    "day": "五",
-    "period": "D",
-    "course": "專題製作(二)",
-    "room": "EB101",
-    "class": "夜四技多遊系3年乙班"
-  },
-  {
-    "teacher": "⿈建基",
-    "day": "三",
     "period": "1",
-    "course": "(*)電競賽事轉播實務",
-    "room": "EB101",
-    "class": "日四技多遊系2年乙班"
+    "course": "展演設計",
+    "room": "M101",
+    "class": "日四技多遊系4年乙班"
   },
   {
-    "teacher": "⿈建基",
-    "day": "三",
+    "teacher": "王瑋名",
+    "day": "四",
     "period": "2",
-    "course": "(*)電競賽事轉播實務",
-    "room": "EB101",
+    "course": "展演設計",
+    "room": "M101",
+    "class": "日四技多遊系4年乙班"
+  },
+  {
+    "teacher": "王瑋名",
+    "day": "四",
+    "period": "3",
+    "course": "展演設計",
+    "room": "M101",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "王瑋名",
+    "day": "四",
+    "period": "4",
+    "course": "展演設計",
+    "room": "M101",
+    "class": "日四技多遊系4年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "一",
+    "period": "1",
+    "course": "專題製作(一)",
+    "room": "MB208",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "一",
+    "period": "3",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
     "class": "日四技多遊系2年乙班"
   },
   {
-    "teacher": "⿈建基",
+    "teacher": "范立揚",
+    "day": "一",
+    "period": "4",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "一",
+    "period": "5",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "一",
+    "period": "6",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
+    "class": "日四技多遊系2年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "二",
+    "period": "1",
+    "course": "(*)進階動畫製作",
+    "room": "G501",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "二",
+    "period": "2",
+    "course": "(*)進階動畫製作",
+    "room": "G501",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "二",
+    "period": "3",
+    "course": "(*)進階動畫製作",
+    "room": "G501",
+    "class": "日四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
     "day": "三",
     "period": "3",
-    "course": "(*)電競賽事轉播實務",
+    "course": "(*)公仔模型製作(二)",
     "room": "EB101",
     "class": "日四技多遊系2年乙班"
   },
   {
-    "teacher": "⿈建基",
+    "teacher": "范立揚",
+    "day": "三",
+    "period": "4",
+    "course": "(*)公仔模型製作(二)",
+    "room": "EB101",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "三",
+    "period": "5",
+    "course": "(*)公仔模型製作(二)",
+    "room": "EB101",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "四",
+    "period": "A",
+    "course": "(*)動作捕捉",
+    "room": "G501",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "四",
+    "period": "B",
+    "course": "(*)動作捕捉",
+    "room": "G501",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "四",
+    "period": "C",
+    "course": "(*)動作捕捉",
+    "room": "G501",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "五",
+    "period": "C",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "范立揚",
+    "day": "五",
+    "period": "D",
+    "course": "劇本寫作與腳本設計",
+    "room": "MB211",
+    "class": "夜四技多遊系2年甲班"
+  },
+  {
+    "teacher": "黃建基",
+    "day": "三",
+    "period": "A",
+    "course": "(*)電競實戰技巧實務(五)",
+    "room": "EB101",
+    "class": "夜四技多遊系3年甲班"
+  },
+  {
+    "teacher": "黃建基",
     "day": "三",
     "period": "B",
-    "course": "(*)電競實戰技巧實務(四)",
+    "course": "(*)電競實戰技巧實務(五)",
     "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
+    "class": "夜四技多遊系3年甲班"
   },
   {
-    "teacher": "⿈建基",
+    "teacher": "黃建基",
     "day": "三",
     "period": "C",
-    "course": "(*)電競實戰技巧實務(四)",
-    "room": "EB101",
+    "course": "(*)遊戲程式設計",
+    "room": "G501",
     "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "⿈建基",
+    "teacher": "黃建基",
+    "day": "四",
+    "period": "2",
+    "course": "(*)電競賽事企劃轉播實務",
+    "room": "EB101",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "黃建基",
+    "day": "四",
+    "period": "3",
+    "course": "(*)電競賽事企劃轉播實務",
+    "room": "EB101",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "黃建基",
+    "day": "四",
+    "period": "4",
+    "course": "(*)電競賽事企劃轉播實務",
+    "room": "EB101",
+    "class": "日四技多遊系2年乙班"
+  },
+  {
+    "teacher": "黃建基",
     "day": "五",
-    "period": "C",
-    "course": "(*)手遊程式設計",
-    "room": "EB101",
+    "period": "A",
+    "course": "(*)遊戲程式設計",
+    "room": "G501",
     "class": "夜四技多遊系2年甲班"
   },
   {
-    "teacher": "⿈建基",
-    "day": "三",
-    "period": "D",
-    "course": "(*)手遊程式設計",
-    "room": "EB101",
-    "class": "夜四技多遊系2年甲班"
-  },
-  {
-    "teacher": "⿈建基",
+    "teacher": "黃建基",
     "day": "五",
-    "period": "D",
-    "course": "(*)手遊程式設計",
-    "room": "EB101",
+    "period": "B",
+    "course": "(*)遊戲程式設計",
+    "room": "G501",
     "class": "夜四技多遊系2年甲班"
   }
 ]
