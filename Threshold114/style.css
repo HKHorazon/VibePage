@@ -748,6 +748,15 @@ body {
 
 .article-body strong { font-weight: 700; color: var(--strong-color); font-size: 1.03em; }
 
+/* 超級強調：比 strong 再重一級 */
+.article-body .hl {
+  font-weight: 800;
+  font-size: 1.25em;
+  color: var(--amber);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
+}
+
 .article-body a { color: var(--magenta); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(94,234,212,0.45); text-underline-offset: 3px; transition: color 0.18s, text-decoration-color 0.18s; }
 .article-body a:hover { color: #99f6e4; text-decoration-color: #99f6e4; }
 
