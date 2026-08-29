@@ -1696,3 +1696,145 @@ body {
   .page-nav-next { text-align: left; }
   .page-nav-spacer { display: none; }
 }
+
+/* ── 景點參考頁 ── */
+.spot-page .spot-sub {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  margin-bottom: 1.25rem;
+}
+
+.spot-page .spot-intro {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--cyan);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.15rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.85;
+  box-shadow: var(--paper-shadow);
+}
+
+.spot-page .map {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+  background: var(--bg-surface-2);
+  box-shadow: var(--paper-shadow);
+}
+
+.spot-page .map iframe {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: 0;
+}
+
+.spot-page .map .cap {
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg-elev);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+
+.spot-page h2 .c {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text-dim);
+  margin-left: 0.5rem;
+}
+
+.spot-page .sec {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.spot-page .spot {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+}
+
+.spot-page .spot h3 {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.spot-page .spot p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.spot-page .key .spot,
+.spot-page .key {
+  border-color: var(--border-mid);
+}
+
+.spot-page .key .spot {
+  border-left: 3px solid var(--magenta-bright);
+  background: var(--bg-surface-2);
+}
+
+.spot-page .tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1.7;
+}
+
+.spot-page .tag.gn {
+  background: rgba(47, 158, 68, 0.1);
+  color: #2f7a3d;
+  border: 1px solid rgba(47, 158, 68, 0.28);
+  font-weight: 500;
+}
+
+.spot-page .tag.tb {
+  background: rgba(232, 89, 12, 0.1);
+  color: #b5480c;
+  border: 1px solid rgba(232, 89, 12, 0.28);
+}
+
+.spot-page .mp {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  white-space: nowrap;
+}
+
+.spot-page .mp:hover {
+  color: var(--cyan-deep);
+  border-color: var(--border-mid);
+  background: var(--cyan-dim);
+}
+
+.spot-page .spot-note {
+  margin: 2rem 0 0;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+@media (max-width: 560px) {
+  .spot-page .map iframe { height: 300px; }
+  .spot-page .mp { margin-left: 0; }
+}
