@@ -315,7 +315,9 @@
             ])
             schedule.value = s
             teachersMap.value = t
-            teacherOrder.value = Object.keys(t)
+            // 本學期沒課的老師不顯示（teachers.json 保留，有課自動出現）
+            const hasCourse = new Set(s.map(e => e.teacher))
+            teacherOrder.value = Object.keys(t).filter(n => hasCourse.has(n))
           } catch (e) {}
 
           // 自動高亮今天 + 目前節次（或下一節 / 下一日全天）

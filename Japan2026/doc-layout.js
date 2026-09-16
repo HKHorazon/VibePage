@@ -49,6 +49,25 @@ const DocLayout = {
       return ''
     })
 
+    // 跨類別攤平成單一序列，供上一頁／下一頁使用（不循環）
+    const flatArticles = computed(() =>
+      categories.value.flatMap((cat) => cat.articles)
+    )
+
+    const currentPos = computed(() =>
+      flatArticles.value.findIndex((a) => a.file === props.currentFile)
+    )
+
+    const prevArticle = computed(() => {
+      const i = currentPos.value
+      return i > 0 ? flatArticles.value[i - 1] : null
+    })
+
+    const nextArticle = computed(() => {
+      const i = currentPos.value
+      return i >= 0 && i < flatArticles.value.length - 1 ? flatArticles.value[i + 1] : null
+    })
+
     const toggleCategory = (name) => {
       state.collapsed[name] = !state.collapsed[name]
     }
@@ -100,6 +119,8 @@ const DocLayout = {
       closeSidebar,
       resolveFile,
       isActive,
+      prevArticle,
+      nextArticle,
     }
   },
   template: `
@@ -107,6 +128,16 @@ const DocLayout = {
       <div class="bg-fx" aria-hidden="true">
         <div class="bg-grid"></div>
         <div class="bg-scanlines"></div>
+      </div>
+      <div class="j-petals" aria-hidden="true">
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❀</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❁</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❀</span>
+        <span class="j-petal">✿</span>
+        <span class="j-petal">❁</span>
       </div>
 
       <header class="site-header">
@@ -122,7 +153,7 @@ const DocLayout = {
           </button>
           <a :href="indexPath" class="site-title">
             <span class="brand-dark">多遊系日本amps短期研習</span>
-            <span class="brand-rainbow"><span class="brand-rainbow-sep">//</span> 2026</span>
+            <span class="brand-rainbow"><span class="brand-rainbow-sep">❀</span> 2026</span>
           </a>
           <span class="header-meta" v-if="activeIndex">
             <span class="header-meta-dot"></span>
@@ -136,13 +167,13 @@ const DocLayout = {
       <div class="layout-body">
         <aside class="sidebar">
           <a :href="indexPath" class="sidebar-heading" @click="closeSidebar">
-            <span class="sidebar-heading-prefix">&gt;_</span>
-            <span class="sidebar-heading-text">TRIP.INDEX</span>
+            <span class="sidebar-heading-prefix">✿</span>
+            <span class="sidebar-heading-text">目錄</span>
             <span class="sidebar-heading-home" aria-hidden="true">⌂</span>
           </a>
 
-          <div v-if="state.loading" class="state-msg">// 載入中…</div>
-          <div v-else-if="state.error" class="state-msg state-msg--error">// 無法載入</div>
+          <div v-if="state.loading" class="state-msg">✿ 載入中…</div>
+          <div v-else-if="state.error" class="state-msg state-msg--error">✿ 無法載入</div>
 
           <nav v-else class="sidebar-nav">
             <div v-for="cat in categories" :key="cat.name" class="sidebar-category">
@@ -153,7 +184,7 @@ const DocLayout = {
                 @click="toggleCategory(cat.name)"
               >
                 <span class="sidebar-caret">▾</span>
-                <span class="sidebar-category-code">CAT_{{ cat.code }}</span>
+                <span class="sidebar-category-code">{{ cat.code }}</span>
                 <span class="sidebar-category-name">
                   <span class="sidebar-category-main">{{ cat.mainName }}</span>
                   <span v-if="cat.tag" class="sidebar-category-tag">{{ cat.tag }}</span>
@@ -182,6 +213,28 @@ const DocLayout = {
         <main class="layout-main">
           <div class="content-container">
             <slot></slot>
+
+            <nav class="page-nav" v-if="prevArticle || nextArticle">
+              <a
+                v-if="prevArticle"
+                :href="resolveFile(prevArticle.file)"
+                class="page-nav-link page-nav-prev"
+              >
+                <span class="page-nav-dir">← 上一頁</span>
+                <span class="page-nav-title">{{ prevArticle.index }} {{ prevArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+
+              <a
+                v-if="nextArticle"
+                :href="resolveFile(nextArticle.file)"
+                class="page-nav-link page-nav-next"
+              >
+                <span class="page-nav-dir">下一頁 →</span>
+                <span class="page-nav-title">{{ nextArticle.index }} {{ nextArticle.title }}</span>
+              </a>
+              <span v-else class="page-nav-spacer"></span>
+            </nav>
           </div>
         </main>
       </div>
